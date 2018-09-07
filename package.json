@@ -59,6 +59,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "base-x": "^3.0.4",
+    "config": "^2.0.1",
     "dexie": "^2.0.4",
     "moment": "^2.22.2",
     "stellar-base": "^0.8.3",

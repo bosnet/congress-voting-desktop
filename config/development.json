@@ -1,0 +1,10 @@
+{
+  "env": "development",
+  "dns": {
+    "seed": "localhost"
+  },
+  "endpoint": {
+    "scheme": "http",
+    "port": 2821
+  }
+}
