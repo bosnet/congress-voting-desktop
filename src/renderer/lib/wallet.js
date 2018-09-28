@@ -1,14 +1,35 @@
 import { Keypair, StrKey } from 'stellar-base';
 import BaseX from 'base-x';
 import crypto from 'crypto';
+import rlp from 'rlp';
+import PromiseWorker from 'promise-worker';
+import config from 'config';
 
+const worker = new PromiseWorker(new Worker('/worker.js'));
 const B58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
-const iv = new Buffer([0x42, 0x4F, 0x53, 0x5F, 0x43, 0x4F, 0x49, 0x4E,
+const iv = Buffer.from([0x42, 0x4F, 0x53, 0x5F, 0x43, 0x4F, 0x49, 0x4E,
   0x5F, 0x57, 0x41, 0x4C, 0x4C, 0x45, 0x54, 0x53]);
 
 export default {
   random() {
     return Keypair.random();
+  },
+  encodeB58(source) {
+    return B58.encode(source);
+  },
+  decodeB58(encoded) {
+    return B58.decode(encoded);
+  },
+  hash(payload) {
+    const salt = config.get('salt');
+    return worker.postMessage(['argon2', {
+      bytes: rlp.encode(payload),
+      salt,
+    }]).then(hash => this.encodeB58(hash));
+  },
+  sign(seed, data) {
+    const networkId = config.get('network');
+    return this.encodeB58(Keypair.fromSecret(seed).sign(networkId + data));
   },
   parsePubKey(seed) {
     return Keypair.fromSecret(seed).publicKey();

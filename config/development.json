@@ -1,5 +1,7 @@
 {
   "env": "development",
+  "network": "test-network",
+  "salt": "boscoin-sebak-network",
   "dns": {
     "seed": "dev-sebak.blockchainos.org"
   },
