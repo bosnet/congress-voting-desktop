@@ -40,27 +40,32 @@
     },
     methods: {
       freeze(amount, passphrase) {
-        Promise.all([
+        return Promise.all([
           sebak.getAccount(this.address),
           this.$store.getters.getWallet(this.address),
         ]).then((res) => {
           const seed = wallet.decryptWallet(passphrase, res[1].data);
-          const account = wallet.createFreezeAccount(seed, res[0].sequenceid);
-          // TODO : sign & send tx
+          const seqId = res[0].sequenceid;
+          const account = wallet.createFreezeAccount(seed, seqId);
           const payload = [
             this.address, // source
             0, // fee
-            res[0].sequenceid, // sequence id
+            seqId, // sequence id
             [
-              ['create-account'],
               [
-                account.publicKey(), // target
-                amount, // amount
-                this.address, // linked
+                ['create-account'],
+                [
+                  account.publicKey(), // target
+                  parseInt(amount, 10) * 1000000, // amount
+                  this.address, // linked
+                ],
               ],
             ],
           ];
-          sebak.sign(payload);
+
+          wallet.hash(payload).then((hash) => {
+            console.log(wallet.sign(seed, hash));
+          });
           // this.$store.dispatch('createAccount', { ... });
         });
       },
