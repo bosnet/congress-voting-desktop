@@ -1,10 +1,10 @@
 {
   "env": "development",
   "dns": {
-    "seed": "localhost"
+    "seed": "dev-sebak.blockchainos.org"
   },
   "endpoint": {
     "scheme": "http",
-    "port": 2821
+    "port": 8080
   }
 }
