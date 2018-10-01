@@ -47,26 +47,19 @@
           const seed = wallet.decryptWallet(passphrase, res[1].data);
           const seqId = res[0].sequenceid;
           const account = wallet.createFreezeAccount(seed, seqId);
-          const payload = [
-            this.address, // source
-            0, // fee
-            seqId, // sequence id
-            [
-              [
-                ['create-account'],
-                [
-                  account.publicKey(), // target
-                  parseInt(amount, 10) * 1000000, // amount
-                  this.address, // linked
-                ],
-              ],
-            ],
-          ];
+          const tx = sebak.createFreezeAccountTx(
+            this.address,
+            amount * 10000000,
+            seqId,
+            account.publicKey(),
+          );
 
-          wallet.hash(payload).then((hash) => {
-            console.log(wallet.sign(seed, hash));
+          wallet.hash(tx.nestedArrays()).then((hash) => {
+            tx.updateSignature(wallet.sign(seed, hash));
+
+            // TODO: add sendTx action
+            this.$store.dispatch('sendTx', tx.json());
           });
-          // this.$store.dispatch('createAccount', { ... });
         });
       },
       openFreezeDialog() {

@@ -2,6 +2,11 @@ import axios from 'axios';
 import config from 'config';
 import dns from 'dns';
 
+import { Tx } from './frames/tx';
+import FreezeAccountOp from './frames/freeze';
+
+const client = axios.create();
+
 class Sebak {
   constructor({ dnsSeed, endpoint }) {
     this.hosts = [];
@@ -9,9 +14,15 @@ class Sebak {
     this.endpoint = endpoint;
   }
 
+  static createFreezeAccountTx(sourceAddress, amount, seqId, destinationAddress) {
+    const tx = new Tx(sourceAddress, amount, seqId, destinationAddress);
+    tx.addOp(new FreezeAccountOp(destinationAddress, amount, sourceAddress));
+    return tx;
+  }
+
   getAccount(address) {
     return this.lookup()
-      .then(host => axios
+      .then(host => client
         .get(`${this.endpoint.scheme}://${host}:${this.endpoint.port}/api/v1/accounts/${address}`)
         .then(res => res.data));
   }
