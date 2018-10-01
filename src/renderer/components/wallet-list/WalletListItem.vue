@@ -6,7 +6,7 @@
       </v-card-title>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn flat>{{ wallet.balance | numberFormat }} <strong>BOS</strong></v-btn>
+        <v-btn flat>{{ wallet.balance | bos }} <strong>BOS</strong></v-btn>
       </v-card-actions>
     </v-card>
   </v-flex>

@@ -3,6 +3,7 @@ import Vuetify from 'vuetify';
 import VueI18n from 'vue-i18n';
 import AsyncComputed from 'vue-async-computed';
 import 'vuetify/dist/vuetify.css';
+import unit from '@/lib/unit';
 
 import App from './App';
 import router from './router';
@@ -14,7 +15,7 @@ Vue.use(AsyncComputed);
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;
 
-Vue.filter('numberFormat', (value) => {
+Vue.filter('bos', (value) => {
   if (typeof value !== 'number' && typeof value !== 'string') {
     return value;
   }
@@ -22,7 +23,7 @@ Vue.filter('numberFormat', (value) => {
     minimumFractionDigits: 0,
     maximumFractionDigits: 8,
   });
-  return formatter.format(value);
+  return formatter.format(unit.convert(value, 'gon', 'bos'));
 });
 
 const i18n = new VueI18n({

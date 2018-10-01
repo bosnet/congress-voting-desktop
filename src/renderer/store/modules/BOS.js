@@ -34,11 +34,11 @@ const mutations = {
 const getters = {
   frozenAccounts: () => () => Promise.resolve([
     {
-      balance: `${parseInt(Math.random() * 10, 10) * 10000}`,
+      balance: `${parseInt(Math.random() * 10, 10) * 10000 * 10000000}`,
       address: Keypair.random().publicKey(),
     },
     {
-      balance: `${parseInt(Math.random() * 10, 10) * 10000}`,
+      balance: `${parseInt(Math.random() * 10, 10) * 10000 * 10000000}`,
       address: Keypair.random().publicKey(),
     },
   ]),
