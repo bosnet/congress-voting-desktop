@@ -1,5 +1,5 @@
 import FreezeAccountOp from './freeze';
-import Tx from './tx';
+import { Tx } from './tx';
 
 export default {
   createFreezeAccountTx(sourceAddress, amount, seqId, destinationAddress) {

@@ -51,7 +51,7 @@ export class Tx {
     return {
       T: 'transaction',
       H: {
-        created: moment().toISOString(),
+        created: moment().format('YYYY-MM-DDTHH:mm:ss.SSSSSSSSSZ'),
         signature: this.signature,
       },
       B: {

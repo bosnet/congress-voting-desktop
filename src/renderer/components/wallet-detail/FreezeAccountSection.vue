@@ -24,7 +24,7 @@
 <script>
   import { remoteRPC } from '@/lib/rpc';
   import wallet from '@/lib/wallet';
-  import { createFreezeAccountTx } from '@/lib/frames';
+  import frames from '@/lib/frames';
   import FreezeDialog from './FreezeDialog';
   import FreezeAccountListItem from './FreezeAccountListItem';
 
@@ -48,7 +48,7 @@
           const seed = wallet.decryptWallet(passphrase, res[1].data);
           const seqId = res[0].sequenceid;
           const account = wallet.createFreezeAccount(seed, seqId);
-          const tx = createFreezeAccountTx(
+          const tx = frames.createFreezeAccountTx(
             this.address,
             amount * 10000000,
             seqId,

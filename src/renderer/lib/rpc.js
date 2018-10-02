@@ -3,6 +3,9 @@ import config from 'config';
 import dns from 'dns';
 
 const client = axios.create();
+const HEADERS = {
+  'Content-Type': 'application/json',
+};
 
 class RPC {
   constructor({ dnsSeed, endpoint }) {
@@ -13,8 +16,8 @@ class RPC {
 
   getAccount(address) {
     return this.lookup()
-      .then(host => client
-        .get(`${this.endpoint.scheme}://${host}:${this.endpoint.port}/api/v1/accounts/${address}`)
+      .then(endpoint => client
+        .get(`${endpoint}/api/v1/accounts/${address}`)
         .then(res => res.data));
   }
 
@@ -35,11 +38,17 @@ class RPC {
 
   lookup() {
     return this.loadHosts()
-      .then(hosts => hosts[Math.floor(Math.random() * hosts.length)]);
+      .then((hosts) => {
+        const host = hosts[Math.floor(Math.random() * hosts.length)];
+        return `${this.endpoint.scheme}://${host}:${this.endpoint.port}`;
+      });
   }
 
   sendTx(tx) {
-    console.log(this, tx);
+    return this.lookup()
+      .then(endpoint => client
+        .post(`${endpoint}/api/v1/transactions`, tx, { headers: HEADERS })
+        .then(res => res.data));
   }
 }
 
