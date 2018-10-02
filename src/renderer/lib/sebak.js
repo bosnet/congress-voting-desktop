@@ -15,7 +15,7 @@ class Sebak {
   }
 
   static createFreezeAccountTx(sourceAddress, amount, seqId, destinationAddress) {
-    const tx = new Tx(sourceAddress, amount, seqId, destinationAddress);
+    const tx = new Tx(sourceAddress, seqId);
     tx.addOp(new FreezeAccountOp(destinationAddress, amount, sourceAddress));
     return tx;
   }

@@ -43,7 +43,7 @@ export class Tx {
       this.source,
       this.fee,
       this.seqId,
-      this.ops,
+      this.ops.map(op => op.nestedArrays()),
     ];
   }
 

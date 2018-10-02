@@ -20,7 +20,20 @@ export default {
   decodeB58(encoded) {
     return B58.decode(encoded);
   },
+  encodeRLP(data) {
+    return rlp.encode(data);
+  },
+  decodeRLP(data) {
+    return rlp.decode(data);
+  },
   hash(payload) {
+    const hash = this.sha256(this.sha256(rlp.encode(payload)));
+    return Promise.resolve(this.encodeB58(hash));
+  },
+  sha256(data) {
+    return crypto.createHash('sha256').update(data).digest();
+  },
+  argon2(payload) {
     const salt = config.get('salt');
     return worker.postMessage(['argon2', {
       bytes: rlp.encode(payload),
@@ -35,7 +48,7 @@ export default {
     return Keypair.fromSecret(seed).publicKey();
   },
   createKey(passphrase) {
-    return crypto.createHash('sha256').update(passphrase).digest();
+    return this.sha256(passphrase);
   },
   encryptWallet(passphrase, seed) {
     const cipher = crypto.createCipheriv('aes256', this.createKey(passphrase), iv);
