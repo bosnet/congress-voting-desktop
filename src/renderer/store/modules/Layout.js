@@ -20,7 +20,6 @@ const mutations = {
   },
   END_REQUEST(state) {
     state.requestCount -= 1;
-    state.lastRequestTs = moment.now();
   },
   ERROR_REQUEST(state, error) {
     state.requestErrors.push(error);
