@@ -1,4 +1,4 @@
-import { instance as sebak } from '@/lib/sebak';
+import { remoteRPC } from '@/lib/rpc';
 import { Keypair } from 'stellar-base';
 
 const state = {
@@ -7,6 +7,10 @@ const state = {
 };
 
 const actions = {
+  sendTx({ commit }, tx) {
+    return sebak.sendTx(tx);
+  },
+
   updateAllBalance({ commit }, addresses) {
     for (let i = 0; i < addresses.length; i += 1) {
       const address = addresses[i];

@@ -22,8 +22,9 @@
 </template>
 
 <script>
+  import { remoteRPC } from '@/lib/rpc';
   import wallet from '@/lib/wallet';
-  import { instance as sebak } from '@/lib/sebak';
+  import { createFreezeAccountTx } from '@/lib/frames';
   import FreezeDialog from './FreezeDialog';
   import FreezeAccountListItem from './FreezeAccountListItem';
 
@@ -41,13 +42,13 @@
     methods: {
       freeze(amount, passphrase) {
         return Promise.all([
-          sebak.getAccount(this.address),
+          remoteRPC.getAccount(this.address),
           this.$store.getters.getWallet(this.address),
         ]).then((res) => {
           const seed = wallet.decryptWallet(passphrase, res[1].data);
           const seqId = res[0].sequenceid;
           const account = wallet.createFreezeAccount(seed, seqId);
-          const tx = sebak.createFreezeAccountTx(
+          const tx = createFreezeAccountTx(
             this.address,
             amount * 10000000,
             seqId,
@@ -56,8 +57,6 @@
 
           wallet.hash(tx.nestedArrays()).then((hash) => {
             tx.updateSignature(wallet.sign(seed, hash));
-
-            // TODO: add sendTx action
             this.$store.dispatch('sendTx', tx.json());
           });
         });

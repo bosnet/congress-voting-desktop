@@ -2,22 +2,13 @@ import axios from 'axios';
 import config from 'config';
 import dns from 'dns';
 
-import { Tx } from './frames/tx';
-import FreezeAccountOp from './frames/freeze';
-
 const client = axios.create();
 
-class Sebak {
+class RPC {
   constructor({ dnsSeed, endpoint }) {
     this.hosts = [];
     this.dnsSeed = dnsSeed;
     this.endpoint = endpoint;
-  }
-
-  static createFreezeAccountTx(sourceAddress, amount, seqId, destinationAddress) {
-    const tx = new Tx(sourceAddress, seqId);
-    tx.addOp(new FreezeAccountOp(destinationAddress, amount, sourceAddress));
-    return tx;
   }
 
   getAccount(address) {
@@ -46,14 +37,18 @@ class Sebak {
     return this.loadHosts()
       .then(hosts => hosts[Math.floor(Math.random() * hosts.length)]);
   }
+
+  sendTx(tx) {
+    console.log(this, tx);
+  }
 }
 
-const instance = new Sebak({
+const remoteRPC = new RPC({
   dnsSeed: config.get('dns.seed'),
   endpoint: config.get('endpoint'),
 });
 
 export {
-  instance,
-  Sebak,
+  remoteRPC,
+  RPC,
 };
