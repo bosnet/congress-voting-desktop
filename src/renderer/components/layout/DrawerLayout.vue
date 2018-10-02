@@ -101,6 +101,9 @@
       sideLinks() {
         return this.$store.state.Layout.sideLinks;
       },
+      requestErrors() {
+        return this.$store.state.Layout.requestErrors;
+      },
     },
   };
 </script>
