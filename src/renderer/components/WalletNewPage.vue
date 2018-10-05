@@ -167,8 +167,5 @@
 </script>
 
 <sytle>
-  .wallet__import-btn {
-  padding: 100px;
-  }
 </sytle>
 

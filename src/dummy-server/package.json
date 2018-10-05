@@ -1,0 +1,12 @@
+{
+  "name": "membership-mock-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "Apache 2 Lincense",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "http-errors": "^1.7.1"
+  }
+}

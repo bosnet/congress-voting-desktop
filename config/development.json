@@ -3,10 +3,15 @@
   "network": "test-network",
   "salt": "boscoin-sebak-network",
   "dns": {
-    "seed": "dev-sebak.blockchainos.org"
+    "seed": "localhost"
   },
   "endpoint": {
     "scheme": "http",
+    "port": 8080
+  },
+  "membership": {
+    "scheme": "http",
+    "host": "localhost",
     "port": 8080
   }
 }
