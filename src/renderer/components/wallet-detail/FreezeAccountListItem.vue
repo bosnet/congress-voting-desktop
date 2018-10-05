@@ -7,8 +7,8 @@
         </v-list-tile-action>
 
         <v-list-tile-content>
-          <v-list-tile-title>{{ item.address }}</v-list-tile-title>
-          <v-list-tile-sub-title>{{ item.balance | bos }}</v-list-tile-sub-title>
+          <v-list-tile-title>{{ item.target }}</v-list-tile-title>
+          <v-list-tile-sub-title>{{ item.amount | bos }}</v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>

@@ -14,7 +14,7 @@ const state = {
 };
 
 const mutations = {
-  async LOAD_WALLETS(state, wallets) {
+  LOAD_WALLETS(state, wallets) {
     state.wallets = wallets;
   },
   ADD_WALLET(state, wallet) {

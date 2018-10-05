@@ -19,11 +19,7 @@
     },
     asyncComputed: {
       items() {
-        return [{
-          title: 'PF-00',
-        }, {
-          title: 'PF-01',
-        }];
+        return this.$store.getters.getProposals();
       },
     },
   };

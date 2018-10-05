@@ -5,7 +5,6 @@
         <v-layout row wrap>
           <v-tabs>
             <v-tab>{{$t('frozen-account-list')}}</v-tab>
-            <v-tab>{{$t('frozen-account-history-list')}}</v-tab>
           </v-tabs>
           <v-card-actions>
             <v-btn @click="openFreezeDialog()">{{$t('freeze')}}</v-btn>
@@ -67,7 +66,8 @@
     },
     asyncComputed: {
       frozenAccounts() {
-        return this.$store.getters.frozenAccounts(this.address);
+        return this.$store.getters.frozenAccounts(this.address)
+          .then(res => res._embedded.records); // eslint-disable-line no-underscore-dangle
       },
     },
   };

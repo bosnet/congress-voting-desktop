@@ -8,10 +8,11 @@ const HEADERS = {
 };
 
 class RPC {
-  constructor({ dnsSeed, endpoint }) {
+  constructor({ dnsSeed, endpoint, membership }) {
     this.hosts = [];
     this.dnsSeed = dnsSeed;
     this.endpoint = endpoint;
+    this.membershipEndpoint = `${membership.scheme}://${membership.host}:${membership.port}`;
   }
 
   getAccount(address) {
@@ -19,6 +20,26 @@ class RPC {
       .then(endpoint => client
         .get(`${endpoint}/api/v1/accounts/${address}`)
         .then(res => res.data));
+  }
+
+  getMembership(address) {
+    return client
+      .get(`${this.membershipEndpoint}/api/v1/memberships/${address}`)
+      .then(res => res.data);
+  }
+
+  getFrozenAccounts(address) {
+    return this.lookup()
+      .then(endpoint => client
+        .get(`${endpoint}/api/v1/accounts/${address}/operations?type=freeze`))
+      .then(res => res.data);
+  }
+
+  getProposals(state) {
+    state = state || 'all';
+    return client
+      .get(`${this.membershipEndpoint}/api/v1/proposals?state=${state}`)
+      .then(res => res.data);
   }
 
   loadHosts() {
@@ -55,6 +76,7 @@ class RPC {
 const remoteRPC = new RPC({
   dnsSeed: config.get('dns.seed'),
   endpoint: config.get('endpoint'),
+  membership: config.get('membership'),
 });
 
 export {

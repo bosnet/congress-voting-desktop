@@ -1,9 +1,6 @@
 import { remoteRPC } from '@/lib/rpc';
-import { Keypair } from 'stellar-base';
 
 const state = {
-  freezes: {},
-  proposals: {},
 };
 
 class Request {
@@ -65,16 +62,11 @@ const mutations = {
 };
 
 const getters = {
-  frozenAccounts: () => () => Promise.resolve([
-    {
-      balance: `${parseInt(Math.random() * 10, 10) * 10000 * 10000000}`,
-      address: Keypair.random().publicKey(),
-    },
-    {
-      balance: `${parseInt(Math.random() * 10, 10) * 10000 * 10000000}`,
-      address: Keypair.random().publicKey(),
-    },
-  ]),
+  account: () => address => remoteRPC.getAccount(address),
+
+  getProposals: () => () => remoteRPC.getProposals(),
+
+  frozenAccounts: () => address => remoteRPC.getFrozenAccounts(address),
 };
 
 export default {
