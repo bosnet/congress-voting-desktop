@@ -1,4 +1,5 @@
 const express = require('express');
+const crypto = require('crypto');
 const createError = require('http-errors');
 const cors = require('cors');
 
@@ -8,6 +9,9 @@ const router = express.Router({
 
 const txs = {};
 const ops = {};
+const counters = {
+  op: 0,
+};
 const accounts = {
   // SBIVDDPMMZ2XXMO2O5IN43GNP5UJUHHOW72SPCYSPJQWOR4WWCQM4WUH
   GD5BOF4T67XERMR2QPNAIVG4UJHICELADO753XIADYXUKDCQ75FOH3HP: {
@@ -55,6 +59,11 @@ router.post('/transactions', cors(), async (req, res) => {
           sequenceid: 1,
         };
       }
+
+      const b = Buffer.alloc(4);
+      b.writeUInt32BE(counters.op++, 0);
+      const dummyHash = crypto.createHash('sha256').update(b).digest('hex');
+      o.H.hash = dummyHash;
       ops[data.B.source] = ops[data.B.source] || [];
       ops[data.B.source].push(o);
     }
@@ -78,11 +87,11 @@ router.get('/accounts/:address/operations', cors(), async (req, res) => {
         .filter(o => o.B.linked && o.B.linked.length > 0)
         .map((o) => {
           return {
-            hash: '',
-            type: o.H.type,
+            amount: o.B.amount,
+            hash: o.H.hash,
             source: o.H.source,
             target: o.B.target,
-            amount: o.B.amount,
+            type: o.H.type,
           };
         }),
     };
