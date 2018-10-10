@@ -21,9 +21,6 @@
 </template>
 
 <script>
-  import { remoteRPC } from '@/lib/rpc';
-  import wallet from '@/lib/wallet';
-  import frames from '@/lib/frames';
   import FreezeDialog from './FreezeDialog';
   import FreezeAccountListItem from './FreezeAccountListItem';
 
@@ -40,34 +37,24 @@
     },
     methods: {
       freeze(amount, passphrase) {
-        return Promise.all([
-          remoteRPC.getAccount(this.address),
-          this.$store.getters.getWallet(this.address),
-        ]).then((res) => {
-          const seed = wallet.decryptWallet(passphrase, res[1].data);
-          const seqId = res[0].sequenceid;
-          const account = wallet.createFreezeAccount(seed, seqId);
-          const tx = frames.createFreezeAccountTx(
-            this.address,
-            amount * 10000000,
-            seqId,
-            account.publicKey(),
-          );
-
-          wallet.hash(tx.nestedArrays()).then((hash) => {
-            tx.updateSignature(wallet.sign(seed, hash));
-            this.$store.dispatch('sendTx', tx.json());
-          });
-        });
+        return this.$store.dispatch('freeze', { address: this.address, amount, passphrase })
+          .then(() => this.loadOps());
+      },
+      unfreeze() {
+      },
+      loadOps() {
+        return this.$store.dispatch('loadFrozenAccounts', this.address);
       },
       openFreezeDialog() {
         this.$refs.freezeDialog.open();
       },
     },
-    asyncComputed: {
+    mounted() {
+      this.loadOps();
+    },
+    computed: {
       frozenAccounts() {
-        return this.$store.getters.frozenAccounts(this.address)
-          .then(res => res._embedded.records); // eslint-disable-line no-underscore-dangle
+        return this.$store.state.RPC.frozenAccountOps;
       },
     },
   };

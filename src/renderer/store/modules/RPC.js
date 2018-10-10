@@ -1,6 +1,7 @@
 import { remoteRPC } from '@/lib/rpc';
 
 const state = {
+  frozenAccountOps: [],
 };
 
 class Request {
@@ -33,6 +34,12 @@ const actions = {
       .get();
   },
 
+  loadFrozenAccounts({ commit }, address) {
+    return remoteRPC.getFrozenAccounts(address)
+      .then(res => res._embedded.records) // eslint-disable-line no-underscore-dangle,
+      .then(ops => commit('UPDATE_FROZEN_ACCOUNT_OPS', { address, ops }));
+  },
+
   updateAllBalance({ commit, dispatch }, addresses) {
     const requests = [];
     for (let i = 0; i < addresses.length; i += 1) {
@@ -59,14 +66,15 @@ const actions = {
 };
 
 const mutations = {
+  UPDATE_FROZEN_ACCOUNT_OPS(state, { ops }) {
+    state.frozenAccountOps = ops;
+  },
 };
 
 const getters = {
   account: () => address => remoteRPC.getAccount(address),
 
   getProposals: () => () => remoteRPC.getProposals(),
-
-  frozenAccounts: () => address => remoteRPC.getFrozenAccounts(address),
 };
 
 export default {

@@ -1,5 +1,8 @@
 import Dexie from 'dexie';
 import moment from 'moment';
+import wallet from '@/lib/wallet';
+import frames from '@/lib/frames';
+import { remoteRPC } from '@/lib/rpc';
 
 const db = new Dexie('walletDb');
 
@@ -57,6 +60,31 @@ const actions = {
       commit('LOAD_WALLETS', wallets);
       dispatch('updateAllBalance', wallets.map(w => w.address));
     });
+  },
+
+  freeze({ dispatch, getters }, { address, amount, passphrase }) {
+    return Promise.all([
+      remoteRPC.getAccount(address),
+      getters.getWallet(address),
+    ]).then((res) => {
+      const seed = wallet.decryptWallet(passphrase, res[1].data);
+      const seqId = res[0].sequenceid;
+      const account = wallet.createFreezeAccount(seed, seqId);
+      const tx = frames.createFreezeAccountTx(
+        address,
+        amount * 10000000,
+        seqId,
+        account.publicKey(),
+      );
+
+      return wallet.hash(tx.nestedArrays()).then((hash) => {
+        tx.updateSignature(wallet.sign(seed, hash));
+        return dispatch('sendTx', tx.json());
+      });
+    });
+  },
+
+  unfreeze() {
   },
 
   addWallet({ commit }, wallet) {
