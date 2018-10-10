@@ -95,7 +95,14 @@
         miniVariant: true,
         tabs: null,
         items: [],
+        timer: null,
       };
+    },
+    created() {
+      this.timer = setInterval(() => this.$root.$emit('tick'), 10000);
+    },
+    destroyed() {
+      clearInterval(this.timer);
     },
     computed: {
       sideLinks() {

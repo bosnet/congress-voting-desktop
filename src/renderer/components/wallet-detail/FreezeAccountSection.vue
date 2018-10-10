@@ -48,9 +48,15 @@
       openFreezeDialog() {
         this.$refs.freezeDialog.open();
       },
+      tick() {
+        this.loadOps();
+      },
     },
-    mounted() {
-      this.loadOps();
+    created() {
+      this.$root.$on('tick', this.tick);
+    },
+    destroyed() {
+      this.$root.$off('tick', this.tick);
     },
     computed: {
       frozenAccounts() {
