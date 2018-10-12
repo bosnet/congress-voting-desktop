@@ -42,6 +42,13 @@ class RPC {
       .then(res => res.data);
   }
 
+  getTransaction(hash) {
+    return this.lookup()
+      .then(endpoint => client
+        .get(`${endpoint}/api/v1/transactions/${hash}`))
+      .then(res => res.data);
+  }
+
   loadHosts() {
     if (this.hosts && this.hosts.length > 0) {
       return Promise.resolve(this.hosts);

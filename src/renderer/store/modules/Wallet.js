@@ -1,15 +1,15 @@
+import config from 'config';
 import Dexie from 'dexie';
 import moment from 'moment';
 import wallet from '@/lib/wallet';
 import wire from '@/lib/wire';
 import { remoteRPC } from '@/lib/rpc';
+import unit from '@/lib/unit';
 
 const db = new Dexie('walletDb');
 
 db.version(1).stores({
   wallets: '&address,title,data,ts',
-  trashes: '++id,address,title,data,ts',
-  caches: '&address,data,ts',
 });
 
 const state = {
@@ -72,7 +72,8 @@ const actions = {
       const account = wallet.createFreezeAccount(seed, seqId);
       const tx = wire.createFreezeAccountTx(
         address,
-        amount * 10000000,
+        unit.convert(amount, 'bos', 'gon'),
+        config.get('fee'),
         seqId,
         account.publicKey(),
       );
@@ -84,7 +85,52 @@ const actions = {
     });
   },
 
-  unfreeze() {
+  unfreeze({ dispatch, getters }, { ownerAddress, passphrase, op }) {
+    return Promise.all([
+      remoteRPC.getTransaction(op.txHash), // TODO: There isn't txHash in the op yet.
+      remoteRPC.getAccount(op.target),
+      getters.getWallet(ownerAddress),
+    ]).then((res) => {
+      const tx = res[0];
+      const source = res[1];
+      const encryptedWallet = res[2].data;
+      const seed = wallet.decryptWallet(passphrase, encryptedWallet);
+      const sourceKeyPair = wallet.createFreezeAccount(seed, tx.sequenceid);
+      const wire = wire.createUnfreezeRequestTx(
+        sourceKeyPair.publicKey(),
+        config.get('fee'),
+        source.sequenceid,
+        ownerAddress,
+      );
+
+      return wallet.hash(wire.nestedArrays()).then((hash) => {
+        wire.updateSignature(wallet.sign(seed, hash));
+        return dispatch('sendTx', wire.json());
+      });
+    });
+  },
+
+  payment({ dispatch }, { sourceAddress, passphrase, amount }) {
+    return Promise.all([
+      remoteRPC.getAccount(sourceAddress),
+      getters.getWallet(sourceAddress),
+    ]).then((res) => {
+      const seed = wallet.decryptWallet(passphrase, res[1].data);
+      const seqId = res[0].sequenceid;
+      const account = wallet.createFreezeAccount(seed, seqId);
+      const tx = wire.createFreezeAccountTx(
+        sourceAddress,
+        amount,
+        config.get('fee'),
+        seqId,
+        account.publicKey(),
+      );
+
+      return wallet.hash(tx.nestedArrays()).then((hash) => {
+        tx.updateSignature(wallet.sign(seed, hash));
+        return dispatch('sendTx', tx.json());
+      });
+    });
   },
 
   addWallet({ commit }, wallet) {
