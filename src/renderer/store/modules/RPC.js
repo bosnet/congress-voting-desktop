@@ -34,6 +34,10 @@ const actions = {
       .get();
   },
 
+  clearFrozenAccounts({ commit }) {
+    commit('UPDATE_FROZEN_ACCOUNT_OPS', []);
+  },
+
   loadFrozenAccounts({ commit }, address) {
     return remoteRPC.getFrozenAccounts(address)
       .then(res => res._embedded.records) // eslint-disable-line no-underscore-dangle,
@@ -45,19 +49,10 @@ const actions = {
     for (let i = 0; i < addresses.length; i += 1) {
       const address = addresses[i];
       const req = remoteRPC.getAccount(address)
-        .then((data) => {
-          if (data && data.balance) {
-            commit('UPDATE_BALANCE', {
-              address,
-              balance: data.balance,
-            });
-          } else {
-            commit('UPDATE_BALANCE', {
-              address,
-              balance: '0',
-            });
-          }
-        });
+        .then(data => commit('UPDATE_BALANCE', {
+          address,
+          balance: data && data.balance ? data.balance : '0',
+        }));
       requests.push(req);
     }
 

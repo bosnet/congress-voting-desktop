@@ -54,6 +54,8 @@
     },
     created() {
       this.$root.$on('tick', this.tick);
+      this.$store.dispatch('clearFrozenAccounts');
+      this.loadOps();
     },
     destroyed() {
       this.$root.$off('tick', this.tick);
