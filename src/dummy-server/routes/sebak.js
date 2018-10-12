@@ -2,6 +2,7 @@ const express = require('express');
 const crypto = require('crypto');
 const createError = require('http-errors');
 const cors = require('cors');
+const tx = require('../../renderer/lib/wire');
 
 const router = express.Router({
   strict: true,

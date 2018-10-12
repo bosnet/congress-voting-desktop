@@ -1,7 +1,7 @@
 import Dexie from 'dexie';
 import moment from 'moment';
 import wallet from '@/lib/wallet';
-import frames from '@/lib/frames';
+import wire from '@/lib/wire';
 import { remoteRPC } from '@/lib/rpc';
 
 const db = new Dexie('walletDb');
@@ -70,7 +70,7 @@ const actions = {
       const seed = wallet.decryptWallet(passphrase, res[1].data);
       const seqId = res[0].sequenceid;
       const account = wallet.createFreezeAccount(seed, seqId);
-      const tx = frames.createFreezeAccountTx(
+      const tx = wire.createFreezeAccountTx(
         address,
         amount * 10000000,
         seqId,

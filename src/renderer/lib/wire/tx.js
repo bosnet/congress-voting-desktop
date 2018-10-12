@@ -17,11 +17,11 @@ export class Op {
 }
 
 export class Tx {
-  constructor(sourceAddress, seqId) {
+  constructor(sourceAddress, fee, seqId) {
     this.source = sourceAddress;
-    this.seqId = seqId;
+    this.seqId = seqId || 0;
     this.ops = [];
-    this.fee = 0;
+    this.fee = fee || 0;
     this.signature = null;
   }
 
@@ -31,7 +31,7 @@ export class Tx {
 
   addOp(op) {
     this.ops.push(op);
-    this.fee = this.updateFee();
+    this.fee = this.updateFee() || 0;
   }
 
   updateSignature(signature) {
@@ -56,7 +56,7 @@ export class Tx {
       },
       B: {
         source: this.source,
-        fee: this.fee,
+        fee: this.fee.toString(),
         sequenceID: this.seqId,
         operations: this.ops.map(op => op.json()),
       },

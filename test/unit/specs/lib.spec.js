@@ -1,4 +1,4 @@
-import frames from '@/lib/frames';
+import wire from '@/lib/wire';
 import wallet from '@/lib/wallet';
 import assert from 'assert';
 
@@ -7,7 +7,7 @@ describe('Wallet&Sebak library', function () {
     const seed = 'SAU2GZJXASXDAB5DI4ZI2H6SJO27UIRXW6LMGOWWC7RGULVMAW4TVIVK';
     const address = 'GCNOVP44M34SDWFQAQQ2RER6CQ72IVEOMGTF55UCCJX55PTYMORMWL2T';
     const account = wallet.createFreezeAccount(seed, 1);
-    const tx = frames.createFreezeAccountTx(address, 10000000000, 1, account.publicKey());
+    const tx = wire.createFreezeAccountTx(address, 10000000000, 10000, 1, account.publicKey());
 
     return wallet.hash(tx.nestedArrays()).then((hash) => {
       assert.equal(hash, '5Dj7PZqGNx5ZxuMZu83eDSpctDLZhDUtbKWyVY7SdjgR');

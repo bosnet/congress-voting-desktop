@@ -1,9 +1,9 @@
 import { Op } from './tx';
 
 export default class FreezeAccountOp extends Op {
-  constructor(destination, amount, linked) {
+  constructor(target, amount, linked) {
     super();
-    this.destination = destination;
+    this.target = target;
     this.amount = amount;
     this.linked = linked;
   }
@@ -12,7 +12,7 @@ export default class FreezeAccountOp extends Op {
     return [
       ['create-account'],
       [
-        this.destination,
+        this.target,
         this.amount,
         this.linked,
       ],
@@ -25,8 +25,8 @@ export default class FreezeAccountOp extends Op {
         type: 'create-account',
       },
       B: {
-        target: this.destination,
-        amount: this.amount,
+        target: this.target,
+        amount: this.amount.toString(),
         linked: this.linked,
       },
     };
