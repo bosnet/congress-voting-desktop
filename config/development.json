@@ -1,10 +1,10 @@
 {
   "env": "development",
   "network": "test-network",
-  "salt": "boscoin-sebak-network",
   "dns": {
     "seed": "localhost"
   },
+  "fee": 10000,
   "endpoint": {
     "scheme": "http",
     "port": 8080
