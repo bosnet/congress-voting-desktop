@@ -79,9 +79,8 @@ let webConfig = {
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         use: {
-          loader: 'url-loader',
+          loader: 'file-loader',
           query: {
-            limit: 10000,
             name: 'fonts/[name].[ext]'
           }
         }

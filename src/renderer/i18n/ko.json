@@ -1,2 +1,18 @@
 {
+  "welcome": "환영합니다",
+  "add your account and attend congress voting": "계좌를 등록하고 보팅에 참여해보세요!",
+  "add account": "계좌 등록하기",
+  "choose how to import account": "계좌를 등록할 방법을 선택하세요",
+  "import with secret seed": "시크릿키",
+  "import with recovery key": "복구키",
+  "create a new account": "계좌 만들기",
+  "next": "다음",
+  "entering secret seed title": "시크릿키 입력하기",
+  "enter your secret seed": "시크릿키를 입력하세요",
+  "the secret seed is wrong": "잘못된 시크릿키입니다",
+  "setting a new passphrase": "비밀번호 설정하기",
+  "enter your passphrase": "비밀번호를 입력하세요",
+  "enter your passphrase again": "비밀번호를 다시 입력하세요",
+  "given passphrase length is not enough": "비밀번호 길이가 충분하지 않습니다",
+  "both passphrases are not same": "두 비밀번호가 다릅니다"
 }

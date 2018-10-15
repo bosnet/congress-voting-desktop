@@ -1,0 +1,101 @@
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('../fonts/NotoSansCJKkr-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('../fonts/NotoSansCJKkr-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: "Noto Sans", serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #eaf0f7;
+}
+
+.button {
+  display: block;
+  width: 230px;
+  height: 50px;
+  border-radius: 2px;
+  background-color: #3c92e4;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 50px;
+  color: #fff;
+  border: none;
+}
+.button:hover:enabled {
+  box-shadow: 0 5px 11px 0 #a2cbf2;
+  background-color: #3189dc;
+}
+.button:active:enabled {
+  box-shadow: 0 5px 11px 0 #b5d9fb;
+  background-color: #1866b0;
+}
+.button:disabled {
+  background-color: #b4bec7;
+}
+
+/* override vuetify */
+.application.theme--light {
+  color: #333;
+  background-color: #eaf0f7;
+}
+
+.theme--light.v-stepper {
+  background-color: #eaf0f7;
+  box-shadow: none;
+}
+
+.dialog {
+  background-color: #eaf0f7;
+  text-align: center;
+}
+
+.v-input {
+  font-size: 13px;
+}
+
+.theme--light.v-label {
+  color: #99a4b0;
+}
+
+.theme--light.v-label.primary--text,
+.theme--light.v-label.error--text {
+  color: #99a4b0 !important;
+}
+
+.theme--light.v-input:not(.v-input--is-disabled) input {
+  color: #333;
+}
+
+.v-text-field > .v-input__control > .v-input__slot:before {
+  border-color: #c4d1d6;
+}
+
+.error--text {
+  color: #ed6060 !important;
+  caret-color: #ed6060 !important;
+}
+
+.v-text-field.primary--text > .v-input__control > .v-input__slot:after {
+  border-color: #3c92e4;
+}
+.v-text-field.error--text > .v-input__control > .v-input__slot:after {
+  border-color: #ed6060;
+}

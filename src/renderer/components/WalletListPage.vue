@@ -1,26 +1,16 @@
 <template>
-  <v-container fluid grid-list-sm>
+  <v-container class="WalletListPage">
     <wallet-list :wallets="wallets"/>
-    <v-layout row wrap>
-      <v-flex xs12 v-show="wallets.length == 0">
-        <div>{{$t('no-found-wallets')}}</div>
-      </v-flex>
-      <v-flex xs12>
-        <v-bottom-sheet v-model="sheet" full-width>
-          <v-btn slot="activator" block large><v-icon>add</v-icon></v-btn>
-          <v-list>
-            <v-subheader>{{$t('import-wallet')}}</v-subheader>
-            <v-list-tile
-                v-for="tile in tiles"
-                :key="tile.title"
-                :to="tile.to"
-                @click="sheet = false"
-            >
-              <v-btn icon><v-icon>{{ tile.icon }}</v-icon></v-btn>
-              <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-bottom-sheet>
+    <v-layout>
+      <v-flex v-show="wallets.length == 0" class="empty">
+        <h2>{{$t('welcome')}}</h2>
+        <h1>{{$t('add your account and attend congress voting')}}</h1>
+        <div class="img"></div>
+
+        <v-dialog v-model="dialog" fullscreen hide-overlay>
+          <button slot="activator" class="button">{{$t('add account')}}</button>
+          <wallet-new :close="close" />
+        </v-dialog>
       </v-flex>
     </v-layout>
   </v-container>
@@ -28,11 +18,13 @@
 
 <script>
   import WalletList from './wallet-list/WalletList';
+  import WalletNew from './WalletNewPage';
 
   export default {
     name: 'wallet-list-page',
     components: {
       WalletList,
+      WalletNew,
     },
     mounted() {
       this.$store.dispatch('loadWallets');
@@ -45,15 +37,52 @@
     },
     data() {
       return {
-        sheet: false,
-        tiles: [
-          { icon: 'security', title: this.$t('import-secret-seed'), to: '/wallets/new?source=secret-seed' },
-          { icon: 'https', title: this.$t('import-recovery-key'), to: '/wallets/new?source=recovery-key' },
-        ],
+        dialog: false,
       };
+    },
+    methods: {
+      close() {
+        this.$data.dialog = false;
+      },
     },
   };
 </script>
 
 <style>
+  .WalletListPage {
+    color: #728395;
+    padding: 84px;
+    display: block;
+  }
+
+  .WalletListPage .empty {
+    text-align: center;
+  }
+
+  .WalletListPage .empty h2 {
+    font-size: 30px;
+    margin: 0;
+  }
+
+  .WalletListPage .empty h1 {
+    font-size: 25px;
+    margin: 5px 0 0 0;
+  }
+
+  .WalletListPage .empty .img {
+    width: 215px;
+    height: 215px;
+    border-radius: 108px;
+    background-color: #ffffff;
+    opacity: 0.5;
+    margin: 45px auto 0;
+  }
+
+  .WalletListPage .empty .button {
+    margin: 60px auto 0;
+  }
+
+  .WalletListPage .dialog {
+    padding: 34px;
+  }
 </style>

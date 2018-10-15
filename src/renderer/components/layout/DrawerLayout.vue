@@ -8,6 +8,7 @@
         v-model="drawer"
         fixed
         app
+        v-show="drawer"
     >
       <v-toolbar flat class="transparent" dense>
         <v-list class="pa-0" :class="{'list-border-bottom' : miniVariant}">
@@ -17,11 +18,6 @@
                 <h2 v-text=""></h2>
               </v-list-tile-title>
             </v-list-tile-content>
-            <v-list-tile-action>
-              <v-btn icon @click.stop="miniVariant = !miniVariant">
-                <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-              </v-btn>
-            </v-list-tile-action>
           </v-list-tile>
         </v-list>
       </v-toolbar>
@@ -66,19 +62,6 @@
       <v-divider v-show="sideLinks.length > 0"></v-divider>
     </v-navigation-drawer>
 
-    <v-toolbar
-        app
-        flat
-        dense
-        color="primary"
-        dark
-    >
-      <v-toolbar-side-icon
-          @click.stop="drawer = !drawer"
-          class="hidden-lg-and-up"
-      />
-    </v-toolbar>
-
     <v-content>
       <router-view/>
     </v-content>
@@ -90,7 +73,7 @@
     name: 'drawer-layout',
     data() {
       return {
-        drawer: true,
+        drawer: false,
         fixed: true,
         miniVariant: true,
         tabs: null,
