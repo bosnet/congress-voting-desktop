@@ -19,20 +19,24 @@
       </v-stepper-content>
 
       <v-stepper-content step="2" class="step2">
-        <div v-if="importMethod == 'secret-seed'">
-          <SecretSeed
-              ref="secretSeed"
-              v-on:enable-next="step2passed = true"
-              v-on:disable-next="step2passed = false"
-          />
-        </div>
-        <div v-else>
-          <RecoveryKey
-              ref="recoveryKey"
-              v-on:enable-next="step2passed = true"
-              v-on:disable-next="step2passed = false"
-          />
-        </div>
+        <SecretSeed
+            ref="secretSeed"
+            v-on:enable-next="step2passed = true"
+            v-on:disable-next="step2passed = false"
+            v-if="importMethod === 'secret-seed'"
+        />
+        <RecoveryKey
+            ref="recoveryKey"
+            v-on:enable-next="step2passed = true"
+            v-on:disable-next="step2passed = false"
+            v-else-if="importMethod === 'recovery-key'"
+        />
+        <NewAccount
+            ref="newAccount"
+            v-on:enable-next="step2passed = true"
+            v-on:disable-next="step2passed = false"
+            v-else-if="importMethod === 'create-account'"
+        />
         <button class="button" :disabled="!step2passed" @click="loadSeed()">{{$t('next')}}</button>
       </v-stepper-content>
 
@@ -60,6 +64,7 @@
   import Wallet from '@/lib/wallet';
   import SecretSeed from './wallet-new/SecretSeed';
   import RecoveryKey from './wallet-new/RecoveryKey';
+  import NewAccount from './wallet-new/NewAccount';
   import Passphrase from './wallet-new/Passphrase';
 
   import importSeedIcon from '../assets/svg/import-method-seed.svg';
@@ -76,6 +81,7 @@
     components: {
       SecretSeed,
       RecoveryKey,
+      NewAccount,
       Passphrase,
     },
     data() {
@@ -117,6 +123,8 @@
           seed = this.$refs.secretSeed.seed();
         } else if (this.importMethod === 'recovery-key') {
           seed = this.$refs.recoveryKey.seed();
+        } else if (this.importMethod === 'create-account') {
+          seed = this.$refs.newAccount.seed();
         }
 
         if (seed != null) {
@@ -212,10 +220,6 @@
 
   .WalletNewPage .step.on {
     background-color: #3c92e4;
-  }
-
-  .WalletNewPage .step2 .content {
-    padding-top: 75px;
   }
 
   .WalletNewPageClose {

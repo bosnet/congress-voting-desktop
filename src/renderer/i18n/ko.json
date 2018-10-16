@@ -14,5 +14,9 @@
   "enter your passphrase": "비밀번호를 입력하세요",
   "enter your passphrase again": "비밀번호를 다시 입력하세요",
   "given passphrase length is not enough": "비밀번호 길이가 충분하지 않습니다",
-  "both passphrases are not same": "두 비밀번호가 다릅니다"
+  "both passphrases are not same": "두 비밀번호가 다릅니다",
+  "creating new account": "계좌 만들기",
+  "please keep your secret seed safely": "시크릿키를 안전한 곳에 기록해 두세요! 시크릿키를 읽어버린다면 모든 코인을 잃게 됩니다.",
+  "public address": "공개 주소",
+  "secret seed": "시크릿키",
 }

@@ -9,7 +9,7 @@
           ref="secretSeed"
       >
         <img :src="successIcon" slot="append" alt="success" v-if="success"/>
-        <img :src="errorIcon" slot="append" alt="success" v-if="failed"/>
+        <img :src="errorIcon" slot="append" alt="error" v-if="failed"/>
       </v-text-field>
     </div>
   </div>
@@ -61,5 +61,9 @@
   .NewSecretSeed .v-input {
     width: 400px;
     margin: 0 auto;
+  }
+
+  .NewSecretSeed .content {
+    padding-top: 75px;
   }
 </style>

@@ -47,6 +47,13 @@ export default {
   parsePubKey(seed) {
     return Keypair.fromSecret(seed).publicKey();
   },
+  createAccount() {
+    const k = Keypair.random();
+    return {
+      seed: k.secret(),
+      address: k.publicKey(),
+    };
+  },
   createKey(passphrase) {
     return this.sha256(passphrase);
   },
