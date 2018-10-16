@@ -18,5 +18,8 @@
   "creating new account": "계좌 만들기",
   "please keep your secret seed safely": "시크릿키를 안전한 곳에 기록해 두세요! 시크릿키를 읽어버린다면 모든 코인을 잃게 됩니다.",
   "public address": "공개 주소",
-  "secret seed": "시크릿키"
+  "secret seed": "시크릿키",
+  "entering recover key": "복구키를 입력하기",
+  "enter your recovery key": "복구키를 입력하세요",
+  "the recovery key is wrong": "복구키가 잘못되었습니다"
 }

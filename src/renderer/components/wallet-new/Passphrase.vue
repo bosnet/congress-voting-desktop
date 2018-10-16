@@ -11,7 +11,7 @@
           class="passphrase"
       >
         <img :src="successIcon" slot="append" alt="success" v-if="pass1success"/>
-        <img :src="errorIcon" slot="append" alt="success" v-if="pass1failed"/>
+        <img :src="errorIcon" slot="append" alt="error" v-if="pass1failed"/>
       </v-text-field>
 
       <v-text-field
@@ -21,7 +21,7 @@
           type="password"
       >
         <img :src="successIcon" slot="append" alt="success" v-if="pass2success"/>
-        <img :src="errorIcon" slot="append" alt="success" v-if="pass2failed"/>
+        <img :src="errorIcon" slot="append" alt="error" v-if="pass2failed"/>
       </v-text-field>
     </div>
   </div>
