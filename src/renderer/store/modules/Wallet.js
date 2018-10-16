@@ -96,21 +96,21 @@ const actions = {
       const encryptedWallet = res[2].data;
       const seed = wallet.decryptWallet(passphrase, encryptedWallet);
       const sourceKeyPair = wallet.createFreezeAccount(seed, tx.sequenceid);
-      const wire = wire.createUnfreezeRequestTx(
+      const data = wire.createUnfreezeRequestTx(
         sourceKeyPair.publicKey(),
         config.get('fee'),
         source.sequenceid,
         ownerAddress,
       );
 
-      return wallet.hash(wire.nestedArrays()).then((hash) => {
-        wire.updateSignature(wallet.sign(seed, hash));
-        return dispatch('sendTx', wire.json());
+      return wallet.hash(data.nestedArrays()).then((hash) => {
+        data.updateSignature(wallet.sign(seed, hash));
+        return dispatch('sendTx', data.json());
       });
     });
   },
 
-  payment({ dispatch }, { sourceAddress, passphrase, amount }) {
+  payment({ dispatch, getters }, { sourceAddress, passphrase, amount }) {
     return Promise.all([
       remoteRPC.getAccount(sourceAddress),
       getters.getWallet(sourceAddress),
