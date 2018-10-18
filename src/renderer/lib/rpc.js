@@ -31,7 +31,7 @@ class RPC {
   getFrozenAccounts(address) {
     return this.lookup()
       .then(endpoint => client
-        .get(`${endpoint}/api/v1/accounts/${address}/operations?type=freeze`))
+        .get(`${endpoint}/api/v1/accounts/${address}/frozen-accounts`))
       .then(res => res.data);
   }
 
