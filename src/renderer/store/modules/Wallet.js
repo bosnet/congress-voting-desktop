@@ -72,7 +72,7 @@ const actions = {
       const account = wallet.createFreezeAccount(seed, seqId);
       const tx = wire.createFreezeAccountTx(
         address,
-        unit.convert(amount, 'bos', 'gon'),
+        parseInt(unit.convert(amount, 'bos', 'gon'), 10),
         config.get('fee'),
         seqId,
         account.publicKey(),
