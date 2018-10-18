@@ -87,7 +87,7 @@ const actions = {
 
   unfreeze({ dispatch, getters }, { ownerAddress, passphrase, op }) {
     return Promise.all([
-      remoteRPC.getTransaction(op.txHash), // TODO: There isn't txHash in the op yet.
+      remoteRPC.getTransaction(op.tx_hash),
       remoteRPC.getAccount(op.target),
       getters.getWallet(ownerAddress),
     ]).then((res) => {
