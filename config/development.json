@@ -1,6 +1,6 @@
 {
   "env": "development",
-  "network": "test-network",
+  "network": "sebak-test",
   "dns": {
     "seed": "localhost"
   },
