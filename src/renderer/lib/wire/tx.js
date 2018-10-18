@@ -17,21 +17,18 @@ export class Op {
 }
 
 export class Tx {
-  constructor(sourceAddress, fee, seqId) {
+  constructor(sourceAddress, baseFee, seqId) {
     this.source = sourceAddress;
     this.seqId = seqId || 0;
     this.ops = [];
-    this.fee = fee || 0;
+    this.fee = 0;
+    this.baseFee = baseFee;
     this.signature = null;
-  }
-
-  updateFee() {
-    return this.ops.map(op => op.fee()).reduce((p, c) => p + c);
   }
 
   addOp(op) {
     this.ops.push(op);
-    this.fee = this.updateFee() || 0;
+    this.fee = this.baseFee * this.ops.length;
   }
 
   updateSignature(signature) {
