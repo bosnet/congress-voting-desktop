@@ -1,28 +1,19 @@
 import { Op } from './tx';
 
 export default class UnfreezeAccountOp extends Op {
-  constructor(destination) {
-    super();
-    this.destination = destination;
-  }
-
-  nestedArrays() {
+  nestedArrays() { // eslint-disable-line class-methods-use-this
     return [
       ['unfreeze'],
-      [
-        this.destination,
-      ],
+      [],
     ];
   }
 
-  json() {
+  json() { // eslint-disable-line class-methods-use-this
     return {
       H: {
         type: 'unfreeze',
       },
-      B: {
-        target: this.destination,
-      },
+      B: {},
     };
   }
 }

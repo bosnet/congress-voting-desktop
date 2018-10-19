@@ -110,7 +110,6 @@ const actions = {
         sourceKeyPair.publicKey(),
         config.get('fee'),
         source.sequenceid,
-        ownerAddress,
       );
 
       return wallet.hash(data.nestedArrays()).then((hash) => {

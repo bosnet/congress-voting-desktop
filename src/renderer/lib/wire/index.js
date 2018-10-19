@@ -17,9 +17,9 @@ export default {
     return tx;
   },
 
-  createUnfreezeRequestTx(sourceAddress, fee, seqId, targetAddress) {
+  createUnfreezeRequestTx(sourceAddress, fee, seqId) {
     const tx = new Tx(sourceAddress, fee, seqId);
-    tx.addOp(new UnfreezeAccountOp(targetAddress, sourceAddress));
+    tx.addOp(new UnfreezeAccountOp());
     return tx;
   },
 
