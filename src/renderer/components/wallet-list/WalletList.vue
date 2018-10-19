@@ -1,7 +1,18 @@
 <template>
-  <v-layout row wrap>
-    <wallet-list-item v-if="wallets.length > 0" :wallet="wallet" v-for="wallet in wallets"/>
-  </v-layout>
+  <div class="WalletList">
+    <h1>{{$t('available accounts')}}</h1>
+    <wallet-list-item
+        v-if="wallets.length > 0"
+        :wallet="wallet"
+        :warn="warn"
+        v-for="wallet in wallets"
+    />
+    <transition name="slide">
+      <div class="notification" v-show="showEmptyAccountWarning">
+        <span class="warn">{{$t('To create your account, depositing over 1 BOS')}}</span>
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -10,8 +21,66 @@
   export default {
     props: ['wallets'],
     components: { WalletListItem },
+    data() {
+      return {
+        showEmptyAccountWarning: false,
+      };
+    },
+    methods: {
+      warn(type) {
+        if (type === 'empty') {
+          this.showEmptyAccountWarning = true;
+          setTimeout(() => {
+            this.showEmptyAccountWarning = false;
+          }, 2000);
+        }
+      },
+    },
   };
 </script>
 
 <style>
+  .WalletList h1 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #869aae;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .WalletList .notification {
+    position: fixed;
+    bottom: 47px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .WalletList .warn {
+    height: 30px;
+    display: inline-block;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.34);
+    background-color: #353a3f;
+    padding: 5px 30px;
+    font-size: 13px;
+    color: #ffffff;
+  }
+
+  .slide-enter-active {
+    animation: slide-in .2s;
+  }
+  .slide-leave-active {
+    animation: slide-in .2s reverse;
+  }
+  @keyframes slide-in {
+    0% {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 </style>

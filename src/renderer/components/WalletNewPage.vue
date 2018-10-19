@@ -61,6 +61,7 @@
 </template>
 
 <script>
+  import randomWord from 'random-word';
   import Wallet from '@/lib/wallet';
   import SecretSeed from './wallet-new/SecretSeed';
   import RecoveryKey from './wallet-new/RecoveryKey';
@@ -145,8 +146,7 @@
       complete() {
         const data = Wallet.encryptWallet(this.passphrase, this.seed);
         this.$store.dispatch('addWallet', {
-          // TODO: random name or should get title from user?
-          title: 'My Account',
+          title: randomWord(),
           address: Wallet.parsePubKey(this.seed),
           data,
         }).then(() => {

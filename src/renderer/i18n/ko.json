@@ -21,5 +21,8 @@
   "secret seed": "시크릿키",
   "entering recover key": "복구키를 입력하기",
   "enter your recovery key": "복구키를 입력하세요",
-  "the recovery key is wrong": "복구키가 잘못되었습니다"
+  "the recovery key is wrong": "복구키가 잘못되었습니다",
+  "available accounts": "사용가능한 계좌",
+  "copy public address": "공개 주소 복사",
+  "To create your account, depositing over 1 BOS": "1BOS 이상 입금해야 개설이 완료됩니다"
 }

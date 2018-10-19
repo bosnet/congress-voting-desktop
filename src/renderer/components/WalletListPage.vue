@@ -1,6 +1,12 @@
 <template>
   <v-container class="WalletListPage">
-    <wallet-list :wallets="wallets"/>
+    <wallet-list :wallets="wallets" v-show="wallets.length > 0"/>
+    <v-dialog v-model="dialog" fullscreen hide-overlay v-if="wallets.length > 0">
+      <div slot="activator" class="round-button" v-show="!dialog">
+        <img :src="addBtn" :alt="$t('add account')" />
+      </div>
+      <wallet-new :close="close" />
+    </v-dialog>
     <v-layout>
       <v-flex v-show="wallets.length == 0" class="empty">
         <h2>{{$t('welcome')}}</h2>
@@ -20,6 +26,8 @@
   import WalletList from './wallet-list/WalletList';
   import WalletNew from './WalletNewPage';
 
+  import addBtn from '../assets/svg/home-add-btn.svg';
+
   export default {
     name: 'wallet-list-page',
     components: {
@@ -38,6 +46,7 @@
     data() {
       return {
         dialog: false,
+        addBtn,
       };
     },
     methods: {
@@ -51,11 +60,12 @@
 <style>
   .WalletListPage {
     color: #728395;
-    padding: 84px;
+    padding: 50px;
     display: block;
   }
 
   .WalletListPage .empty {
+    padding-top: 34px;
     text-align: center;
   }
 
@@ -84,5 +94,35 @@
 
   .WalletListPage .dialog {
     padding: 34px;
+  }
+
+  .WalletListPage .round-button {
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    box-shadow: 0 4px 7px 0 #95caf4;
+    background-color: #1993f1;
+    text-align: center;
+    position: fixed;
+    bottom: 40px;
+    right: 50px;
+  }
+
+  .WalletListPage .round-button img {
+    width: 24px;
+    height: 60px;
+  }
+
+  .WalletListPage .round-button:hover {
+    background-color: #1289e5;
+  }
+
+  .WalletListPage .round-button:active {
+    background-color: #1866b0;
+  }
+
+  .WalletListPage .round-button:disabled {
+    background-color: #86c0ed;
   }
 </style>
