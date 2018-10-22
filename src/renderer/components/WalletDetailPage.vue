@@ -1,35 +1,26 @@
 <template>
-  <v-layout row v-if="wallet != null">
-    <v-flex xs12>
-      <v-layout row wrap>
-        <v-flex xs12>
-          <v-card>
-            <v-card-title class="subheading font-weight-bold" primary-title>
-              <div>
-                <h2 class="headline mb-0">{{ wallet.title }}</h2>
-                <div>{{ wallet.address }}</div>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn @click="hide">remove</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-      </v-layout>
+  <v-container class="WalletDetailPage" v-if="wallet != null">
+    <sidebar :address="address"></sidebar>
+    <div class="content">
       <component :is="walletChildContainer" :address="wallet.address">
         <slot/>
       </component>
-    </v-flex>
-  </v-layout>
+      <v-card-actions>
+        <v-btn @click="hide">remove</v-btn>
+      </v-card-actions>
+    </div>
+  </v-container>
 </template>
 
 <script>
   import VoteSection from './wallet-detail/VoteSection';
   import FreezeAccountSection from './wallet-detail/FreezeAccountSection';
+  import Sidebar from './wallet-detail/Sidebar';
 
   export default {
     name: 'wallet-detail-page',
     components: {
+      Sidebar,
       VoteSection,
       FreezeAccountSection,
     },
@@ -65,10 +56,18 @@
     },
     mounted() {
       this.address = this.$route.params.address;
-      this.$store.dispatch('updateSideLinks', [
-        { icon: 'list', link: `/wallet/${this.address}/#votes`, title: this.$t('vote-list') },
-        { icon: 'folder', link: `/wallet/${this.address}/#freezes`, title: this.$t('freeze-list') },
-      ]);
     },
   };
 </script>
+
+<style>
+  .WalletDetailPage {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .WalletDetailPage .content {
+    padding-left: 158px;
+  }
+</style>

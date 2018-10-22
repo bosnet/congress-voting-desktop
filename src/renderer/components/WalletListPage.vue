@@ -41,7 +41,6 @@
     },
     mounted() {
       this.$store.dispatch('loadWallets');
-      this.$store.dispatch('clearSideLinks');
     },
     computed: {
       wallets() {
