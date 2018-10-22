@@ -84,6 +84,8 @@ const mutations = {
 const getters = {
   account: () => address => remoteRPC.getAccount(address),
 
+  getMembership: () => address => remoteRPC.getMembership(address),
+
   getProposals: () => () => remoteRPC.getProposals(),
 };
 
