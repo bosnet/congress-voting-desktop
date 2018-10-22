@@ -5,10 +5,11 @@
         v-if="wallets.length > 0"
         :wallet="wallet"
         :warn="warn"
+        :notify="notify"
         v-for="wallet in wallets"
     />
-    <transition name="slide">
-      <div class="notification" v-show="showEmptyAccountWarning">
+    <transition name="wallet-list-warn-slide">
+      <div class="toast" v-show="showEmptyAccountWarning">
         <span class="warn">{{$t('To create your account, depositing over 1 BOS')}}</span>
       </div>
     </transition>
@@ -19,7 +20,7 @@
   import WalletListItem from './WalletListItem';
 
   export default {
-    props: ['wallets'],
+    props: ['wallets', 'notify'],
     components: { WalletListItem },
     data() {
       return {
@@ -48,7 +49,7 @@
     margin-bottom: 20px;
   }
 
-  .WalletList .notification {
+  .WalletList .toast {
     position: fixed;
     bottom: 47px;
     left: 0;
@@ -67,13 +68,13 @@
     color: #ffffff;
   }
 
-  .slide-enter-active {
-    animation: slide-in .2s;
+  .wallet-list-warn-slide-enter-active {
+    animation: wallet-list-warn-slide-in .2s;
   }
-  .slide-leave-active {
-    animation: slide-in .2s reverse;
+  .wallet-list-warn-slide-leave-active {
+    animation: wallet-list-warn-slide-in .2s reverse;
   }
-  @keyframes slide-in {
+  @keyframes wallet-list-warn-slide-in {
     0% {
       transform: translateY(30px);
       opacity: 0;

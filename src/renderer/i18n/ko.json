@@ -24,5 +24,13 @@
   "the recovery key is wrong": "복구키가 잘못되었습니다",
   "available accounts": "사용가능한 계좌",
   "copy public address": "공개 주소 복사",
-  "To create your account, depositing over 1 BOS": "1BOS 이상 입금해야 개설이 완료됩니다"
+  "To create your account, depositing over 1 BOS": "1BOS 이상 입금해야 개설이 완료됩니다",
+  "identity verification pending": "본인 확인중",
+  "identity verification failed": "본인 확인 실패",
+  "PRE-MEMBERSHIP": "PRE-MEMBERSHIP",
+  "MEMBERSHIP": "MEMBERSHIP",
+  "verifying your identity": "본인 확인중입니다",
+  "your identity verification failed": "본인 확인이 실패했습니다",
+  "try again": "다시 시도",
+  "your identity is verified": "본인 확인이 되었습니다"
 }

@@ -1,6 +1,6 @@
 <template>
   <v-container class="WalletListPage">
-    <wallet-list :wallets="wallets" v-show="wallets.length > 0"/>
+    <wallet-list :wallets="wallets" v-show="wallets.length > 0" :notify="notify"/>
     <v-dialog v-model="dialog" fullscreen hide-overlay v-if="wallets.length > 0">
       <div slot="activator" class="round-button" v-show="!dialog">
         <img :src="addBtn" :alt="$t('add account')" />
@@ -19,6 +19,11 @@
         </v-dialog>
       </v-flex>
     </v-layout>
+    <div :class="['notification', membershipStatus]" v-show="showNotification">
+      {{notificationContent}}
+      <!-- TODO: fix link to retry sum&sub -->
+      <a href="#" v-if="membershipStatus === 'rejected'">{{$t('try again')}}</a>
+    </div>
   </v-container>
 </template>
 
@@ -47,11 +52,25 @@
       return {
         dialog: false,
         addBtn,
+        showNotification: true,
+        membershipStatus: null,
+        notificationContent: null,
       };
     },
     methods: {
       close() {
         this.$data.dialog = false;
+      },
+      notify(type) {
+        this.membershipStatus = type;
+        if (type === 'pending') {
+          this.notificationContent = this.$t('verifying your identity');
+        } else if (type === 'rejected') {
+          this.notificationContent = this.$t('your identity verification failed');
+        } else if (type === 'verified') {
+          this.notificationContent = this.$t('your identity is verified');
+        }
+        return '';
       },
     },
   };
@@ -60,7 +79,7 @@
 <style>
   .WalletListPage {
     color: #728395;
-    padding: 50px;
+    padding: 70px 50px 50px 50px;
     display: block;
   }
 
@@ -124,5 +143,33 @@
 
   .WalletListPage .round-button:disabled {
     background-color: #86c0ed;
+  }
+
+  .WalletListPage .notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 40px;
+  }
+
+  .WalletListPage .notification a {
+    margin-left: 15px;
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  .WalletListPage .notification.pending {
+    background-color: #1792f0;
+  }
+  .WalletListPage .notification.rejected {
+    background-color: #ed6060;
+  }
+  .WalletListPage .notification.verified {
+    background-color: #50b37c;
   }
 </style>

@@ -37,6 +37,14 @@ const mutations = {
       return w;
     });
   },
+  UPDATE_MEMBERSHIP(state, { address, membership }) {
+    state.wallets = state.wallets.map((w) => {
+      if (w.address === address) {
+        w.membership = membership;
+      }
+      return w;
+    });
+  },
 };
 
 function beginTx(mode, table, action) {
@@ -56,9 +64,11 @@ const actions = {
     db.wallets.toArray().then((wallets) => {
       for (let i = 0; i < wallets.length; i += 1) {
         wallets[i].balance = '0';
+        wallets[i].membership = null;
       }
       commit('LOAD_WALLETS', wallets);
       dispatch('updateAllBalance', wallets.map(w => w.address));
+      dispatch('updateMembership', wallets.map(w => w.address));
     });
   },
 

@@ -1,5 +1,6 @@
 <template>
   <div @click="detail()" class="WalletListItem">
+    <span :class="['status', membershipStatus]">{{membershipStatusText}}</span>
     <div class="header">
       <h2>{{wallet.title}}</h2>
       <button class="line-button" @click.stop="copy(`#${wallet.address}`, 'addressCopied')">
@@ -14,6 +15,7 @@
     <div class="body">
       <span class="label">Balance</span>
       {{ wallet.balance | bos }} <abbr>BOS</abbr>
+      <!-- TODO: show frozen -->
     </div>
   </div>
 </template>
@@ -22,11 +24,36 @@
   import Helper from '@/lib/helper';
 
   export default {
-    props: ['wallet', 'warn'],
+    props: ['wallet', 'warn', 'notify'],
     data() {
       return {
         addressCopied: false,
       };
+    },
+    computed: {
+      membershipStatus() {
+        if (this.wallet.membership) {
+          return this.wallet.membership.status;
+        }
+        return '';
+      },
+      membershipStatusText() {
+        if (this.membershipStatus === 'pending') {
+          return this.$t('identity verification pending');
+        } else if (this.membershipStatus === 'rejected') {
+          return this.$t('identity verification failed');
+        } else if (this.membershipStatus === 'verified') {
+          return this.$t('PRE-MEMBERSHIP');
+        } else if (this.membershipStatus === 'active') {
+          return this.$t('MEMBERSHIP');
+        }
+        return '';
+      },
+    },
+    watch: {
+      membershipStatus(status) {
+        this.notify(status);
+      },
     },
     methods: {
       detail() {
@@ -56,10 +83,39 @@
     margin: 0 auto 10px;
     padding: 30px;
     cursor: pointer;
+    box-sizing: border-box;
+    border: solid 2px #ffffff;
   }
 
   .WalletListItem:hover {
     box-shadow: 0 10px 25px 0 rgba(193, 217, 240, 0.87);
+  }
+
+  .WalletListItem:active {
+    border: solid 2px #1993f1;
+  }
+
+  .WalletListItem .status {
+    display: block;
+    margin-bottom: -3px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .WalletListItem .status.pending {
+    color: #1792f0;
+  }
+
+  .WalletListItem .status.rejected {
+    color: #ed6060;
+  }
+
+  .WalletListItem .status.verified {
+    color: #50b37c;
+  }
+
+  .WalletListItem .status.active {
+    color: #ef9e07;
   }
 
   .WalletListItem .header {

@@ -58,6 +58,21 @@ const actions = {
 
     return intercept({ commit, dispatch }).request(Promise.all(requests)).get();
   },
+
+  updateMembership({ commit, dispatch }, addresses) {
+    const requests = [];
+    for (let i = 0; i < addresses.length; i += 1) {
+      const address = addresses[i];
+      const req = remoteRPC.getMembership(address)
+        .then(data => commit('UPDATE_MEMBERSHIP', {
+          address,
+          membership: data,
+        }));
+      requests.push(req);
+    }
+
+    return intercept({ commit, dispatch }).request(Promise.all(requests)).get();
+  },
 };
 
 const mutations = {
