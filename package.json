@@ -78,6 +78,7 @@
     "vuex": "^2.3.1"
   },
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.25",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
@@ -125,6 +126,7 @@
     "require-dir": "^0.3.0",
     "sass-loader": "^7.1.0",
     "serviceworker-webpack-plugin": "0.2.3",
+    "sinon": "^7.0.0",
     "spectron": "^3.7.1",
     "style-loader": "^0.18.2",
     "stylus": "^0.54.5",
