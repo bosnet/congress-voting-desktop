@@ -151,9 +151,9 @@ const actions = {
         if (rs == null) {
           wallet.ts = moment.now();
           db.wallets.add(wallet)
-              .then(() => commit('ADD_WALLET', wallet))
-              .then(() => resolve(wallet))
-              .catch(reject);
+            .then(() => commit('ADD_WALLET', wallet))
+            .then(() => resolve(wallet))
+            .catch(reject);
         } else {
           reject(new Error(`${wallet.address} is already registered.`));
         }

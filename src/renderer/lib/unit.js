@@ -8,14 +8,14 @@ const units = {
 export default {
   convert(value, from, to) {
     return new BigNumber(value, 10)
-        .multipliedBy(units[from], 10)
-        .dividedBy(units[to], 10)
-        .toString(10);
+      .multipliedBy(units[from], 10)
+      .dividedBy(units[to], 10)
+      .toString(10);
   },
   convertToNumber(value, from, to) {
     return new BigNumber(value, 10)
-        .multipliedBy(units[from], 10)
-        .dividedBy(units[to], 10)
-        .toNumber();
+      .multipliedBy(units[from], 10)
+      .dividedBy(units[to], 10)
+      .toNumber();
   },
 };

@@ -17,9 +17,8 @@ class RPC {
 
   getAccount(address) {
     return this.lookup()
-      .then(endpoint => client
-        .get(`${endpoint}/api/v1/accounts/${address}`)
-        .then(res => res.data));
+      .then(endpoint => client.get(`${endpoint}/api/v1/accounts/${address}`))
+      .then(res => res.data);
   }
 
   getMembership(address) {
