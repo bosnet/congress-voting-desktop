@@ -84,7 +84,16 @@ const actions = {
 
       return wallet.hash(tx.nestedArrays()).then((hash) => {
         tx.updateSignature(wallet.sign(seed, hash));
-        return dispatch('sendTx', tx.json());
+        return dispatch('sendTx', tx.json())
+          .then(() => { // eslint-disable-line arrow-body-style,
+            // Return nothing if it succeeds.
+            return {
+              sender: address,
+              address: account.publicKey(),
+              sequenceId: seqId,
+              amount: unit.convertToNumber(amount, 'bos', 'gon'),
+            };
+          });
       });
     });
   },
