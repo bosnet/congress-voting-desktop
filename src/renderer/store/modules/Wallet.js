@@ -1,16 +1,10 @@
 import config from 'config';
-import Dexie from 'dexie';
 import moment from 'moment';
 import wallet from '@/lib/wallet';
 import wire from '@/lib/wire';
 import { remoteRPC } from '@/lib/rpc';
 import unit from '@/lib/unit';
-
-const db = new Dexie('walletDb');
-
-db.version(1).stores({
-  wallets: '&address,title,data,ts',
-});
+import db from '@/lib/db';
 
 const state = {
   wallets: [],
@@ -143,19 +137,19 @@ const actions = {
   },
 
   addWallet({ commit }, wallet) {
-    return new Promise((resolve, reject) => {
-      beginTx('rw', db.wallets, async () => {
-        db.wallets.get(wallet.address).then((rs) => {
-          if (rs == null) {
-            wallet.ts = moment.now();
-            db.wallets.add(wallet)
+    return new Promise((resolve, reject) => beginTx('rw', db.wallets, async () => {
+      db.wallets.get(wallet.address).then((rs) => {
+        if (rs == null) {
+          wallet.ts = moment.now();
+          db.wallets.add(wallet)
               .then(() => commit('ADD_WALLET', wallet))
               .then(() => resolve(wallet))
               .catch(reject);
-          }
-        });
+        } else {
+          reject(new Error(`${wallet.address} is already registered.`));
+        }
       });
-    });
+    }));
   },
 
   deleteWalletByAddress({ commit }, address) {
