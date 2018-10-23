@@ -75,8 +75,7 @@ class RPC {
   sendTx(tx) {
     return this.lookup()
       .then(endpoint => client
-        .post(`${endpoint}/api/v1/transactions`, tx, { headers: HEADERS })
-        .then(res => res.data));
+        .post(`${endpoint}/api/v1/transactions`, tx, { headers: HEADERS }));
   }
 }
 

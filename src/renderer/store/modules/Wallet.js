@@ -61,7 +61,7 @@ function beginTx(mode, table, action) {
 
 const actions = {
   loadWallets({ commit, dispatch }) {
-    db.wallets.toArray().then((wallets) => {
+    return db.wallets.toArray().then((wallets) => {
       for (let i = 0; i < wallets.length; i += 1) {
         wallets[i].balance = '0';
         wallets[i].membership = null;
@@ -82,7 +82,7 @@ const actions = {
       const account = wallet.createFreezeAccount(seed, seqId);
       const tx = wire.createFreezeAccountTx(
         address,
-        parseInt(unit.convert(amount, 'bos', 'gon'), 10),
+        unit.convertToNumber(amount, 'bos', 'gon'),
         config.get('fee'),
         seqId,
         account.publicKey(),
