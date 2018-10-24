@@ -66,8 +66,20 @@ const actions = {
     });
   },
 
-  answerProposal({ dispatch, getters }, { address, proposalId, answer, passphrase }) {
-    return null;
+  vote({ dispatch, getters }, { address, proposalId, answer, passphrase }) {
+    return getters.getWallet(address).then((res) => {
+      const seed = wallet.decryptWallet(passphrase, res.data);
+      const array = [address, proposalId, answer];
+      const payload = {
+        data: wallet.encodeB58(wallet.encodeRLP(array)),
+        signature: '',
+      };
+
+      return wallet.hash(array).then((hash) => {
+        payload.signature = wallet.sign(seed, hash);
+        return dispatch('sendVoteTx', proposalId, payload);
+      });
+    });
   },
 
   freeze({ dispatch, getters }, { address, amount, passphrase }) {

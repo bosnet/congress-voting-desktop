@@ -79,4 +79,16 @@ describe('WalletVuex', function () {
         expect(gon).to.equal(receiver.balance);
       });
   });
+
+  it('should answer a proposals', async () => {
+    const wrapper = shallowMount(Empty, { store, localVue });
+
+    return wrapper.vm.$store.dispatch('vote', {
+      address,
+      proposalId: 1,
+      answer: 'yes',
+      passphrase: '1234',
+    });
+    // TODO
+  });
 });

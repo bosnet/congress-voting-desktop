@@ -76,6 +76,12 @@ class RPC {
       .then(endpoint => client
         .post(`${endpoint}/api/v1/transactions`, tx, { headers: HEADERS }));
   }
+
+  vote(proposalId, payload) {
+    return this.lookup()
+      .then(endpoint => client
+        .post(`${endpoint}/api/v1/proposals/${proposalId}/vote`, payload, { headers: HEADERS }));
+  }
 }
 
 const remoteRPC = new RPC({

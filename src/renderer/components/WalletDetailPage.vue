@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  import VoteSection from './wallet-detail/VoteSection';
+  import ProposalSection from './wallet-detail/ProposalSection';
   import FreezeAccountSection from './wallet-detail/FreezeAccountSection';
   import Sidebar from './wallet-detail/Sidebar';
 
@@ -28,7 +28,7 @@
     name: 'wallet-detail-page',
     components: {
       Sidebar,
-      VoteSection,
+      ProposalSection,
       FreezeAccountSection,
     },
     data() {
@@ -49,7 +49,7 @@
         if (this.$route.hash === '#freezes') {
           return FreezeAccountSection;
         }
-        return VoteSection;
+        return ProposalSection;
       },
       membershipStatus() {
         console.log(this.membership);

@@ -7,24 +7,15 @@
       </v-card-title>
       <v-card-actions>
         <v-btn flat color="primary">Detail</v-btn>
-        <v-btn flat color="success" @click="answerProposal(item.id, 'yes')">Yes</v-btn>
-        <v-btn flat color="red" @click="answerProposal(item.id, 'no')">No</v-btn>
-        <v-btn flat color="red" @click="answerProposal(item.id, 'abs')">Abstention</v-btn>
+        <v-btn flat color="success" @click="vote(item)">Vote</v-btn>
       </v-card-actions>
     </v-card>
   </v-flex>
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
-
   export default {
     name: 'wallet-proposal-item',
-    props: ['item'],
-    methods: {
-      ...mapActions([
-        'answerProposal',
-      ]),
-    },
+    props: ['item', 'vote'],
   };
 </script>

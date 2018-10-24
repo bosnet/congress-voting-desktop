@@ -34,6 +34,12 @@ const actions = {
       .get();
   },
 
+  sendVoteTx({ commit, dispatch }, proposalId, payload) {
+    return intercept({ commit, dispatch })
+      .request(remoteRPC.vote(proposalId, payload))
+      .get();
+  },
+
   clearFrozenAccounts({ commit }) {
     commit('UPDATE_FROZEN_ACCOUNT_OPS', []);
   },
