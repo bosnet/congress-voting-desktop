@@ -72,7 +72,7 @@ const actions = {
       getters.getWallet(address),
     ]).then((res) => {
       const seed = wallet.decryptWallet(passphrase, res[1].data);
-      const seqId = res[0].sequenceid;
+      const seqId = res[0].sequence_id;
       const account = wallet.createFreezeAccount(seed, seqId);
       const tx = wire.createFreezeAccountTx(
         address,
@@ -108,11 +108,11 @@ const actions = {
       const source = res[1];
       const encryptedWallet = res[2].data;
       const seed = wallet.decryptWallet(passphrase, encryptedWallet);
-      const sourceKeyPair = wallet.createFreezeAccount(seed, tx.sequenceid);
+      const sourceKeyPair = wallet.createFreezeAccount(seed, tx.sequence_id);
       const data = wire.createUnfreezeRequestTx(
         sourceKeyPair.publicKey(),
         config.get('fee'),
-        source.sequenceid,
+        source.sequence_id,
       );
 
       return wallet.hash(data.nestedArrays()).then((hash) => {
@@ -128,7 +128,7 @@ const actions = {
       getters.getWallet(sourceAddress),
     ]).then((res) => {
       const seed = wallet.decryptWallet(passphrase, res[1].data);
-      const seqId = res[0].sequenceid;
+      const seqId = res[0].sequence_id;
       const account = wallet.createFreezeAccount(seed, seqId);
       const tx = wire.createFreezeAccountTx(
         sourceAddress,

@@ -18,7 +18,7 @@ const accounts = {
     'address': 'GD5BOF4T67XERMR2QPNAIVG4UJHICELADO753XIADYXUKDCQ75FOH3HP',
     'balance': 99900000000000,
     'linked': '',
-    'sequenceid': 1
+    'sequence_id': 1
   },
 };
 
@@ -44,7 +44,7 @@ router.post('/transactions', cors(), async (req, res) => {
 
   if (source && operations && operations.length > 0) {
     const amount = operations.map(o => o.B.amount).reduce((a, b) => a + b);
-    source.sequenceid += 1;
+    source.sequence_id += 1;
     source.balance -= data.B.fee + amount;
     for (let i = 0; i < operations.length; i++) {
       const o = operations[i];
@@ -53,7 +53,7 @@ router.post('/transactions', cors(), async (req, res) => {
           address: o.B.target,
           balance: o.B.amount,
           linked: o.B.linked,
-          sequenceid: 1,
+          sequence_id: 1,
         };
       }
 

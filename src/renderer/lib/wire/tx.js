@@ -54,7 +54,7 @@ export class Tx {
       B: {
         source: this.source,
         fee: this.fee.toString(),
-        sequenceID: this.seqId,
+        sequence_id: this.seqId,
         operations: this.ops.map(op => op.json()),
       },
     };
