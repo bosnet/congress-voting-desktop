@@ -66,6 +66,10 @@ const actions = {
     });
   },
 
+  answerProposal({ dispatch, getters }, { address, proposalId, answer, passphrase }) {
+    return null;
+  },
+
   freeze({ dispatch, getters }, { address, amount, passphrase }) {
     return Promise.all([
       remoteRPC.getAccount(address),

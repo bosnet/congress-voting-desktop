@@ -38,7 +38,7 @@ class RPC {
     state = state || 'all';
     return client
       .get(`${this.membershipEndpoint}/api/v1/proposals?state=${state}`)
-      .then(res => res.data);
+      .then(res => res.data.data);
   }
 
   getTransaction(hash) {
