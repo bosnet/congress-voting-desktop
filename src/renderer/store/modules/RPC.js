@@ -46,7 +46,7 @@ const actions = {
 
   loadFrozenAccounts({ commit }, address) {
     return remoteRPC.getFrozenAccounts(address)
-      .then(res => res._embedded.records) // eslint-disable-line no-underscore-dangle,
+      .then(res => res._embedded.records || []) // eslint-disable-line no-underscore-dangle,
       .then(ops => commit('UPDATE_FROZEN_ACCOUNT_OPS', { address, ops }));
   },
 
