@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js';
 import config from 'config';
 import moment from 'moment';
 import wallet from '@/lib/wallet';
@@ -138,19 +139,20 @@ const actions = {
     });
   },
 
-  payment({ dispatch, getters }, { sourceAddress, passphrase, amount }) {
+  // withdraw function to transfer all the money held by frozen account to the general account.
+  withdraw({ dispatch, getters }, { address, frozenAccountAddress, sequenceId, passphrase }) {
     return Promise.all([
-      remoteRPC.getAccount(sourceAddress),
-      getters.getWallet(sourceAddress),
+      remoteRPC.getAccount(frozenAccountAddress),
+      getters.getWallet(address),
     ]).then((res) => {
+      const balance = new BigNumber(res[0].balance, 10);
       const seed = wallet.decryptWallet(passphrase, res[1].data);
-      const seqId = res[0].sequence_id;
-      const account = wallet.createFreezeAccount(seed, seqId);
-      const tx = wire.createFreezeAccountTx(
-        sourceAddress,
-        amount,
+      const account = wallet.createFreezeAccount(seed, sequenceId);
+      const tx = wire.createPaymentTx(
+        frozenAccountAddress,
+        balance.minus(config.get('fee')).toNumber(),
         config.get('fee'),
-        seqId,
+        res[0].sequence_id,
         account.publicKey(),
       );
 

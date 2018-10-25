@@ -7,7 +7,7 @@ import modules from '@/store/modules';
 import unit from '@/lib/unit';
 import db from '@/lib/db';
 import { remoteRPC as rpc } from '@/lib/rpc';
-import BigNumber from "bignumber.js";
+import BigNumber from 'bignumber.js';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
