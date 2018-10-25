@@ -40,7 +40,8 @@
       WalletNew,
     },
     mounted() {
-      this.$store.dispatch('loadWallets');
+      this.$root.$on('tick', this.load);
+      this.load();
     },
     computed: {
       wallets() {
@@ -57,6 +58,9 @@
       };
     },
     methods: {
+      load() {
+        this.$store.dispatch('loadWallets');
+      },
       close() {
         this.$data.dialog = false;
       },
