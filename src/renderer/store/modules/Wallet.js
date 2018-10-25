@@ -71,7 +71,7 @@ const actions = {
       const seed = wallet.decryptWallet(passphrase, res.data);
       const array = [address, proposalId, answer];
       const payload = {
-        data: wallet.encodeB58(wallet.encodeRLP(array)),
+        data: array,
         signature: '',
       };
 

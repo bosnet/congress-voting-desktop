@@ -53,7 +53,7 @@
       confirm() {
         const payload = {
           proposalId: this.proposal.id,
-          answer: this.answer,
+          answer: (this.answer || '').slice(0, 3).toLowerCase(),
           passphrase: this.passphrase,
         };
         this.callback(payload).then(() => {

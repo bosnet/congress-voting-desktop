@@ -78,9 +78,8 @@ class RPC {
   }
 
   vote(proposalId, payload) {
-    return this.lookup()
-      .then(endpoint => client
-        .post(`${endpoint}/api/v1/proposals/${proposalId}/vote`, payload, { headers: HEADERS }));
+    return client
+      .post(`${this.membershipEndpoint}/api/v1/proposals/${proposalId}/vote`, payload, { headers: HEADERS });
   }
 }
 
