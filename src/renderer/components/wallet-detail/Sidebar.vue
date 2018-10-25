@@ -5,11 +5,11 @@
     </header>
     <nav>
       <ul>
-        <li class="account">
-          <router-link :to="`/wallet/${address}/#freezes`">Account</router-link>
+        <li :class="{account: true, on: (activeMenu === 'account')}">
+          <router-link :to="`/wallet/${address}/#account`">Account</router-link>
         </li>
-        <li class="voting">
-          <router-link :to="`/wallet/${address}/#votes`">Congress Voting</router-link>
+        <li :class="{voting: true, on: (activeMenu === 'voting')}">
+          <router-link :to="`/wallet/${address}/#voting`">Congress Voting</router-link>
         </li>
       </ul>
     </nav>
@@ -32,7 +32,7 @@
 
   export default {
     name: 'wallet-detail-sidebar',
-    props: ['address'],
+    props: ['activeMenu', 'address', 'membershipStatus'],
     data() {
       return {
         logo,

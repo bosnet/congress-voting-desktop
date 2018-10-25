@@ -13,5 +13,11 @@
     "scheme": "http",
     "host": "18.179.10.14",
     "port": 3000
+  },
+  "sumsub": {
+    "scheme": "https",
+    "host": "test-api.sumsub.com",
+    "port": 443,
+    "customCss": "https://your-voting-server/desktop-sumsub.css"
   }
 }

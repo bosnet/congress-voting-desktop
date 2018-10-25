@@ -26,6 +26,11 @@ class RPC {
       .get(`${this.membershipEndpoint}/api/v1/memberships/${address}`)
       .then(res => res.data);
   }
+  getSumsubAccessToken(address) {
+    return client
+      .get(`${this.membershipEndpoint}/api/v1/memberships/sumsub/access-token/${address}`)
+      .then(res => res.data);
+  }
 
   getFrozenAccounts(address) {
     return this.lookup()

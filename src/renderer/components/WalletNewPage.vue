@@ -167,6 +167,10 @@
 </script>
 
 <style>
+  .WalletNewPage {
+    height: 100%;
+  }
+
   .WalletNewPage .content {
     height: 200px;
     display: block;

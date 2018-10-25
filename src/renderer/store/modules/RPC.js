@@ -92,6 +92,8 @@ const getters = {
 
   getMembership: () => address => remoteRPC.getMembership(address),
 
+  getSumsubAccessToken: () => address => remoteRPC.getSumsubAccessToken(address),
+
   getProposals: () => () => remoteRPC.getProposals(),
 };
 

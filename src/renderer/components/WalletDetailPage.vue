@@ -1,9 +1,13 @@
 <template>
   <v-container class="WalletDetailPage" v-if="wallet != null">
-    <sidebar :address="address"></sidebar>
+    <sidebar
+        :address="address"
+        :membershipStatus="membershipStatus"
+        :activeMenu="activeMenu"
+    ></sidebar>
     <div class="content">
       <header>
-        <h1>Account</h1>
+        <h1>{{title}}</h1>
         <div class="account-info">
           {{ wallet.title }}
           <span :class="['status', membershipStatus]">{{membershipStatusText}}</span>
@@ -21,7 +25,8 @@
 
 <script>
   import ProposalSection from './wallet-detail/ProposalSection';
-  import FreezeAccountSection from './wallet-detail/FreezeAccountSection';
+  import PreMembershipSection from './wallet-detail/PreMembershipSection';
+  import AccountSection from './wallet-detail/AccountSection';
   import Sidebar from './wallet-detail/Sidebar';
 
   export default {
@@ -29,11 +34,13 @@
     components: {
       Sidebar,
       ProposalSection,
-      FreezeAccountSection,
+      AccountSection,
     },
     data() {
       return {
+        title: '',
         address: {},
+        activeMenu: '',
       };
     },
     methods: {
@@ -46,13 +53,20 @@
     },
     computed: {
       walletChildContainer() {
-        if (this.$route.hash === '#freezes') {
-          return FreezeAccountSection;
+        if (this.$route.hash === '#voting') {
+          this.title = 'Congress Voting';
+          this.activeMenu = 'voting';
+          if (this.membershipStatus === 'active') {
+            return ProposalSection;
+          }
+          return PreMembershipSection;
         }
-        return ProposalSection;
+
+        this.title = 'Account';
+        this.activeMenu = 'account';
+        return AccountSection;
       },
       membershipStatus() {
-        console.log(this.membership);
         if (this.membership) {
           return this.membership.status;
         }
@@ -80,7 +94,7 @@
         return null;
       },
       membership() {
-        if (this.address != null) {
+        if (this.address != null && !(this.address instanceof Object)) {
           return this.$store.getters.getMembership(this.address);
         }
         return null;
@@ -93,10 +107,12 @@
 </script>
 
 <style>
-  .WalletDetailPage {
+  .WalletDetailPage.container {
     margin: 0;
     padding: 0;
     height: 100%;
+    width: 100%;
+    max-width: none;
   }
 
   .WalletDetailPage .content {
