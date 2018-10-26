@@ -7,7 +7,7 @@
             <v-tab>{{$t('frozen-account-list')}}</v-tab>
           </v-tabs>
           <v-card-actions>
-            <v-btn @click="openFreezeDialog()">{{$t('freeze')}}</v-btn>
+            <v-btn @click="openPassphraseDialog()">{{$t('freeze')}}</v-btn>
             <v-btn>{{$t('unfreeze')}}</v-btn>
           </v-card-actions>
           <v-card-text>
@@ -16,19 +16,19 @@
         </v-layout>
       </v-container>
     </v-card>
-    <freeze-dialog ref="freezeDialog" :freeze="freeze"/>
+    <passphrase-dialog ref="passphraseDialog" :callback="freeze" showUnit="true"/>
   </div>
 </template>
 
 <script>
-  import FreezeDialog from './FreezeDialog';
+  import PassphraseDialog from './PassphraseDialog';
   import FreezeAccountListItem from './FreezeAccountListItem';
 
   export default {
     name: 'wallet-freeze-section',
     props: ['address'],
     components: {
-      FreezeDialog,
+      PassphraseDialog,
       FreezeAccountListItem,
     },
     data() {
@@ -36,7 +36,7 @@
       };
     },
     methods: {
-      freeze(amount, passphrase) {
+      freeze({ amount, passphrase }) {
         return this.$store.dispatch('freeze', { address: this.address, amount, passphrase })
           .then(() => this.loadOps());
       },
@@ -45,8 +45,8 @@
       loadOps() {
         return this.$store.dispatch('loadFrozenAccounts', this.address);
       },
-      openFreezeDialog() {
-        this.$refs.freezeDialog.open();
+      openPassphraseDialog() {
+        this.$refs.passphraseDialog.open();
       },
       tick() {
         this.loadOps();

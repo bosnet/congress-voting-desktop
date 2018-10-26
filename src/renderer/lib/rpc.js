@@ -26,6 +26,7 @@ class RPC {
       .get(`${this.membershipEndpoint}/api/v1/memberships/${address}`)
       .then(res => res.data);
   }
+
   getSumsubAccessToken(address) {
     return client
       .get(`${this.membershipEndpoint}/api/v1/memberships/sumsub/access-token/${address}`)
@@ -85,6 +86,11 @@ class RPC {
   vote(proposalId, payload) {
     return client
       .post(`${this.membershipEndpoint}/api/v1/proposals/${proposalId}/vote`, payload, { headers: HEADERS });
+  }
+
+  registerPreMembership(payload) {
+    return client
+      .post(`${this.membershipEndpoint}/api/v1/memberships`, payload, { headers: HEADERS });
   }
 }
 

@@ -83,6 +83,20 @@ const actions = {
     });
   },
 
+  async preMembership({ dispatch, getters }, { address, applicantId, passphrase }) {
+    const res = await getters.getWallet(address);
+    const seed = wallet.decryptWallet(passphrase, res.data);
+    const array = [address, applicantId];
+    const payload = {
+      data: array,
+      signature: '',
+    };
+
+    const hash = await wallet.hash(array);
+    payload.signature = wallet.sign(seed, hash);
+    await dispatch('sendPreMembershipTx', payload);
+  },
+
   freeze({ dispatch, getters }, { address, amount, passphrase }) {
     return Promise.all([
       remoteRPC.getAccount(address),

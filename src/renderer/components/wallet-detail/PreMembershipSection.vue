@@ -8,6 +8,7 @@
     </div>
     <div v-else>
       <div id="idensic"></div>
+      <passphrase-dialog ref="passphraseDialog" :callback="registerPreMembership"/>
     </div>
   </section>
 </template>
@@ -16,12 +17,14 @@
   import config from 'config';
   import idensic from '@/lib/idensic';
 
+  import PassphraseDialog from './PassphraseDialog';
   import joiningMembershipImg from './../../assets/svg/joining-membership.svg';
 
   export default {
     name: 'wallet-membership-section',
     props: ['address'],
     components: {
+      PassphraseDialog,
     },
     data() {
       return {
@@ -80,12 +83,23 @@
               if (messageType === 'idCheck.onApplicantCreated') {
                 this.applicantId = payload.applicantId;
               } else if (messageType === 'idCheck.onApplicantSubmitted') {
-                // TODO: send this.applicantId to voting server.
+                this.openPassphraseDialog();
               }
             },
           );
         });
         return true;
+      },
+      async registerPreMembership({ passphrase }) {
+        await this.$store.dispatch('preMembership', {
+          address: this.address,
+          applicantId: this.applicantId,
+          passphrase,
+        });
+        this.$router.push('/');
+      },
+      openPassphraseDialog() {
+        this.$refs.passphraseDialog.open();
       },
     },
   };

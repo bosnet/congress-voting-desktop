@@ -79,6 +79,12 @@ const actions = {
 
     return intercept({ commit, dispatch }).request(Promise.all(requests)).get();
   },
+
+  sendPreMembershipTx({ commit, dispatch }, payload) {
+    return intercept({ commit, dispatch })
+      .request(remoteRPC.registerPreMembership(payload))
+      .get();
+  },
 };
 
 const mutations = {
