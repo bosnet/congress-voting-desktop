@@ -13,12 +13,14 @@
           <span :class="['status', membershipStatus]">{{membershipStatusText}}</span>
         </div>
       </header>
-      <component :is="walletChildContainer" :address="wallet.address">
+      <component
+          :is="walletChildContainer"
+          :address="wallet.address"
+          :settingsMenu="settingsMenu"
+          v-on:updateStatus="updateStatus"
+      >
         <slot/>
       </component>
-      <v-card-actions>
-        <v-btn @click="hide">remove</v-btn>
-      </v-card-actions>
     </div>
   </v-container>
 </template>
@@ -28,6 +30,7 @@
   import PreMembershipSection from './wallet-detail/PreMembershipSection';
   import AccountSection from './wallet-detail/AccountSection';
   import Sidebar from './wallet-detail/Sidebar';
+  import SettingsSection from './wallet-detail/settings/SettingsSection';
 
   export default {
     name: 'wallet-detail-page',
@@ -41,14 +44,13 @@
         title: '',
         address: {},
         activeMenu: '',
+        settingsMenu: '',
       };
     },
     methods: {
-      hide() {
-        this.$store.dispatch('deleteWalletByAddress', this.address)
-          .then(() => {
-            this.$router.push('/wallets');
-          });
+      async updateStatus() {
+        const w = await this.$store.getters.getWallet(this.address);
+        this.$data.wallet = w;
       },
     },
     computed: {
@@ -60,6 +62,26 @@
             return ProposalSection;
           }
           return PreMembershipSection;
+        } else if (this.$route.hash === '#settings-account') {
+          this.title = 'Settings';
+          this.activeMenu = 'settings';
+          this.settingsMenu = 'account';
+          return SettingsSection;
+        } else if (this.$route.hash === '#settings-recovery') {
+          this.title = 'Settings';
+          this.activeMenu = 'settings';
+          this.settingsMenu = 'recovery';
+          return SettingsSection;
+        } else if (this.$route.hash === '#settings-seed') {
+          this.title = 'Settings';
+          this.activeMenu = 'settings';
+          this.settingsMenu = 'seed';
+          return SettingsSection;
+        } else if (this.$route.hash === '#settings-membership') {
+          this.title = 'Settings';
+          this.activeMenu = 'settings';
+          this.settingsMenu = 'delete';
+          return SettingsSection;
         }
 
         this.title = 'Account';

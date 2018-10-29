@@ -8,9 +8,9 @@
         :notify="notify"
         v-for="wallet in wallets"
     />
-    <transition name="wallet-list-warn-slide">
+    <transition name="toast-warn-slide">
       <div class="toast" v-show="showEmptyAccountWarning">
-        <span class="warn">{{$t('To create your account, depositing over 1 BOS')}}</span>
+        <span class="toast-warn">{{$t('To create your account, depositing over 1 BOS')}}</span>
       </div>
     </transition>
   </div>
@@ -47,41 +47,5 @@
     color: #869aae;
     text-align: center;
     margin-bottom: 20px;
-  }
-
-  .WalletList .toast {
-    position: fixed;
-    bottom: 47px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-  }
-
-  .WalletList .warn {
-    height: 30px;
-    display: inline-block;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.34);
-    background-color: #353a3f;
-    padding: 5px 30px;
-    font-size: 13px;
-    color: #ffffff;
-  }
-
-  .wallet-list-warn-slide-enter-active {
-    animation: wallet-list-warn-slide-in .2s;
-  }
-  .wallet-list-warn-slide-leave-active {
-    animation: wallet-list-warn-slide-in .2s reverse;
-  }
-  @keyframes wallet-list-warn-slide-in {
-    0% {
-      transform: translateY(30px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
   }
 </style>

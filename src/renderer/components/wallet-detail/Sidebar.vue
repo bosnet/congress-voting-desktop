@@ -15,9 +15,31 @@
     </nav>
     <footer>
       <ul>
-        <li class="setting">
-          <!-- TODO: link setting -->
-          <router-link to="#">Setting</router-link>
+        <li :class="{setting: true, on: (activeMenu === 'settings')}">
+          <v-menu
+            v-model="showMenu"
+            absolute
+            top
+            transition="slide-y-reverse-transition"
+          >
+            <a slot="activator">Settings</a>
+            <div class="SidebarSettingMenu">
+              <ul>
+                <li>
+                  <router-link :to="`/wallet/${address}/#settings-account`">Edit Account</router-link>
+                </li>
+                <li>
+                  <router-link :to="`/wallet/${address}/#settings-recovery`">Confirm Recovery Key</router-link>
+                </li>
+                <li>
+                  <router-link :to="`/wallet/${address}/#settings-seed`">Confirm Secret Seed</router-link>
+                </li>
+                <li>
+                  <router-link :to="`/wallet/${address}/#settings-membership`">Delete Membership</router-link>
+                </li>
+              </ul>
+            </div>
+          </v-menu>
         </li>
         <li class="home">
           <router-link to="/">Home</router-link>
@@ -36,6 +58,7 @@
     data() {
       return {
         logo,
+        showMenu: false,
       };
     },
   };
@@ -153,5 +176,56 @@
   .Sidebar footer li.home.on a:before,
   .Sidebar footer li.home:active a:before {
     background: url(../../assets/svg/navi-home-on.svg);
+  }
+
+  .Sidebar footer li.setting .v-menu {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .Sidebar footer li.setting .v-menu div {
+    width: 100%;
+    height: 100%;
+  }
+
+  .SidebarSettingMenu {
+    width: 173px;
+    border-radius: 2px;
+    box-shadow: 0 0 10px 0 rgba(57, 103, 148, 0.35);
+    background-color: #ffffff;
+    padding: 10px 0;
+  }
+
+  .SidebarSettingMenu ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .SidebarSettingMenu ul li {
+    height: 45px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333333;
+  }
+
+  .SidebarSettingMenu ul li:hover {
+    background-color: #3c92e4;
+    color: #fff;
+  }
+
+  .SidebarSettingMenu ul li a {
+    text-decoration: none;
+    color: #333333;
+    padding: 0 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .SidebarSettingMenu ul li:hover a {
+    color: #fff;
   }
 </style>

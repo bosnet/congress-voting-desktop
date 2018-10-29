@@ -37,5 +37,18 @@
   "membership benefit": "프리징 리워드 | 500 BOS 지급 | BOS 에어드랍",
   "registering membership": "멤버쉽 등록하기",
   "agreement text": "이용 약관",
-  "privacy text": "개인정보 이용 동의"
+  "privacy text": "개인정보 이용 동의",
+  "edit account": "계좌정보 변경",
+  "confirm recovery key": "복구키 확인",
+  "confirm secret seed": "보안키 확인",
+  "delete membership": "멤버쉽 탈퇴",
+  "your account alias": "계좌 이름",
+  "modify": "수정하기",
+  "modified": "수정되었습니다",
+  "recovery key": "복구키",
+  "please keep your recovery key safely": "이 복구키는 지갑에 이 계좌를 불러올 때 사용합니다. 다른 사람이 알지 않도록 보안에 유의하세요!",
+  "do not use the account no longer": "계좌를 더이상 사용하지 않는다면?",
+  "deleting account": "계좌 삭제하기",
+  "account alias is required": "계좌 이름이 없습니다.",
+  "please back the account up before deleting it": "백업하지 않고 계좌를 삭제하면 복구할 수 없습니다"
 }
