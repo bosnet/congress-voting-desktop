@@ -23,6 +23,7 @@
 <script>
   import EditAccount from './EditAccount';
   import RecoveryKey from './RecoveryKey';
+  import SecretSeed from './SecretSeed';
 
   export default {
     name: 'wallet-detail-settings',
@@ -55,13 +56,17 @@
     methods: {
       getContainer(name) {
         if (name === 'recovery') {
+          this.$router.push(`/wallet/${this.address}/#settings-recovery`);
           return RecoveryKey;
         } else if (name === 'seed') {
-          return EditAccount;
+          this.$router.push(`/wallet/${this.address}/#settings-seed`);
+          return SecretSeed;
         } else if (name === 'delete') {
+          this.$router.push(`/wallet/${this.address}/#settings-membership`);
           return EditAccount;
         }
 
+        this.$router.push(`/wallet/${this.address}/#settings-account`);
         return EditAccount;
       },
       async updateStatus() {

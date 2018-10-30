@@ -65,7 +65,6 @@
   import Helper from '@/lib/helper';
 
   import RecoverKeyIcon from '../../../assets/svg/import-method-recovery-key.svg';
-  import RecoverKeyOnIcon from '../../../assets/svg/import-method-recovery-key-on.svg';
   import successIcon from '../../../assets/svg/input-success.svg';
   import errorIcon from '../../../assets/svg/input-error.svg';
 
@@ -75,7 +74,6 @@
     data() {
       return {
         icon: RecoverKeyIcon,
-        iconOn: RecoverKeyOnIcon,
         addressCopied: false,
         showMessage: false,
         message: '',
@@ -199,15 +197,15 @@
   }
 
   .SettingsRecoveryKeyBody > span {
-    width: 300px;
+    width: 400px;
     display: block;
+    word-break: keep-all;
   }
 
   .SettingsRecoveryKeyBody hr {
     margin-top: 30px;
     margin-bottom: 30px;
     border: 1px solid #f1f2f3;
-
   }
 
   .SettingsRecoveryKeyBody .recovery {
