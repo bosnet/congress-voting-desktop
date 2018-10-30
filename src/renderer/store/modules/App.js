@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const state = {
-  requestErrors: [],
+  errors: [],
   requestCount: 0,
   lastRequestTs: 0,
 };
@@ -14,10 +14,10 @@ const mutations = {
   END_REQUEST(state) {
     state.requestCount -= 1;
   },
-  ERROR_REQUEST(state, error) {
-    state.requestErrors.push(error);
-    if (state.requestErrors.length > 10) {
-      state.requestErrors = state.requestErrors.slice(0, 10);
+  ERROR(state, error) {
+    state.errors.push(error);
+    if (state.errors.length > 1000) {
+      state.errors = state.errors.slice(state.errors.length - 1000);
     }
   },
 };
@@ -29,8 +29,17 @@ const actions = {
   requestEnd({ commit }) {
     commit('END_REQUEST');
   },
+  walletError({ commit }, error) {
+    commit('ERROR', {
+      type: 'wallet',
+      error,
+    });
+  },
   requestError({ commit }, error) {
-    commit('ERROR_REQUEST', error);
+    commit('ERROR', {
+      type: 'rpc',
+      error,
+    });
   },
 };
 

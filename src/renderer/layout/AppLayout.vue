@@ -8,15 +8,19 @@
 
 <script>
   export default {
-    name: 'drawer-layout',
+    name: 'root',
+    components: {
+    },
     data() {
       return {
         timer: null,
       };
     },
+    methods: {
+    },
     computed: {
-      requestErrors() {
-        return this.$store.state.Layout.requestErrors;
+      errors() {
+        return this.$store.state.App.errors;
       },
     },
     created() {

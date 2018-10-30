@@ -5,27 +5,16 @@
 </template>
 
 <script>
-  import DrawerLayout from '@/components/layout/DrawerLayout';
+  import AppLayout from '@/layout/AppLayout';
 
   export default {
     name: 'boscoin-wallet',
-    data: () => ({
-      title: null,
-    }),
     components: {
-      DrawerLayout,
-    },
-    mounted() {
-      this.title = this.$route.name;
+      AppLayout,
     },
     computed: {
       component() {
-        return DrawerLayout;
-      },
-    },
-    watch: {
-      $route() {
-        this.title = this.$route.name;
+        return AppLayout;
       },
     },
   };
