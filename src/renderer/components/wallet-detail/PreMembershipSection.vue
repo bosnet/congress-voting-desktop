@@ -38,7 +38,7 @@
         if (this.address != null) {
           return this.$store.getters.getSumsubAccessToken(this.address);
         }
-        return null;
+        return {};
       },
     },
     watch: {

@@ -50,5 +50,9 @@
   "do not use the account no longer": "계좌를 더이상 사용하지 않는다면?",
   "deleting account": "계좌 삭제하기",
   "account alias is required": "계좌 이름이 없습니다.",
-  "please back the account up before deleting it": "백업하지 않고 계좌를 삭제하면 복구할 수 없습니다"
+  "please back the account up before deleting it": "백업하지 않고 계좌를 삭제하면 복구할 수 없습니다",
+  "copy": "복사하기",
+  "changing passphrase": "비밀번호 변경",
+  "enter your old passphrase": "기존 비밀번호를 입력하세요",
+  "passphrase is wrong": "잘못된 비밀번호입니다"
 }

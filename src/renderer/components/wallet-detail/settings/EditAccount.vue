@@ -37,12 +37,12 @@
 
   export default {
     name: 'wallet-settings-edit-account',
-    props: ['address'],
+    props: ['wallet'],
     components: {
     },
     data() {
       return {
-        alias: '',
+        alias: this.wallet.title,
         aliasRules: [
           v => !!v || 'account alias is required',
         ],
@@ -50,14 +50,6 @@
         dialog: false,
         closeIcon,
       };
-    },
-    asyncComputed: {
-      wallet() {
-        if (this.address != null) {
-          return this.$store.getters.getWallet(this.address);
-        }
-        return {};
-      },
     },
     watch: {
       wallet(w) {
@@ -68,7 +60,7 @@
       async update() {
         await this.$store.dispatch('updateWallet', {
           title: this.$refs.aliasText.internalValue,
-          address: this.address,
+          address: this.wallet.address,
         });
         this.$emit('updateStatus');
         this.showMessage = true;

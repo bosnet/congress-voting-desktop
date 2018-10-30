@@ -11,7 +11,7 @@
     <div class="content">
       <component
           :is="settingsBodyContainer"
-          :address="address"
+          :wallet="wallet"
           v-on:updateStatus="updateStatus"
       >
         <slot/>
@@ -27,42 +27,46 @@
   export default {
     name: 'wallet-detail-settings',
     props: ['settingsMenu', 'address'],
-    components: {
-    },
     data() {
       return {
         menu: this.settingsMenu,
-        settingsBodyContainer: this.getContainer(),
+        settingsBodyContainer: this.getContainer(this.settingsMenu),
       };
-    },
-    computed: {
     },
     watch: {
       menu(name) {
-        if (name === 'recovery') {
-          this.settingsBodyContainer = RecoveryKey;
-        } else if (name === 'seed') {
-          this.settingsBodyContainer = EditAccount;
-        } else if (name === 'delete') {
-          this.settingsBodyContainer = EditAccount;
-        }
-
-        this.settingsBodyContainer = EditAccount;
+        this.settingsBodyContainer = this.getContainer(name);
+      },
+      settingsMenu(name) {
+        this.menu = name;
+      },
+    },
+    asyncComputed: {
+      wallet: {
+        get() {
+          if (this.address != null) {
+            return this.$store.getters.getWallet(this.address);
+          }
+          return {};
+        },
+        default: {},
       },
     },
     methods: {
-      getContainer() {
-        if (this.settingsMenu === 'recovery') {
+      getContainer(name) {
+        if (name === 'recovery') {
           return RecoveryKey;
-        } else if (this.settingsMenu === 'seed') {
+        } else if (name === 'seed') {
           return EditAccount;
-        } else if (this.settingsMenu === 'delete') {
+        } else if (name === 'delete') {
           return EditAccount;
         }
 
         return EditAccount;
       },
-      updateStatus() {
+      async updateStatus() {
+        const w = await this.$store.getters.getWallet(this.address);
+        this.$data.wallet = w;
         this.$emit('updateStatus');
       },
     },
@@ -71,7 +75,8 @@
 
 <style>
   .SettingsSection {
-
+    height: 615px;
+    overflow-y: auto;
   }
 
   .SettingsSection .tabs {

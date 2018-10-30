@@ -58,7 +58,7 @@
         dialog: false,
         passphrase: null,
         passphraseRules: [
-          v => !!v || 'Passphrase is required',
+          v => !!v || this.$t('enter your passphrase'),
         ],
         amount: null,
         amountRules: [
