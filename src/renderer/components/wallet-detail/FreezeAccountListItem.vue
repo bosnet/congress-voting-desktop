@@ -3,7 +3,8 @@
     <v-list subheader three-line>
       <v-list-tile>
         <v-list-tile-action>
-          <v-checkbox v-model="item.checked" />
+          <v-checkbox v-model="checked" :disabled="!valid"
+                      @change="$emit('change', {address: item.address, sequence_id: item.sequence_id, amount: item.amount})" />
         </v-list-tile-action>
 
         <v-list-tile-content>
@@ -21,5 +22,18 @@
   export default {
     name: 'wallet-freeze-item',
     props: ['item'],
+    data() {
+      return {
+        checked: false,
+      };
+    },
+    computed: {
+      valid() {
+        if (this.item.state === 'frozen') {
+          return true;
+        }
+        return false;
+      },
+    },
   };
 </script>

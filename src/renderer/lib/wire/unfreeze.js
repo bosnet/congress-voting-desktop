@@ -3,7 +3,7 @@ import { Op } from './tx';
 export default class UnfreezeAccountOp extends Op {
   nestedArrays() { // eslint-disable-line class-methods-use-this
     return [
-      ['unfreeze'],
+      ['unfreezing-request'],
       [],
     ];
   }
@@ -11,7 +11,7 @@ export default class UnfreezeAccountOp extends Op {
   json() { // eslint-disable-line class-methods-use-this
     return {
       H: {
-        type: 'unfreeze',
+        type: 'unfreezing-request',
       },
       B: {},
     };

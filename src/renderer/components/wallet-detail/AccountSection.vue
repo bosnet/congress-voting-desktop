@@ -8,10 +8,10 @@
           </v-tabs>
           <v-card-actions>
             <v-btn @click="openPassphraseDialog()">{{$t('freeze')}}</v-btn>
-            <v-btn>{{$t('unfreeze')}}</v-btn>
+            <v-btn @click="unfreeze()">{{$t('unfreeze')}}</v-btn>
           </v-card-actions>
           <v-card-text>
-            <freeze-account-list-item :item="item" v-for="item in frozenAccounts"/>
+            <freeze-account-list-item ref="items" :item="item" v-for="item in frozenAccounts"/>
           </v-card-text>
         </v-layout>
       </v-container>
@@ -41,6 +41,24 @@
           .then(() => this.loadOps());
       },
       unfreeze() {
+        const accounts = [];
+        for (let i = 0; i < this.$refs.items.length; i += 1) {
+          const ref = this.$refs.items[i];
+          if (ref.checked) {
+            accounts.push({
+              address: ref.item.address,
+              sequence_id: ref.item.sequence_id,
+              amount: ref.item.amount,
+            });
+          }
+        }
+        this.$parent.promptPassphrase(`${accounts.length}개 언프리즈`).then(passphrase =>
+          accounts.map(account => this.$store.dispatch('unfreeze', {
+            ownerAddress: this.address,
+            address: account.address,
+            sequence_id: account.sequence_id,
+            passphrase,
+          })));
       },
       loadOps() {
         return this.$store.dispatch('loadFrozenAccounts', this.address);

@@ -22,6 +22,7 @@
         <slot/>
       </component>
     </div>
+    <passphrase-dialog ref="passphraseDialog"/>
   </v-container>
 </template>
 
@@ -29,6 +30,7 @@
   import ProposalSection from './wallet-detail/ProposalSection';
   import PreMembershipSection from './wallet-detail/PreMembershipSection';
   import AccountSection from './wallet-detail/AccountSection';
+  import PassphraseDialog from './PassphraseDialog';
   import Sidebar from './wallet-detail/Sidebar';
   import SettingsSection from './wallet-detail/settings/SettingsSection';
 
@@ -38,6 +40,7 @@
       Sidebar,
       ProposalSection,
       AccountSection,
+      PassphraseDialog,
     },
     data() {
       return {
@@ -51,6 +54,12 @@
       async updateStatus() {
         const w = await this.$store.getters.getWallet(this.address);
         this.$data.wallet = w;
+      },
+      promptPassphrase(title) {
+        return new Promise((resolve => this.$refs.passphraseDialog.open({
+          title,
+          confirmCallback: resolve,
+        })));
       },
     },
     computed: {

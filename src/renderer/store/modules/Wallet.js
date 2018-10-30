@@ -129,17 +129,15 @@ const actions = {
     });
   },
 
-  unfreeze({ dispatch, getters }, { ownerAddress, passphrase, op }) {
+  unfreeze({ dispatch, getters }, { ownerAddress, address, passphrase, sequenceId }) {
     return Promise.all([
-      remoteRPC.getTransaction(op.tx_hash),
-      remoteRPC.getAccount(op.target),
+      remoteRPC.getAccount(address),
       getters.getWallet(ownerAddress),
     ]).then((res) => {
-      const tx = res[0];
-      const source = res[1];
-      const encryptedWallet = res[2].data;
+      const source = res[0];
+      const encryptedWallet = res[1].data;
       const seed = wallet.decryptWallet(passphrase, encryptedWallet);
-      const sourceKeyPair = wallet.createFreezeAccount(seed, tx.sequence_id);
+      const sourceKeyPair = wallet.createFreezeAccount(seed, sequenceId);
       const data = wire.createUnfreezeRequestTx(
         sourceKeyPair.publicKey(),
         config.get('fee'),
@@ -147,7 +145,7 @@ const actions = {
       );
 
       return wallet.hash(data.nestedArrays()).then((hash) => {
-        data.updateSignature(wallet.sign(seed, hash));
+        data.updateSignature(wallet.sign(sourceKeyPair.secret(), hash));
         return dispatch('sendTx', data.json());
       });
     });
