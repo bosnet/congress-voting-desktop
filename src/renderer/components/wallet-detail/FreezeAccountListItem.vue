@@ -3,8 +3,7 @@
     <v-list subheader three-line>
       <v-list-tile>
         <v-list-tile-action>
-          <v-checkbox v-model="checked" :disabled="!valid"
-                      @change="$emit('change', {address: item.address, sequence_id: item.sequence_id, amount: item.amount})" />
+          <v-checkbox v-model="checked" :disabled="!valid"/>
         </v-list-tile-action>
 
         <v-list-tile-content>
@@ -29,10 +28,7 @@
     },
     computed: {
       valid() {
-        if (this.item.state === 'frozen') {
-          return true;
-        }
-        return false;
+        return this.item.state === 'frozen' || this.item.state === 'unfrozen';
       },
     },
   };

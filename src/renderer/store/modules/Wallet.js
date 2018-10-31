@@ -165,7 +165,29 @@ const actions = {
         balance.minus(config.get('fee')).toNumber(),
         config.get('fee'),
         res[0].sequence_id,
-        account.publicKey(),
+        address,
+      );
+
+      return wallet.hash(tx.nestedArrays()).then((hash) => {
+        tx.updateSignature(wallet.sign(account.secret(), hash));
+        return dispatch('sendTx', tx.json());
+      });
+    });
+  },
+
+  payment({ dispatch, getters }, { address, target, amount, passphrase }) {
+    return Promise.all([
+      remoteRPC.getAccount(address),
+      getters.getWallet(address),
+    ]).then((res) => {
+      const sequenceId = res[0].sequence_id;
+      const seed = wallet.decryptWallet(passphrase, res[1].data);
+      const tx = wire.createPaymentTx(
+        address,
+        amount,
+        config.get('fee'),
+        sequenceId,
+        target,
       );
 
       return wallet.hash(tx.nestedArrays()).then((hash) => {
