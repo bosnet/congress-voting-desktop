@@ -129,6 +129,34 @@ const actions = {
     });
   },
 
+  unfreezeAll({ dispatch, getters }, { ownerAddress, passphrase }) {
+    return Promise.all([
+      remoteRPC.getFrozenAccounts(ownerAddress),
+      getters.getWallet(ownerAddress),
+    ]).then((res) => {
+      const records = res[0]._embedded.records || []; // eslint-disable-line no-underscore-dangle,
+      const encryptedWallet = res[1].data;
+      const seed = wallet.decryptWallet(passphrase, encryptedWallet);
+      const frozenAccounts = records.filter(account => account.state === 'frozen');
+
+      return Promise.all(frozenAccounts.map(account => remoteRPC.getAccount(account.address)))
+        .then(accounts => Promise.all(
+          accounts.map((account, i) => [frozenAccounts[i].sequence_id, account.sequence_id])
+            .map((ids) => {
+              const kp = wallet.createFreezeAccount(seed, ids[0]);
+              const data = wire.createUnfreezeRequestTx(
+                kp.publicKey(),
+                config.get('fee'),
+                ids[1],
+              );
+              return wallet.hash(data.nestedArrays()).then((hash) => {
+                data.updateSignature(wallet.sign(kp.secret(), hash));
+                return dispatch('sendTx', data.json());
+              })
+            })));
+    });
+  },
+
   unfreeze({ dispatch, getters }, { ownerAddress, address, passphrase, sequenceId }) {
     return Promise.all([
       remoteRPC.getAccount(address),
