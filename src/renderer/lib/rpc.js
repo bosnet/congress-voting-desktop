@@ -92,6 +92,11 @@ class RPC {
     return client
       .post(`${this.membershipEndpoint}/api/v1/memberships`, payload, { headers: HEADERS });
   }
+
+  deregisterMembership(address, signature) {
+    return client
+      .delete(`${this.membershipEndpoint}/api/v1/memberships/${address}?sig=${signature}`, { headers: HEADERS });
+  }
 }
 
 const remoteRPC = new RPC({

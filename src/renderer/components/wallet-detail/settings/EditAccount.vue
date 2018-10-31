@@ -69,7 +69,7 @@
         }, 2000);
       },
       async deleteAccount() {
-        await this.$store.dispatch('deleteWalletByAddress', this.address);
+        await this.$store.dispatch('deleteWalletByAddress', this.wallet.address);
         this.$router.push('/wallets');
         this.dialog = false;
       },

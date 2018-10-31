@@ -97,6 +97,15 @@ const actions = {
     await dispatch('sendPreMembershipTx', payload);
   },
 
+  async deregisterMembership({ dispatch, getters }, { address, passphrase }) {
+    const res = await getters.getWallet(address);
+    const seed = wallet.decryptWallet(passphrase, res.data);
+
+    const hash = await wallet.hash([address]);
+    const signature = wallet.sign(seed, hash);
+    await dispatch('sendDeregisterMembershipTx', { address, signature });
+  },
+
   freeze({ dispatch, getters }, { address, amount, passphrase }) {
     return Promise.all([
       remoteRPC.getAccount(address),

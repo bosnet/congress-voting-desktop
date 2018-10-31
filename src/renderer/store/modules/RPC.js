@@ -18,7 +18,10 @@ class Request {
   get() {
     this.dispatch('requestStart');
     return this.instance
-      .catch(res => this.dispatch('requestError', res.response))
+      .catch((res) => {
+        this.dispatch('requestError', res.response);
+        return this.instance;
+      })
       .finally(() => this.dispatch('requestEnd'));
   }
 }
@@ -83,6 +86,12 @@ const actions = {
   sendPreMembershipTx({ commit, dispatch }, payload) {
     return intercept({ commit, dispatch })
       .request(remoteRPC.registerPreMembership(payload))
+      .get();
+  },
+
+  sendDeregisterMembershipTx({ commit, dispatch }, { address, signature }) {
+    return intercept({ commit, dispatch })
+      .request(remoteRPC.deregisterMembership(address, signature))
       .get();
   },
 };

@@ -54,5 +54,15 @@
   "copy": "복사하기",
   "changing passphrase": "비밀번호 변경",
   "enter your old passphrase": "기존 비밀번호를 입력하세요",
-  "passphrase is wrong": "잘못된 비밀번호입니다"
+  "passphrase is wrong": "잘못된 비밀번호입니다",
+  "deregistering your membership guide": "멤버쉽 탈퇴 안내",
+  "please read following before deregistering your membership": "멤버쉽 탈퇴를 신청하기 전에 안내 사항을 꼭 확인해 주세요",
+  "deregistirng membership warning message 1": "사용하고 계신 멤버쉽을 탈퇴할 경우 재사용 및 복구가 불가능합니다",
+  "deregistirng membership warning message 2": "멤버쉽 해지를 하면 투표하신 투표도 무효처리됩니다",
+  "deregistirng membership warning message 3": "해지 후에는 관련 멤버쉽 정보가 모두 삭제됩니다",
+  "deregistirng membership warning message 4": "멤버쉽 계좌를 변경하시려면 멤버쉽 탈퇴 후, 다시 등록하셔야 합니다",
+  "deregistirng membership warning message 5": "콩그레스 보팅이 진행중인 경우, 투표 집계를 위해 콩그레스 보팅이 끝날 때까지 멤버쉽을 탈퇴할 수 없습니다",
+  "deregistering your membership": "멤버쉽 해지하기",
+  "your membership is deregistered": "멤버쉽이 해지되었습니다",
+  "something is wrong": "오류가 발생했습니다. 잠시 후에 다시 시도해주세요"
 }

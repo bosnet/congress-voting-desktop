@@ -24,6 +24,7 @@
   import EditAccount from './EditAccount';
   import RecoveryKey from './RecoveryKey';
   import SecretSeed from './SecretSeed';
+  import DeleteMembership from './DeleteMembership';
 
   export default {
     name: 'wallet-detail-settings',
@@ -63,7 +64,7 @@
           return SecretSeed;
         } else if (name === 'delete') {
           this.$router.push(`/wallet/${this.address}/#settings-membership`);
-          return EditAccount;
+          return DeleteMembership;
         }
 
         this.$router.push(`/wallet/${this.address}/#settings-account`);
@@ -90,14 +91,14 @@
     background-color: #fff;
   }
 
-  .SettingsSection ul {
+  .SettingsSection .tabs ul {
     list-style: none;
     padding: 0;
     height: 45px;
     display: flex;
   }
 
-  .SettingsSection ul li {
+  .SettingsSection .tabs ul li {
     margin: 0 10px;
     font-size: 13px;
     color: #607481;
@@ -108,8 +109,8 @@
     border-bottom: 2px solid #ffffff;
   }
 
-  .SettingsSection ul li.on,
-  .SettingsSection ul li:hover {
+  .SettingsSection .tabs ul li.on,
+  .SettingsSection .tabs ul li:hover {
     color: #3c92e4;
     border-bottom: 2px solid #3c92e4;;
   }
