@@ -60,12 +60,12 @@
   import Wallet from '@/lib/wallet';
   import Helper from '@/lib/helper';
 
-  import RecoverKeyIcon from '../../../assets/svg/import-method-recovery-key.svg';
-  import successIcon from '../../../assets/svg/input-success.svg';
-  import errorIcon from '../../../assets/svg/input-error.svg';
+  import RecoverKeyIcon from '../../assets/svg/import-method-recovery-key.svg';
+  import successIcon from '../../assets/svg/input-success.svg';
+  import errorIcon from '../../assets/svg/input-error.svg';
 
   export default {
-    name: 'wallet-settings-recovery-key',
+    name: 'bos-wallet-settings-recovery-key',
     props: ['wallet'],
     data() {
       return {

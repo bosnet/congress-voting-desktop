@@ -19,10 +19,10 @@
 </template>
 
 <script>
-  import PassphraseDialog from '../PassphraseDialog';
+  import PassphraseDialog from './PassphraseDialog';
 
   export default {
-    name: 'wallet-settings-delete-membership',
+    name: 'bos-wallet-settings-delete-membership',
     props: ['wallet'],
     components: {
       PassphraseDialog,

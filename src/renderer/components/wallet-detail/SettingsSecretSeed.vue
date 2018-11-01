@@ -22,13 +22,12 @@
 <script>
   import Wallet from '@/lib/wallet';
   import Helper from '@/lib/helper';
+  import SecretSeedIcon from '@/assets/svg/import-method-seed.svg';
 
-  import PassphraseDialog from '../PassphraseDialog';
-
-  import SecretSeedIcon from '../../../assets/svg/import-method-seed.svg';
+  import PassphraseDialog from './PassphraseDialog';
 
   export default {
-    name: 'wallet-settings-secret-seed',
+    name: 'bos-wallet-settings-secret-seed',
     props: ['wallet'],
     components: {
       PassphraseDialog,

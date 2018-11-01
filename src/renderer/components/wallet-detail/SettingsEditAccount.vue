@@ -29,10 +29,10 @@
 </template>
 
 <script>
-  import closeIcon from '../../../assets/svg/close.svg';
+  import closeIcon from '@/assets/svg/close.svg';
 
   export default {
-    name: 'wallet-settings-edit-account',
+    name: 'bos-wallet-settings-edit-account',
     props: ['wallet'],
     components: {
     },
