@@ -50,14 +50,15 @@
 </template>
 
 <script>
-  import logo from '../../assets/svg/logo.svg';
+  import logo from '@/assets/svg/logo.svg';
 
   export default {
-    name: 'wallet-detail-sidebar',
-    props: ['activeMenu', 'address', 'membershipStatus'],
+    name: 'bos-wallet-sidebar',
+    props: ['activeMenu', 'wallet'],
     data() {
       return {
         logo,
+        address: this.wallet.address,
         showMenu: false,
       };
     },
