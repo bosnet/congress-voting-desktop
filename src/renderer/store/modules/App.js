@@ -3,7 +3,6 @@ import moment from 'moment';
 const state = {
   currentWallet: null,
   errors: [],
-  messages: [],
   requestCount: 0,
   lastRequestTs: 0,
 };
@@ -16,9 +15,6 @@ const mutations = {
     if (state.currentWallet && state.currentWallet.address === wallet.address) {
       Object.assign(state.currentWallet, wallet);
     }
-  },
-  ADD_MESSAGE(state, message) {
-    state.messages.push(message);
   },
   START_REQUEST(state) {
     state.requestCount += 1;

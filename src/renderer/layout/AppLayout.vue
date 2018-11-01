@@ -2,6 +2,7 @@
   <v-app>
     <v-content>
       <router-view/>
+      <bos-toast v-model="toast">{{lastMessage}}</bos-toast>
     </v-content>
   </v-app>
 </template>
@@ -14,6 +15,8 @@
     data() {
       return {
         timer: null,
+        toast: false,
+        lastMessage: null,
       };
     },
     methods: {
@@ -25,6 +28,10 @@
     },
     created() {
       this.timer = setInterval(() => this.$root.$emit('tick'), 10000);
+      this.$root.$on('toast', (message) => {
+        this.toast = true;
+        this.lastMessage = message;
+      });
     },
     destroyed() {
       clearInterval(this.timer);
