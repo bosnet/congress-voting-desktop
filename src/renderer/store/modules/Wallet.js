@@ -58,7 +58,7 @@ const actions = {
   loadWallets({ commit, dispatch }) {
     return db.wallets.toArray().then((wallets) => {
       for (let i = 0; i < wallets.length; i += 1) {
-        wallets[i].balance = '0';
+        wallets[i].balance = '-';
         wallets[i].membership = null;
       }
       commit('LOAD_WALLETS', wallets);

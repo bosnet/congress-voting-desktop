@@ -57,7 +57,7 @@
     },
     methods: {
       detail() {
-        if (parseInt(this.wallet.balance, 10) === 0) {
+        if (this.wallet.balance === '-' || parseInt(this.wallet.balance, 10) === 0) {
           this.warn('empty');
         } else {
           this.$router.push(`/wallet/${this.wallet.address}`);

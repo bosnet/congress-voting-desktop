@@ -20,7 +20,10 @@ export default (Vue) => {
   Vue.filter('bos', (value) => {
     if (typeof value !== 'number' && typeof value !== 'string') {
       return value;
+    } else if (value === '-') {
+      return '-';
     }
+
     const formatter = new Intl.NumberFormat('en-US', {
       minimumFractionDigits: 0,
       maximumFractionDigits: 8,
