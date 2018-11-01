@@ -58,7 +58,6 @@
           title: this.$refs.aliasText.internalValue,
           address: this.wallet.address,
         });
-        this.$emit('updateStatus');
         this.showMessage = true;
       },
       async deleteAccount() {

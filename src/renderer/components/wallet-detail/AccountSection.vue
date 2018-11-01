@@ -27,7 +27,7 @@
 
   export default {
     name: 'wallet-freeze-section',
-    props: ['address'],
+    props: ['wallet'],
     components: {
       PassphraseDialog,
       FreezeAccountListItem,
@@ -92,7 +92,7 @@
         this.loadOps();
       },
     },
-    created() {
+    mounted() {
       this.$root.$on('tick', this.tick);
       this.$store.dispatch('clearFrozenAccounts');
       this.loadOps();

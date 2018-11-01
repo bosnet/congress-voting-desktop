@@ -2,17 +2,16 @@
   <section class="SettingsSection">
     <div class="tabs">
       <ul>
-        <li :class="{on: (menu === 'account')}" @click="menu = 'account'">{{$t('edit account')}}</li>
-        <li :class="{on: (menu === 'recovery')}" @click="menu = 'recovery'">{{$t('confirm recovery key')}}</li>
-        <li :class="{on: (menu === 'seed')}" @click="menu = 'seed'">{{$t('confirm secret seed')}}</li>
-        <li :class="{on: (menu === 'delete')}" @click="menu = 'delete'">{{$t('delete membership')}}</li>
+        <li :class="{on: (activeMenu === 'account')}" @click="$emit('tab', 'account')">{{$t('edit account')}}</li>
+        <li :class="{on: (activeMenu === 'recovery')}" @click="$emit('tab', 'recovery')">{{$t('confirm recovery key')}}</li>
+        <li :class="{on: (activeMenu === 'seed')}" @click="$emit('tab', 'seed')">{{$t('confirm secret seed')}}</li>
+        <li :class="{on: (activeMenu === 'delete-membership')}" @click="$emit('tab', 'delete-membership')">{{$t('delete membership')}}</li>
       </ul>
     </div>
     <div class="content">
       <component
           :is="settingsBodyContainer"
           :wallet="wallet"
-          v-on:updateStatus="updateStatus"
       >
         <slot/>
       </component>
@@ -28,52 +27,17 @@
 
   export default {
     name: 'wallet-detail-settings',
-    props: ['settingsMenu', 'address'],
-    data() {
-      return {
-        menu: this.settingsMenu,
-        settingsBodyContainer: this.getContainer(this.settingsMenu),
-      };
-    },
-    watch: {
-      menu(name) {
-        this.settingsBodyContainer = this.getContainer(name);
-      },
-      settingsMenu(name) {
-        this.menu = name;
-      },
-    },
-    asyncComputed: {
-      wallet: {
-        get() {
-          if (this.address != null) {
-            return this.$store.getters.getWallet(this.address);
-          }
-          return {};
-        },
-        default: {},
-      },
-    },
-    methods: {
-      getContainer(name) {
-        if (name === 'recovery') {
-          this.$router.push(`/wallet/${this.address}/#settings-recovery`);
+    props: ['activeMenu', 'wallet'],
+    computed: {
+      settingsBodyContainer() {
+        if (this.activeMenu === 'recovery') {
           return RecoveryKey;
-        } else if (name === 'seed') {
-          this.$router.push(`/wallet/${this.address}/#settings-seed`);
+        } else if (this.activeMenu === 'seed') {
           return SecretSeed;
-        } else if (name === 'delete') {
-          this.$router.push(`/wallet/${this.address}/#settings-membership`);
+        } else if (this.activeMenu === 'delete-membership') {
           return DeleteMembership;
         }
-
-        this.$router.push(`/wallet/${this.address}/#settings-account`);
         return EditAccount;
-      },
-      async updateStatus() {
-        const w = await this.$store.getters.getWallet(this.address);
-        this.$data.wallet = w;
-        this.$emit('updateStatus');
       },
     },
   };

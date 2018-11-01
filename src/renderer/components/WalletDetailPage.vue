@@ -15,9 +15,9 @@
       </header>
       <component
           :is="walletChildContainer"
-          :address="wallet.address"
-          :settingsMenu="settingsMenu"
-          v-on:updateStatus="updateStatus"
+          :wallet="wallet"
+          :activeMenu="activeSubMenu"
+          @tab="changeTab"
       >
         <slot/>
       </component>
@@ -28,7 +28,6 @@
 
 <script>
   import ProposalSection from './wallet-detail/ProposalSection';
-  import PreMembershipSection from './wallet-detail/PreMembershipSection';
   import AccountSection from './wallet-detail/AccountSection';
   import Sidebar from './wallet-detail/Sidebar';
   import SettingsSection from './wallet-detail/settings/SettingsSection';
@@ -43,9 +42,9 @@
     data() {
       return {
         title: '',
-        address: {},
+        address: null,
         activeMenu: '',
-        settingsMenu: '',
+        activeSubMenu: '',
       };
     },
     methods: {
@@ -60,44 +59,37 @@
           confirmCallback: resolve,
         })));
       },
+      updateRouteInfo() {
+        const pair = (this.$route.hash || '').split('-');
+        this.activeMenu = (pair[0] || '#account').replace('#', '');
+        this.activeSubMenu = pair.length >= 2 ? pair.slice(1).join('-') : '';
+      },
+      changeTab(tab) {
+        this.$router.push(`/wallet/${this.address}/#${this.activeMenu}-${tab}`);
+      },
     },
     computed: {
+      wallet() {
+        return this.$store.state.App.currentWallet;
+      },
+      membership() {
+        return this.wallet.membership;
+      },
       walletChildContainer() {
-        if (this.$route.hash === '#voting') {
-          this.title = 'Congress Voting';
-          this.activeMenu = 'voting';
-          if (this.membershipStatus === 'active') {
-            return ProposalSection;
-          }
-          return PreMembershipSection;
-        } else if (this.$route.hash === '#settings-account') {
-          this.title = 'Settings';
-          this.activeMenu = 'settings';
-          this.settingsMenu = 'account';
-          return SettingsSection;
-        } else if (this.$route.hash === '#settings-recovery') {
-          this.title = 'Settings';
-          this.activeMenu = 'settings';
-          this.settingsMenu = 'recovery';
-          return SettingsSection;
-        } else if (this.$route.hash === '#settings-seed') {
-          this.title = 'Settings';
-          this.activeMenu = 'settings';
-          this.settingsMenu = 'seed';
-          return SettingsSection;
-        } else if (this.$route.hash === '#settings-membership') {
-          this.title = 'Settings';
-          this.activeMenu = 'settings';
-          this.settingsMenu = 'delete';
-          return SettingsSection;
-        }
+        const defaultContainers = {
+          account: AccountSection,
+          settings: SettingsSection,
+          voting: ProposalSection,
+        };
+        const container = defaultContainers[this.activeMenu];
 
-        this.title = 'Account';
-        this.activeMenu = 'account';
+        if (container) {
+          return container;
+        }
         return AccountSection;
       },
       membershipStatus() {
-        if (this.membership) {
+        if (this.membership && this.membership.status) {
           return this.membership.status;
         }
         return '';
@@ -115,23 +107,15 @@
         return '';
       },
     },
-    asyncComputed: {
-      wallet() {
-        if (this.address != null) {
-          return this.$store.getters.getWallet(this.address);
-        }
-        this.$router.push('/wallets');
-        return null;
-      },
-      membership() {
-        if (this.address != null && !(this.address instanceof Object)) {
-          return this.$store.getters.getMembership(this.address);
-        }
-        return null;
+    watch: {
+      $route() {
+        this.updateRouteInfo();
       },
     },
     mounted() {
+      this.updateRouteInfo();
       this.address = this.$route.params.address;
+      this.$store.dispatch('loadWallet', this.address);
     },
   };
 </script>

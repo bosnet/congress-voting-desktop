@@ -1,5 +1,5 @@
 <template>
-  <v-layout row justify-center>
+  <v-layout row justify-center v-if="proposal != null">
     <v-dialog v-model="dialog" persistent max-width="400">
       <v-card>
         <v-card-title class="headline">{{ proposal.title }}</v-card-title>

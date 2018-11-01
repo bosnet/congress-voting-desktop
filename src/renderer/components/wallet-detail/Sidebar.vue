@@ -5,17 +5,17 @@
     </header>
     <nav>
       <ul>
-        <li :class="{account: true, on: (activeMenu === 'account')}">
+        <li :class="{account: true, on: activeMenu === 'account'}">
           <router-link :to="`/wallet/${address}/#account`">Account</router-link>
         </li>
-        <li :class="{voting: true, on: (activeMenu === 'voting')}">
+        <li :class="{voting: true, on: activeMenu === 'voting'}">
           <router-link :to="`/wallet/${address}/#voting`">Congress Voting</router-link>
         </li>
       </ul>
     </nav>
     <footer>
       <ul>
-        <li :class="{setting: true, on: (activeMenu === 'settings')}">
+        <li :class="{setting: true, on: activeMenu === 'settings'}">
           <v-menu
             v-model="showMenu"
             absolute
