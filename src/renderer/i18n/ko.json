@@ -64,5 +64,8 @@
   "deregistirng membership warning message 5": "콩그레스 보팅이 진행중인 경우, 투표 집계를 위해 콩그레스 보팅이 끝날 때까지 멤버쉽을 탈퇴할 수 없습니다",
   "deregistering your membership": "멤버쉽 해지하기",
   "your membership is deregistered": "멤버쉽이 해지되었습니다",
-  "something is wrong": "오류가 발생했습니다. 잠시 후에 다시 시도해주세요"
+  "something is wrong": "오류가 발생했습니다. 잠시 후에 다시 시도해주세요",
+  "menu#account": "Account",
+  "menu#voting": "Congress Voting",
+  "menu#settings": "Settings"
 }

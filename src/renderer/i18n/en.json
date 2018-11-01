@@ -1,2 +1,5 @@
 {
+  "menu#account": "Account",
+  "menu#voting": "Congress Voting",
+  "menu#settings": "Settings"
 }
