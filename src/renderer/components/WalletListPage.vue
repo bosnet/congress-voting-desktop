@@ -43,6 +43,9 @@
       this.$root.$on('tick', this.load);
       this.load();
     },
+    destroyed() {
+      this.$root.$off('tick', this.load);
+    },
     computed: {
       wallets() {
         return this.$store.state.Wallet.wallets;
