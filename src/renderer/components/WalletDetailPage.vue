@@ -53,9 +53,10 @@
         const w = await this.$store.getters.getWallet(this.address);
         this.$data.wallet = w;
       },
-      promptPassphrase(title) {
+      promptPassphrase(title, options) {
         return new Promise((resolve => this.$refs.passphraseDialog.open({
           title,
+          options,
           confirmCallback: resolve,
         })));
       },

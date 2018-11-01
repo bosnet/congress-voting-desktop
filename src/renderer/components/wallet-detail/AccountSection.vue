@@ -53,7 +53,7 @@
             });
           }
         }
-        this.$parent.promptPassphrase(`${accounts.length}개 언프리즈`).then(passphrase =>
+        this.$parent.promptPassphrase(`${accounts.length}개 언프리즈`).then(({ passphrase }) =>
           accounts.map(account => this.$store.dispatch('unfreeze', {
             ownerAddress: this.address,
             address: account.address,
@@ -74,7 +74,7 @@
             });
           }
         }
-        this.$parent.promptPassphrase(`${accounts.length}개 회수`).then(passphrase =>
+        this.$parent.promptPassphrase(`${accounts.length}개 회수`).then(({ passphrase }) =>
           accounts.map(account => this.$store.dispatch('withdraw', {
             address: this.address,
             frozenAccountAddress: account.address,
