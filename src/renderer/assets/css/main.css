@@ -51,43 +51,6 @@ body {
   background-color: #b4bec7;
 }
 
-.toast {
-  position: fixed;
-  bottom: 47px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  color: #ffffff;
-}
-
-.toast-warn {
-  height: 30px;
-  display: inline-block;
-  border-radius: 15px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.34);
-  background-color: #353a3f;
-  padding: 5px 30px;
-  font-size: 13px;
-  color: #ffffff;
-}
-
-.toast-warn-slide-enter-active {
-  animation: toast-warn-slide-in .2s;
-}
-.toast-warn-slide-leave-active {
-  animation: toast-warn-slide-in .2s reverse;
-}
-@keyframes toast-warn-slide-in {
-  0% {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 /* override vuetify */
 .application.theme--light {
   color: #333;

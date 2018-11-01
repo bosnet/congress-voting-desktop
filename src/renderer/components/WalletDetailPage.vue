@@ -22,7 +22,7 @@
         <slot/>
       </component>
     </div>
-    <passphrase-dialog ref="passphraseDialog"/>
+    <bos-passphrase-dialog ref="passphraseDialog"/>
   </v-container>
 </template>
 
@@ -30,7 +30,6 @@
   import ProposalSection from './wallet-detail/ProposalSection';
   import PreMembershipSection from './wallet-detail/PreMembershipSection';
   import AccountSection from './wallet-detail/AccountSection';
-  import PassphraseDialog from './PassphraseDialog';
   import Sidebar from './wallet-detail/Sidebar';
   import SettingsSection from './wallet-detail/settings/SettingsSection';
 
@@ -40,7 +39,6 @@
       Sidebar,
       ProposalSection,
       AccountSection,
-      PassphraseDialog,
     },
     data() {
       return {

@@ -161,7 +161,7 @@ const actions = {
               return wallet.hash(data.nestedArrays()).then((hash) => {
                 data.updateSignature(wallet.sign(kp.secret(), hash));
                 return dispatch('sendTx', data.json());
-              })
+              });
             })));
     });
   },

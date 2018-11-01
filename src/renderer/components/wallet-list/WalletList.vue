@@ -8,11 +8,9 @@
         :notify="notify"
         v-for="wallet in wallets"
     />
-    <transition name="toast-warn-slide">
-      <div class="toast" v-show="showEmptyAccountWarning">
-        <span class="toast-warn">{{$t('To create your account, depositing over 1 BOS')}}</span>
-      </div>
-    </transition>
+    <bos-toast v-model="showEmptyAccountWarning">
+      {{$t('To create your account, depositing over 1 BOS')}}
+    </bos-toast>
   </div>
 </template>
 
@@ -31,9 +29,6 @@
       warn(type) {
         if (type === 'empty') {
           this.showEmptyAccountWarning = true;
-          setTimeout(() => {
-            this.showEmptyAccountWarning = false;
-          }, 2000);
         }
       },
     },

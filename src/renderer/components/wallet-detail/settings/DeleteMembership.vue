@@ -13,11 +13,7 @@
       </ul>
       <button class="button" @click="openPassphraseDialog">{{$t('deregistering your membership')}}</button>
     </div>
-    <transition name="toast-warn-slide">
-      <div class="toast" v-show="showMessage">
-        <span class="toast-warn">{{message}}</span>
-      </div>
-    </transition>
+    <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
     <passphrase-dialog ref="passphraseDialog" :callback="deregisterMembership"/>
   </div>
 </template>
@@ -68,9 +64,6 @@
           }
 
           this.showMessage = true;
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 3000);
         }
       },
     },

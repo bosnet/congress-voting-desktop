@@ -2,7 +2,12 @@ import Vuetify from 'vuetify';
 import VueI18n from 'vue-i18n';
 import AsyncComputed from 'vue-async-computed';
 
+import * as componentMap from '@/components/common';
 import unit from './lib/unit';
+
+function installComponents(vue) {
+  Object.keys(componentMap).forEach(name => vue.component(name, componentMap[name]));
+}
 
 export default (Vue) => {
   Vue.config.productionTip = false;
@@ -22,6 +27,8 @@ export default (Vue) => {
     });
     return formatter.format(unit.convert(value, 'gon', 'bos'));
   });
+
+  installComponents(Vue);
 
   return Vue;
 };

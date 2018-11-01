@@ -52,11 +52,7 @@
       </v-text-field>
       <button class="button" :disabled="!passphraseChangable" @click="updatePassword">{{$t('modify')}}</button>
     </div>
-    <transition name="toast-warn-slide">
-      <div class="toast" v-show="showMessage">
-        <span class="toast-warn">{{message}}</span>
-      </div>
-    </transition>
+    <bos-toast v-model="showMessage">{{message}}</bos-toast>
   </div>
 </template>
 
@@ -151,9 +147,6 @@
         } catch (err) {
           this.message = this.$t('passphrase is wrong');
           this.showMessage = true;
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 2000);
           return;
         }
 
@@ -165,9 +158,6 @@
         });
         this.message = this.$t('modified');
         this.showMessage = true;
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 2000);
         this.$emit('updateStatus');
         this.$refs.oldPassphrase.reset();
         this.$refs.passphrase.reset();

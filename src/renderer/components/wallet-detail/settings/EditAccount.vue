@@ -24,11 +24,7 @@
         <img :src="closeIcon" @click="dialog = false" class="DeleteAccountDialogClose" alt="close"/>
       </div>
     </v-dialog>
-    <transition name="toast-warn-slide">
-      <div class="toast" v-show="showMessage">
-        <span class="toast-warn">{{$t('modified')}}</span>
-      </div>
-    </transition>
+    <bos-toast v-model="showMessage">{{$t('modified')}}</bos-toast>
   </div>
 </template>
 
@@ -64,9 +60,6 @@
         });
         this.$emit('updateStatus');
         this.showMessage = true;
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 2000);
       },
       async deleteAccount() {
         await this.$store.dispatch('deleteWalletByAddress', this.wallet.address);
@@ -113,7 +106,7 @@
     cursor: pointer;
   }
 
-  .SettingsEditAccount .toast-warn {
+  .SettingsEditAccount .toast--warn {
     margin-left: 158px;
   }
 

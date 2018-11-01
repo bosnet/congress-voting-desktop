@@ -15,11 +15,7 @@
       </button>
       <span class="seed" id="SettingsSecretSeed">{{seed}}</span>
     </div>
-    <transition name="toast-warn-slide">
-      <div class="toast" v-show="showMessage">
-        <span class="toast-warn">{{message}}</span>
-      </div>
-    </transition>
+    <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
   </div>
 </template>
 
@@ -68,9 +64,6 @@
         } catch (err) {
           this.message = this.$t('passphrase is wrong');
           this.showMessage = true;
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 2000);
         }
       },
     },
