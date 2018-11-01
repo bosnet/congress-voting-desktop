@@ -2,7 +2,7 @@ import Vuetify from 'vuetify';
 import VueI18n from 'vue-i18n';
 import AsyncComputed from 'vue-async-computed';
 
-import * as componentMap from '@/components/common';
+import * as componentMap from '@/components/components';
 import unit from './lib/unit';
 
 function installComponents(vue) {
