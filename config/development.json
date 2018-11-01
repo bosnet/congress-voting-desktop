@@ -7,7 +7,7 @@
   "fee": 10000,
   "endpoint": {
     "scheme": "http",
-    "port": 2820
+    "port": 2821
   },
   "membership": {
     "scheme": "http",
