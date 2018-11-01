@@ -1,12 +1,25 @@
 import moment from 'moment';
 
 const state = {
+  currentWallet: null,
   errors: [],
+  messages: [],
   requestCount: 0,
   lastRequestTs: 0,
 };
 
 const mutations = {
+  SET_CURRENT_WALLET(state, wallet) {
+    state.currentWallet = wallet;
+  },
+  UPDATE_WALLET(state, wallet) {
+    if (state.currentWallet && state.currentWallet.address === wallet.address) {
+      Object.assign(state.currentWallet, wallet);
+    }
+  },
+  ADD_MESSAGE(state, message) {
+    state.messages.push(message);
+  },
   START_REQUEST(state) {
     state.requestCount += 1;
     state.lastRequestTs = moment.now();
@@ -20,9 +33,23 @@ const mutations = {
       state.errors = state.errors.slice(state.errors.length - 1000);
     }
   },
+  UPDATE_MEMBERSHIP(state, { address, membership }) {
+    if (state.currentWallet != null && state.currentWallet.address === address) {
+      state.currentWallet.membership = membership;
+    }
+  },
 };
 
 const actions = {
+  setCurrentWallet({ commit, dispatch }, wallet) {
+    commit('SET_CURRENT_WALLET', wallet);
+    if (wallet) {
+      dispatch('updateMembership', [wallet.address]);
+    }
+  },
+  addMessage({ commit }, message) {
+    commit('ADD_MESSAGE', message);
+  },
   requestStart({ commit }) {
     commit('START_REQUEST');
   },

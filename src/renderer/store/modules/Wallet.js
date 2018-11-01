@@ -55,15 +55,19 @@ function beginTx(mode, table, action) {
 }
 
 const actions = {
+  loadWallet({ dispatch }, address) {
+    return db.wallets.get(address).then(w => dispatch('setCurrentWallet', w));
+  },
+
   loadWallets({ commit, dispatch }) {
     return db.wallets.toArray().then((wallets) => {
       for (let i = 0; i < wallets.length; i += 1) {
         wallets[i].balance = '-';
         wallets[i].membership = null;
       }
-      commit('LOAD_WALLETS', wallets);
       dispatch('updateAllBalance', wallets.map(w => w.address));
       dispatch('updateMembership', wallets.map(w => w.address));
+      return commit('LOAD_WALLETS', wallets);
     });
   },
 
