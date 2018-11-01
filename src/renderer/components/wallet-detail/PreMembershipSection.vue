@@ -21,7 +21,7 @@
   import joiningMembershipImg from './../../assets/svg/joining-membership.svg';
 
   export default {
-    name: 'wallet-membership-section',
+    name: 'bos-wallet-pre-membership-section',
     props: ['address'],
     components: {
       PassphraseDialog,

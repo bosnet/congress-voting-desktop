@@ -19,7 +19,7 @@
 
 <script>
   export default {
-    name: 'wallet-freeze-item',
+    name: 'bos-wallet-account-derivation-account-item',
     props: ['item'],
     data() {
       return {

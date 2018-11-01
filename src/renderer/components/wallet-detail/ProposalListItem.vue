@@ -15,7 +15,12 @@
 
 <script>
   export default {
-    name: 'wallet-proposal-item',
+    name: 'bos-wallet-proposal-item',
     props: ['item', 'vote'],
+    methods: {
+      name() {
+        return 'Congress Voting';
+      },
+    },
   };
 </script>

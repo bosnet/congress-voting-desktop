@@ -12,7 +12,10 @@
             <v-btn @click="withdraw()">{{$t('withdraw')}}</v-btn>
           </v-card-actions>
           <v-card-text>
-            <freeze-account-list-item ref="items" :item="item" v-for="item in frozenAccounts"/>
+            <bos-wallet-account-derivation-account-item
+                ref="items"
+                :item="item"
+                v-for="item in frozenAccounts"/>
           </v-card-text>
         </v-layout>
       </v-container>
@@ -23,18 +26,12 @@
 
 <script>
   import PassphraseDialog from './PassphraseDialog';
-  import FreezeAccountListItem from './FreezeAccountListItem';
 
   export default {
-    name: 'wallet-freeze-section',
+    name: 'bos-wallet-account-section',
     props: ['wallet'],
     components: {
       PassphraseDialog,
-      FreezeAccountListItem,
-    },
-    data() {
-      return {
-      };
     },
     methods: {
       freeze({ amount, passphrase }) {
@@ -101,6 +98,9 @@
       this.$root.$off('tick', this.tick);
     },
     computed: {
+      address() {
+        return this.wallet.address;
+      },
       frozenAccounts() {
         return this.$store.state.RPC.frozenAccountOps;
       },
