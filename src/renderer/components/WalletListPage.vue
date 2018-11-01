@@ -7,8 +7,8 @@
       </div>
       <wallet-new :close="close" />
     </v-dialog>
-    <v-layout>
-      <v-flex v-show="wallets.length == 0" class="empty">
+    <v-layout v-show="loaded && wallets.length == 0">
+      <v-flex class="empty">
         <h2>{{$t('welcome')}}</h2>
         <h1>{{$t('add your account and attend congress voting')}}</h1>
         <div class="img"></div>
@@ -51,6 +51,7 @@
     data() {
       return {
         dialog: false,
+        loaded: false,
         addBtn,
         showNotification: true,
         membershipStatus: null,
@@ -59,7 +60,9 @@
     },
     methods: {
       load() {
-        this.$store.dispatch('loadWallets');
+        this.$store.dispatch('loadWallets').then(() => {
+          this.loaded = true;
+        });
       },
       close() {
         this.$data.dialog = false;
