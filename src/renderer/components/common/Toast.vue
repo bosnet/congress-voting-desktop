@@ -1,6 +1,6 @@
 <template>
   <transition name="bos-toast-transition">
-    <div class="toast" v-show="value">
+    <div class="bos-toast" v-show="value">
       <span :class="classes">
         <slot/>
       </span>
@@ -46,7 +46,7 @@
     computed: {
       classes() {
         return {
-          'toast--warn': this.warn,
+          'bos-toast--warn': this.warn,
         };
       },
     },
@@ -54,7 +54,7 @@
 </script>
 
 <style>
-  .toast {
+  .bos-toast {
     position: fixed;
     bottom: 47px;
     left: 0;
@@ -63,7 +63,7 @@
     color: #ffffff;
   }
 
-  .toast--warn {
+  .bos-toast--warn {
     height: 30px;
     display: inline-block;
     border-radius: 15px;
