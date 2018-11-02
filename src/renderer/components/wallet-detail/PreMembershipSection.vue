@@ -3,7 +3,7 @@
     <div v-if="!showKYC">
       <h2>{{$t('joining membership and then attend congress voting')}}</h2>
       <span>{{$t('membership benefit')}}</span>
-      <img :src="joiningMembershipImg" alt="join membership" />
+      <img :src="membershipKycImg" alt="join membership" />
       <button class="button" @click="startKYC()">{{$t('registering membership')}}</button>
     </div>
     <div v-else>
@@ -18,7 +18,7 @@
   import idensic from '@/lib/idensic';
 
   import PassphraseDialog from './PassphraseDialog';
-  import joiningMembershipImg from './../../assets/svg/joining-membership.svg';
+  import membershipKycImg from '../../assets/svg/membership-kyc.svg';
 
   export default {
     name: 'bos-wallet-pre-membership-section',
@@ -28,7 +28,7 @@
     },
     data() {
       return {
-        joiningMembershipImg,
+        membershipKycImg,
         showKYC: false,
         applicantId: null,
       };

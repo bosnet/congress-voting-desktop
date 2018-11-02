@@ -7,6 +7,8 @@ export { default as BosWalletAccountSection } from './wallet-detail/AccountSecti
 export { default as BosWalletAccountDerivationAccountItem } from './wallet-detail/AccountDerivationAccountItem';
 
 export { default as BosWalletPreMembershipSection } from './wallet-detail/PreMembershipSection';
+export { default as BosWalletMembershipPendingSection } from './wallet-detail/MembershipPendingSection';
+export { default as BosWalletMembershipSection } from './wallet-detail/MembershipSection';
 
 export { default as BosWalletProposalSection } from './wallet-detail/ProposalSection';
 export { default as BosWalletProposalItem } from './wallet-detail/ProposalListItem';

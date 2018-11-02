@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 export default {
   copyToClipboard(elem) {
     const selection = window.getSelection();
@@ -7,5 +9,14 @@ export default {
     selection.addRange(range);
     document.execCommand('copy');
     selection.removeAllRanges();
+  },
+  fineMinimumFreezeAmount(amount, fee) {
+    const caculated = new BigNumber(amount, 10)
+      .minus(fee, 10)
+      .dividedBy(10000, 10).toFixed(0);
+
+    return new BigNumber(caculated, 10)
+      .multipliedBy(10000, 10)
+      .toString(10);
   },
 };

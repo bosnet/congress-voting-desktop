@@ -61,7 +61,12 @@ const actions = {
         .then(data => commit('UPDATE_BALANCE', {
           address,
           balance: data && data.balance ? data.balance : '0',
-        }));
+        }))
+        .catch((err) => {
+          if (err.response.status !== 404) { // ignore if account isn't exist
+            throw err;
+          }
+        });
       requests.push(req);
     }
 

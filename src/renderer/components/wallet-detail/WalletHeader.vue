@@ -75,6 +75,7 @@
     font-size: 11px;
     font-weight: bold;
     padding: 0 5px;
+    margin-left: 6px;
   }
 
   .wallet-membership-state--pending {
