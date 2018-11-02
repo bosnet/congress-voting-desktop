@@ -56,7 +56,10 @@ function beginTx(mode, table, action) {
 
 const actions = {
   loadWallet({ dispatch }, address) {
-    return db.wallets.get(address).then(w => dispatch('setCurrentWallet', w));
+    return db.wallets.get(address).then(w => {
+      w.membership = null;
+      dispatch('setCurrentWallet', w);
+    });
   },
 
   loadWallets({ commit, dispatch }) {

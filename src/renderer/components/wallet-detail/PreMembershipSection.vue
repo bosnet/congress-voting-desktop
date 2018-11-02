@@ -22,7 +22,7 @@
 
   export default {
     name: 'bos-wallet-pre-membership-section',
-    props: ['address'],
+    props: ['wallet'],
     components: {
       PassphraseDialog,
     },
@@ -35,8 +35,8 @@
     },
     asyncComputed: {
       accessToken() {
-        if (this.address != null) {
-          return this.$store.getters.getSumsubAccessToken(this.address);
+        if (this.wallet.address != null) {
+          return this.$store.getters.getSumsubAccessToken(this.wallet.address);
         }
         return {};
       },
@@ -92,7 +92,7 @@
       },
       async registerPreMembership({ passphrase }) {
         await this.$store.dispatch('preMembership', {
-          address: this.address,
+          address: this.wallet.address,
           applicantId: this.applicantId,
           passphrase,
         });
