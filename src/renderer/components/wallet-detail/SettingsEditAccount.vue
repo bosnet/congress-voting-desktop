@@ -18,7 +18,7 @@
       <div class="DeleteAccountDialog">
         <h3>{{$t('deleting account')}}</h3>
         <span>{{$t('please back the account up before deleting it')}}</span>
-        <div class="img"></div>
+        <img :src="deleteAccountImg" />
         <!-- TODO: apply hover/active design -->
         <button class="button" @click="deleteAccount">{{$t('deleting account')}}</button>
         <img :src="closeIcon" @click="dialog = false" class="DeleteAccountDialogClose" alt="close"/>
@@ -30,6 +30,7 @@
 
 <script>
   import closeIcon from '@/assets/svg/close.svg';
+  import deleteAccountImg from '../../assets/svg/settings-delete-account.svg';
 
   export default {
     name: 'bos-wallet-settings-edit-account',
@@ -44,6 +45,7 @@
         ],
         showMessage: false,
         dialog: false,
+        deleteAccountImg,
         closeIcon,
       };
     },
@@ -130,6 +132,7 @@
     background-color: #ffffff;
     color: #333333;
     margin-left: 40px;
+    text-align: center;
   }
 
   .DeleteAccountDialogClose {
@@ -148,22 +151,27 @@
   .DeleteAccountDialog span {
     font-size: 14px;
     color: #333333;
-    width: 250px;
+    width: 400px;
     display: block;
     margin: 5px auto 0;
+    word-break: keep-all;
   }
 
-  .DeleteAccountDialog .img {
-    opacity: 0.2;
-    background-color: #d8d8d8;
-    width: 150px;
-    height: 150px;
-    border-radius: 100px;
-    margin: 50px auto 58px;
+  .DeleteAccountDialog img {
+    margin: 26px auto 65px;
   }
 
   .DeleteAccountDialog .button {
     margin: 0 auto;
     background-color: #ec6565;
+  }
+
+  .DeleteAccountDialog .button:hover:enabled {
+    box-shadow: 0 5px 13px 0 #ffd6d7, 0 5px 13px 0 #ffd6d7;
+    background-color: #e05656;
+  }
+  .DeleteAccountDialog .button:active:enabled {
+    box-shadow: 0 5px 13px 0 #ffd6d7;
+    background-color: #cc4646;
   }
 </style>
