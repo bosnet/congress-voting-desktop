@@ -35,7 +35,7 @@
                   <router-link :to="`/wallet/${address}/#settings-seed`">Confirm Secret Seed</router-link>
                 </li>
                 <li>
-                  <router-link :to="`/wallet/${address}/#settings-membership`">Delete Membership</router-link>
+                  <router-link :to="`/wallet/${address}/#settings-delete-membership`">Delete Membership</router-link>
                 </li>
               </ul>
             </div>
