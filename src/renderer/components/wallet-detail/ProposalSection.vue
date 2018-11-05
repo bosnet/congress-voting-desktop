@@ -31,9 +31,6 @@
       openDialog(proposal) {
         this.$refs.voteDialog.open(proposal);
       },
-      state() {
-        return this.wallet.membership && this.wallet.membership.status;
-      },
       vote({ proposalId, answer, passphrase }) {
         return this.$store.dispatch('vote', {
           address: this.address,
@@ -41,6 +38,11 @@
           answer,
           passphrase,
         });
+      },
+    },
+    computed: {
+      state() {
+        return this.wallet.membership && this.wallet.membership.status;
       },
     },
     asyncComputed: {
