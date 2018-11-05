@@ -85,7 +85,10 @@ const actions = {
 
       return wallet.hash(array).then((hash) => {
         payload.signature = wallet.sign(seed, hash);
-        return dispatch('sendVoteTx', proposalId, payload);
+        return dispatch('sendVoteTx', {
+          proposalId,
+          payload,
+        });
       });
     });
   },

@@ -33,7 +33,7 @@
       },
       vote({ proposalId, answer, passphrase }) {
         return this.$store.dispatch('vote', {
-          address: this.address,
+          address: this.wallet.address,
           proposalId,
           answer,
           passphrase,
