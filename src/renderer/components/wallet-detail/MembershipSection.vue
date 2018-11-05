@@ -1,9 +1,10 @@
 <template>
   <section class="MembershipRegister">
     <div class="before" v-if="!completed">
+      <img :src="membershipFreezingImg" />
       <h2>{{$t('requesting freezing')}}</h2>
+      <hr>
       <span>{{$t('registering membership guide')}}</span>
-      <div class="img"></div>
       <button class="button" @click="openfreezingDialog">{{$t('freezing')}}</button>
       <freezing-dialog ref="freezingDialog" :wallet="wallet" :callback="freezingRequested"/>
     </div>
@@ -23,6 +24,7 @@
   import FreezingDialog from './FreezingDialog';
 
   import membershipReadyImg from '../../assets/svg/membership-ready.svg';
+  import membershipFreezingImg from '../../assets/svg/membership-freezing.svg';
 
   export default {
     name: 'wallet-membership-section',
@@ -34,6 +36,7 @@
       return {
         completed: false,
         membershipReadyImg,
+        membershipFreezingImg,
         isFrozen: false,
       };
     },
@@ -75,6 +78,11 @@
     overflow-y: auto;
   }
 
+  .MembershipRegister .before img {
+    margin: 8px auto 25px;
+    display: block;
+  }
+
   .MembershipRegister .before h2 {
     font-size: 25px;
     font-weight: bold;
@@ -82,7 +90,13 @@
     text-align: center;
     width: 400px;
     word-break: keep-all;
-    margin: 0 auto 10px;
+    margin: 0 auto 15px;
+  }
+
+  .MembershipRegister .before hr {
+    width: 120px;
+    background-color: #c4d1d6;
+    margin: 0 auto;
   }
 
   .MembershipRegister .before span {
@@ -92,7 +106,7 @@
     color: #728395;
     text-align: center;
     word-break: keep-all;
-    margin: 0 auto;
+    margin: 15px auto 60px;
     width: 500px;
     line-height: 30px;
   }
@@ -124,7 +138,7 @@
     margin: 0 auto;
   }
 
-  .MembershipRegister hr {
+  .MembershipRegister .after hr {
     width: 120px;
     background-color: #c4d1d6;
     margin: 15px auto;
