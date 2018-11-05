@@ -17,6 +17,7 @@
       <div class="guide">{{$t('membership guide message 2')}}</div>
       <button class="button" :disabled="!isFrozen" @click="openfreezingDialog">{{completedButton}}</button>
     </div>
+    <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
   </section>
 </template>
 
@@ -38,6 +39,9 @@
         membershipReadyImg,
         membershipFreezingImg,
         isFrozen: false,
+        showMessage: false,
+        message: '',
+        passphrase: null,
       };
     },
     computed: {
@@ -46,16 +50,45 @@
       },
     },
     methods: {
-      freezingRequested() {
+      freezingRequested(passphrase) {
         this.completed = true;
-        this.loadOps();
+        this.passphrase = passphrase;
         this.$root.$on('tick', this.tick);
-        // TODO: check frozen account state and enable button
-        // if (check) {
-        // this.$store.state.RPC.frozenAccountOps;
-        // this.$root.$off('tick', this.tick);
-        // this.isFrozen = true;
-        // }
+      },
+      async activateMembership() {
+        const ops = this.$store.state.RPC.frozenAccountOps;
+        if (ops.length > 0 && ops[0].state === 'frozen') {
+          this.$root.$off('tick', this.tick);
+
+          try {
+            await this.$store.dispatch('registerMembership', {
+              address: this.wallet.address,
+              passphrase: this.passphrase,
+              frozenAddress: ops[0].address,
+            });
+
+            this.update();
+          } catch (err) {
+            if (err.message.match(/bad decrypt/)) {
+              this.message = this.$t('passphrase is wrong');
+            } else if (err.response && err.response.status >= 400 && err.response.status < 500) {
+              if (err.response.data && err.response.data.error) {
+                this.message = err.response.data.error;
+              } else {
+                this.message = this.$t('something is wrong');
+              }
+            } else {
+              this.message = this.$t('something is wrong');
+            }
+
+            this.showMessage = true;
+          }
+        }
+      },
+      async update() {
+        // TODO: fix routing to proposals
+        await this.$store.dispatch('updateMembership', [this.wallet.address]);
+        this.isFrozen = true;
       },
       openfreezingDialog() {
         this.$refs.freezingDialog.open();
@@ -65,6 +98,7 @@
       },
       tick() {
         this.loadOps();
+        this.activateMembership();
       },
     },
   };

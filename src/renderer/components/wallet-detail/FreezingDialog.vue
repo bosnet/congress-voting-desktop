@@ -146,7 +146,7 @@
         }
         this.dialog = false;
         if (this.callback) {
-          this.callback();
+          this.callback(this.passphrase);
         }
       },
       getAccount() {

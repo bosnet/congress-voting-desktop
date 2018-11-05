@@ -94,6 +94,12 @@ const actions = {
       .get();
   },
 
+  sendRegisterMembershipTx({ commit, dispatch }, { address, payload }) {
+    return intercept({ commit, dispatch })
+      .request(remoteRPC.registerMembership(address, payload))
+      .get();
+  },
+
   sendDeregisterMembershipTx({ commit, dispatch }, { address, signature }) {
     return intercept({ commit, dispatch })
       .request(remoteRPC.deregisterMembership(address, signature))

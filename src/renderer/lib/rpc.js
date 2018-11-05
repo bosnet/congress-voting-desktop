@@ -93,6 +93,11 @@ class RPC {
       .post(`${this.membershipEndpoint}/api/v1/memberships`, payload, { headers: HEADERS });
   }
 
+  registerMembership(address, payload) {
+    return client
+      .post(`${this.membershipEndpoint}/api/v1/memberships/${address}/activate`, payload, { headers: HEADERS });
+  }
+
   deregisterMembership(address, signature) {
     return client
       .delete(`${this.membershipEndpoint}/api/v1/memberships/${address}?sig=${signature}`, { headers: HEADERS });

@@ -107,6 +107,20 @@ const actions = {
     await dispatch('sendPreMembershipTx', payload);
   },
 
+  async registerMembership({ dispatch, getters }, { address, passphrase, frozenAddress }) {
+    const res = await getters.getWallet(address);
+    const seed = wallet.decryptWallet(passphrase, res.data);
+    const array = [address, frozenAddress];
+    const payload = {
+      data: array,
+      signature: '',
+    };
+
+    const hash = await wallet.hash(array);
+    payload.signature = wallet.sign(seed, hash);
+    await dispatch('sendRegisterMembershipTx', { address, payload });
+  },
+
   async deregisterMembership({ dispatch, getters }, { address, passphrase }) {
     const res = await getters.getWallet(address);
     const seed = wallet.decryptWallet(passphrase, res.data);
