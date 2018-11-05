@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-card v-if="state() === 'active'">
+    <v-card v-if="state === 'active'">
       <v-container fluid grid-list-lg>
         <v-layout row wrap>
-          <bos-wallet-proposal-list-item
+          <bos-wallet-proposal-item
               :vote="openDialog"
               :item="item"
               v-for="item in items"/>
