@@ -37,12 +37,29 @@
       openPassphraseDialog() {
         this.$refs.passphraseDialog.open();
       },
+      async unfreezeAll(passphrase) {
+        try {
+          await this.$store.dispatch('loadFrozenAccounts', this.wallet.address);
+          const frozenAccounts = this.$store.state.RPC.frozenAccountOps;
+
+          const promises = frozenAccounts.map(account => this.$store.dispatch('unfreeze', {
+            ownerAddress: this.wallet.address,
+            address: account.address,
+            sequenceId: account.sequence_id,
+            passphrase,
+          }));
+
+          await Promise.all(promises);
+        } catch (ignore) {} // eslint-disable-line
+      },
       async deregisterMembership({ passphrase }) {
         try {
           await this.$store.dispatch('deregisterMembership', {
             address: this.wallet.address,
             passphrase,
           });
+
+          this.unfreezeAll(passphrase);
 
           this.message = this.$t('your membership is deregistered');
           this.showMessage = true;

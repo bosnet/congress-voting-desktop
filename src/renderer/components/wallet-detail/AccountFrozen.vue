@@ -1,7 +1,7 @@
 <template>
   <div class="FrozenAccount">
     <div class="frozen-account-btns">
-      <button class="btn" :disabled="willUnfreeze" @click="openFreezingDialog">{{$t('freezing')}}</button>
+      <button class="btn" :disabled="willUnfreeze" @click="openFreezingDialog" v-if="isMembership">{{$t('freezing')}}</button>
       <button class="btn" :disabled="willUnfreeze" @click="prepareUnfreeze">{{$t('unfreezing')}}</button>
       <!--<button class="btn" :disabled="false" @click="withdraw()">{{$t('')}}</button>-->
     </div>
@@ -104,6 +104,9 @@
       },
       totalUnfreezeFeeAmount() {
         return 0.001 * this.willUnfreezeAccounts.length;
+      },
+      isMembership() {
+        return this.wallet && this.wallet.membership && this.wallet.membership.status === 'active';
       },
     },
   };
