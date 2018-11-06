@@ -1,12 +1,13 @@
 <template>
   <v-container class="WalletListPage">
     <wallet-list :wallets="wallets" v-show="wallets.length > 0" :notify="notify"/>
+    <div slot="activator" @click="addAccount" class="round-button" v-show="!dialog" v-if="wallets.length > 0">
+      <img :src="addBtn" :alt="$t('add account')" />
+    </div>
     <v-dialog v-model="dialog" fullscreen hide-overlay v-if="wallets.length > 0">
-      <div slot="activator" class="round-button" v-show="!dialog">
-        <img :src="addBtn" :alt="$t('add account')" />
-      </div>
       <wallet-new :close="close" />
     </v-dialog>
+    <!-- TODO: add right click side menu to remove account which has no balance -->
     <v-layout v-show="loaded && wallets.length == 0">
       <v-flex class="empty">
         <h2>{{$t('welcome')}}</h2>
@@ -24,6 +25,7 @@
       <!-- TODO: fix link to retry sum&sub -->
       <a href="#" v-if="membershipStatus === 'rejected'">{{$t('try again')}}</a>
     </div>
+    <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
   </v-container>
 </template>
 
@@ -59,6 +61,8 @@
         showNotification: true,
         membershipStatus: null,
         notificationContent: null,
+        showMessage: false,
+        message: '',
       };
     },
     methods: {
@@ -68,7 +72,7 @@
         });
       },
       close() {
-        this.$data.dialog = false;
+        this.dialog = false;
       },
       notify(type) {
         this.membershipStatus = type;
@@ -80,6 +84,14 @@
           this.notificationContent = this.$t('your identity is verified');
         }
         return '';
+      },
+      addAccount() {
+        if (this.wallets.length > 0) {
+          this.message = this.$t('currently only one account allowed. If you want another account, please remove current one');
+          this.showMessage = true;
+        } else {
+          this.dialog = true;
+        }
       },
     },
   };
@@ -135,6 +147,7 @@
     position: fixed;
     bottom: 40px;
     right: 50px;
+    cursor: pointer;
   }
 
   .WalletListPage .round-button img {
