@@ -1,6 +1,6 @@
 <template>
   <div class="SettingsSecretSeed">
-    <passphrase-dialog ref="passphraseDialog" :callback="showSecretSeed"/>
+    <bos-passphrase-dialog ref="passphraseDialog"/>
     <div class="SettingsSecretSeedBody" v-if="seed">
       <img :src="icon" />
       <h3>{{$t('secret seed')}}</h3>
@@ -24,14 +24,9 @@
   import Helper from '@/lib/helper';
   import SecretSeedIcon from '@/assets/svg/import-method-seed.svg';
 
-  import PassphraseDialog from './PassphraseDialog';
-
   export default {
     name: 'bos-wallet-settings-secret-seed',
     props: ['wallet'],
-    components: {
-      PassphraseDialog,
-    },
     data() {
       return {
         icon: SecretSeedIcon,
@@ -54,7 +49,9 @@
         }, 800);
       },
       openPassphraseDialog() {
-        this.$refs.passphraseDialog.open();
+        this.$refs.passphraseDialog.open({
+          confirmCallback: this.showSecretSeed,
+        });
       },
       async showSecretSeed({ passphrase }) {
         try {

@@ -43,7 +43,7 @@
 
 <script>
   export default {
-    name: 'passphrase-dialog',
+    name: 'vote-dialog',
     props: ['callback'],
     methods: {
       open(proposal) {

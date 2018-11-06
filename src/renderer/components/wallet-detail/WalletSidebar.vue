@@ -34,7 +34,7 @@
                 <li>
                   <router-link :to="`/wallet/${address}/#settings-seed`">Confirm Secret Seed</router-link>
                 </li>
-                <li>
+                <li v-if="membershipState">
                   <router-link :to="`/wallet/${address}/#settings-delete-membership`">Delete Membership</router-link>
                 </li>
               </ul>
@@ -61,6 +61,11 @@
         address: this.wallet.address,
         showMenu: false,
       };
+    },
+    computed: {
+      membershipState() {
+        return this.wallet && this.wallet.membership && this.wallet.membership.status;
+      },
     },
   };
 </script>

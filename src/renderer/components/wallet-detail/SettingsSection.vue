@@ -5,14 +5,14 @@
         <li :class="tabClasses('account')" @click="$emit('tab', 'account')">{{$t('edit account')}}</li>
         <li :class="tabClasses('recovery')" @click="$emit('tab', 'recovery')">{{$t('confirm recovery key')}}</li>
         <li :class="tabClasses('seed')" @click="$emit('tab', 'seed')">{{$t('confirm secret seed')}}</li>
-        <li :class="tabClasses('delete-membership')" @click="$emit('tab', 'delete-membership')">
+        <li :class="tabClasses('delete-membership')" @click="$emit('tab', 'delete-membership')" v-if="membershipState">
           {{$t('delete membership')}}
         </li>
       </ul>
     </div>
     <div class="settings-tabs-content">
-      <bos-wallet-settings-secret-seed :wallet="wallet" v-if="active('recovery')"/>
-      <bos-wallet-settings-recovery-key :wallet="wallet" v-else-if="active('seed')"/>
+      <bos-wallet-settings-secret-seed :wallet="wallet" v-if="active('seed')"/>
+      <bos-wallet-settings-recovery-key :wallet="wallet" v-else-if="active('recovery')"/>
       <bos-wallet-settings-delete-membership :wallet="wallet" v-else-if="active('delete-membership')"/>
       <bos-wallet-settings-edit-account :wallet="wallet" v-else="active('account')"/>
     </div>
@@ -32,6 +32,11 @@
       },
       active(test) {
         return this.activeMenu === test;
+      },
+    },
+    computed: {
+      membershipState() {
+        return this.wallet && this.wallet.membership && this.wallet.membership.status;
       },
     },
   };

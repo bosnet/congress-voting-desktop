@@ -18,14 +18,9 @@
 <script>
   import Helper from '@/lib/helper';
 
-  import PassphraseDialog from './PassphraseDialog';
-
   export default {
     name: 'bos-wallet-account-section',
     props: ['activeMenu', 'wallet'],
-    components: {
-      PassphraseDialog,
-    },
     data() {
       return {
         account: {},

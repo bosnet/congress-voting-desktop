@@ -14,19 +14,14 @@
       <button class="button" @click="openPassphraseDialog">{{$t('deregistering your membership')}}</button>
     </div>
     <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
-    <passphrase-dialog ref="passphraseDialog" :callback="deregisterMembership"/>
+    <bos-passphrase-dialog ref="passphraseDialog"/>
   </div>
 </template>
 
 <script>
-  import PassphraseDialog from './PassphraseDialog';
-
   export default {
     name: 'bos-wallet-settings-delete-membership',
     props: ['wallet'],
-    components: {
-      PassphraseDialog,
-    },
     data() {
       return {
         showMessage: false,
@@ -35,7 +30,9 @@
     },
     methods: {
       openPassphraseDialog() {
-        this.$refs.passphraseDialog.open();
+        this.$refs.passphraseDialog.open({
+          confirmCallback: this.deregisterMembership,
+        });
       },
       async unfreezeAll(passphrase) {
         try {

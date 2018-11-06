@@ -1,17 +1,14 @@
 <template>
-  <v-dialog v-model="show" persistent max-width="500" row justify-center lazy-validation>
-    <div class="PasswordDialog">
+  <v-dialog v-model="show" fullscreen persistent hide-overlay lazy-validation content-class="PassphraseDialogOverlay">
+    <div class="PassphraseDialog">
       <v-form ref="form" v-model="valid">
-        <h3>{{ title }}</h3>
-        <div class="content">
-          <v-text-field v-model="data.passphrase" ref="passphraseText" type="password"
-                        :rules="passphraseRules" :label="$t('passphrase')" required/>
-          <button class="button" flat @click="confirm" :disabled="!valid">
-            {{$t('confirm')}}
-          </button>
-        </div>
-        <img :src="closeIcon" @click="close()" class="PasswordDialogClose" alt="close"/>
+        <h3>{{$t('confirm passphrase')}}</h3>
+        <span>&nbsp;{{ desc }}&nbsp;</span>
+        <v-text-field v-model="data.passphrase" ref="passphraseText" type="password"
+                      :rules="passphraseRules" :label="$t('enter your passphrase')" required/>
+        <button class="button" @click="confirm" :disabled="!valid">{{$t('confirm')}}</button>
       </v-form>
+      <img :src="closeIcon" @click="close()" class="PassphraseDialogClose" alt="close"/>
     </div>
   </v-dialog>
 </template>
@@ -23,9 +20,9 @@
     name: 'passphrase-dialog',
     props: ['callback'],
     methods: {
-      open({ title, confirmCallback }) {
+      open({ desc, confirmCallback }) {
         this.show = true;
-        this.title = title;
+        this.desc = desc;
         this.confirmCallback = confirmCallback;
       },
       confirm() {
@@ -45,7 +42,7 @@
       return {
         show: false,
         valid: false,
-        title: null,
+        desc: null,
         closeIcon,
         confirmCallback: null,
         data: {},
@@ -59,25 +56,56 @@
 </script>
 
 <style>
-  .PasswordDialog {
-    background-color: #eaf0f7;
-    color: #728395;
-    padding: 30px;
-    position: relative;
+  .PassphraseDialogOverlay {
+    background-color: rgba(216, 223, 232, 0.7);
+    height: 100%;
+    width: 714px;
+    margin-left: 158px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
   }
 
-  .PasswordDialogClose {
+  .PassphraseDialog {
+    padding: 56px 36px 31px;
+    position: relative;
+    width: 634px;
+    height: 550px;
+    border-radius: 2px;
+    box-shadow: 0 6px 20px 0 rgba(178, 199, 220, 0.8);
+    border: solid 1px #ececec;
+    background-color: #ffffff;
+    color: #333333;
+    margin-left: 40px;
+  }
+
+  .PassphraseDialogClose {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 30px;
+    right: 30px;
     cursor: pointer;
   }
 
-  .PasswordDialog h3 {
+  .PassphraseDialog h3 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .PassphraseDialog span {
+    font-size: 14px;
+    color: #333333;
+    display: block;
+    margin: 5px auto 0;
     text-align: center;
   }
 
-  .PasswordDialog .button {
-    margin: 30px auto 30px;
+  .PassphraseDialog .button {
+    margin: 0 auto;
+  }
+
+  .PassphraseDialog .v-input {
+    width: 400px;
+    margin: 72px auto 125px;
   }
 </style>

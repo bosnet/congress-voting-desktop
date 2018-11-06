@@ -8,7 +8,7 @@
     </div>
     <div v-else>
       <div id="idensic"></div>
-      <passphrase-dialog ref="passphraseDialog" :callback="registerPreMembership"/>
+      <bos-passphrase-dialog ref="passphraseDialog"/>
     </div>
   </section>
 </template>
@@ -17,15 +17,11 @@
   import config from 'config';
   import idensic from '@/lib/idensic';
 
-  import PassphraseDialog from './PassphraseDialog';
   import membershipKycImg from '../../assets/svg/membership-kyc.svg';
 
   export default {
     name: 'bos-wallet-pre-membership-section',
     props: ['wallet'],
-    components: {
-      PassphraseDialog,
-    },
     data() {
       return {
         membershipKycImg,
@@ -99,7 +95,9 @@
         this.$router.push('/');
       },
       openPassphraseDialog() {
-        this.$refs.passphraseDialog.open();
+        this.$refs.passphraseDialog.open({
+          confirmCallback: this.registerPreMembership,
+        });
       },
     },
   };
