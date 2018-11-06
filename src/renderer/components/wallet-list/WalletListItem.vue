@@ -13,9 +13,8 @@
       </button>
     </div>
     <div class="body">
-      <span class="label">Balance</span>
-      {{ wallet.balance | bos }} <abbr>BOS</abbr>
-      <!-- TODO: show frozen -->
+      <div class="balance">{{ wallet.balance | bos }} <abbr>BOS</abbr></div>
+      <div class="frozen" v-if="!!totalFrozenAmount">{{ totalFrozenAmount | bos }} <abbr>BOS</abbr></div>
     </div>
   </div>
 </template>
@@ -49,6 +48,17 @@
         }
         return '';
       },
+      totalFrozenAmount() {
+        if (this.$store.state.RPC.frozenAccountOps) {
+          return this.$store.state.RPC.frozenAccountOps.reduce((accum, cur) => {
+            if (cur.state !== 'returned') {
+              return Helper.sumAmount(accum, cur.amount);
+            }
+            return accum.amount;
+          }, '0');
+        }
+        return null;
+      },
     },
     watch: {
       membershipStatus(status) {
@@ -71,6 +81,12 @@
           this.$data[tooltip] = false;
         }, 800);
       },
+      async loadOps() {
+        return this.$store.dispatch('loadFrozenAccounts', this.wallet.address);
+      },
+    },
+    mounted() {
+      this.loadOps();
     },
   };
 </script>
@@ -164,19 +180,42 @@
   }
 
   .WalletListItem .body {
-    padding-top: 20px;
+    padding-top: 35px;
     font-size: 19px;
     color: #333333;
   }
 
-  .WalletListItem .body .label {
-    font-size: 11px;
-    color: #97a5b3;
-    display: block;
+  .WalletListItem .body .balance,
+  .WalletListItem .body .frozen {
+    display: inline-block;
+    position: relative;
+    margin-right: 40px;
   }
 
-  .WalletListItem .body abbr {
+  .WalletListItem .body .balance:before {
+    content: "Balance";
+  }
+
+  .WalletListItem .body .frozen:before {
+    content: "Frozen";
+  }
+
+  .WalletListItem .body .balance:before,
+  .WalletListItem .body .frozen:before {
+    font-size: 13px;
+    font-weight: normal;
+    color: #97a5b3;
+    position: absolute;
+    top: -15px;
+    left: 0;
+    font-size: 11px;
+    color: #97a5b3;
+  }
+
+  .WalletListItem .body .balance abbr,
+  .WalletListItem .body .frozen abbr {
     font-size: 10px;
     color: #909090;
+    margin-left: -2px;
   }
 </style>
