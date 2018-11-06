@@ -127,7 +127,7 @@
     font-size: 17px;
     font-weight: normal;
     color: #909090;
-    margin-left: -8px;
+    margin-left: -5px;
   }
 
   .Account .account-tabs {

@@ -1,6 +1,10 @@
 import BigNumber from 'bignumber.js';
 
 export default {
+  isValidPassphrase(input) {
+    const passwordRule = new RegExp('^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()\\-_=+[\\]{}\\,.<>?])[A-Za-z\\d!@#$%^&*()\\-_=+[\\]{}\\,.<>/?]{12,}$');
+    return passwordRule.test(input);
+  },
   copyToClipboard(elem) {
     const selection = window.getSelection();
     const range = document.createRange();

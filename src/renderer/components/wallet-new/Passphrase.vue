@@ -28,6 +28,8 @@
 </template>
 
 <script>
+  import Helper from '@/lib/helper';
+
   import successIcon from '../../assets/svg/input-success.svg';
   import errorIcon from '../../assets/svg/input-error.svg';
 
@@ -45,9 +47,8 @@
         rules: {
           pass1length: (input) => {
             if (!input) { return true; }
-            // TODO: passphrase rule??
-            const passed = input && input.length > 6;
-            if (passed) {
+
+            if (Helper.isValidPassphrase(input)) {
               this.$data.pass1failed = false;
               this.$data.pass1success = true;
               return true;
@@ -55,7 +56,7 @@
 
             this.$data.pass1success = false;
             this.$data.pass1failed = true;
-            return this.$t('given passphrase length is not enough');
+            return this.$t('passphrase should be 12 characters which contain alphanumeric and special character');
           },
           pass2check: () => {
             if (!this.$refs.passphraseConfirm) { return true; }

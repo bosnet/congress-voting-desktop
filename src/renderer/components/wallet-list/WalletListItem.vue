@@ -60,7 +60,7 @@
         if (this.wallet.balance === '-' || parseInt(this.wallet.balance, 10) === 0) {
           this.warn('empty');
         } else {
-          this.$router.push(`/wallet/${this.wallet.address}`);
+          this.$router.push(`/wallet/${this.wallet.address}/#account-frozen`);
         }
       },
       copy(selector, tooltip) {

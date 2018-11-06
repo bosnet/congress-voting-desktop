@@ -98,8 +98,7 @@
           },
           passphrase: (input) => {
             if (!input) { return true; }
-            const passed = input && input.length > 6;
-            if (passed) {
+            if (Helper.isValidPassphrase(input)) {
               this.passphraseFailed = false;
               this.passphraseSuccess = true;
               return true;
@@ -107,7 +106,7 @@
 
             this.passphraseSuccess = false;
             this.passphraseFailed = true;
-            return this.$t('given passphrase length is not enough');
+            return this.$t('passphrase should be 12 characters which contain alphanumeric and special character');
           },
           passphraseConfirm: () => {
             if (!this.$refs.passphraseConfirm) { return true; }
