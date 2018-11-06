@@ -31,6 +31,15 @@ export default (Vue) => {
     return formatter.format(unit.convert(value, 'gon', 'bos'));
   });
 
+  Vue.filter('short', (value) => {
+    if (typeof value !== 'string') {
+      return value;
+    }
+
+    const len = value.length;
+    return `${value.substr(0, 7)}...${value.substr(len - 8, len - 7)}`;
+  });
+
   installComponents(Vue);
 
   return Vue;

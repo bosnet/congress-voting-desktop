@@ -1,98 +1,62 @@
 <template>
-  <div>
-    <v-card>
-      <v-container fluid grid-list-lg>
-        <v-layout row wrap>
-          <v-tabs>
-            <v-tab>{{$t('frozen-account-list')}}</v-tab>
-          </v-tabs>
-          <v-card-actions>
-            <v-btn @click="openPassphraseDialog()">{{$t('freeze')}}</v-btn>
-            <v-btn @click="unfreeze()">{{$t('unfreeze')}}</v-btn>
-            <v-btn @click="withdraw()">{{$t('withdraw')}}</v-btn>
-          </v-card-actions>
-          <v-card-text>
-            <bos-wallet-account-derivation-account-item
-                ref="items"
-                :item="item"
-                v-for="item in frozenAccounts"/>
-          </v-card-text>
-        </v-layout>
-      </v-container>
-    </v-card>
-    <passphrase-dialog ref="passphraseDialog" :callback="freeze" showUnit="true"/>
-  </div>
+  <section class="Account">
+    <header class="account-header">
+      <div class="balance">{{ account.balance | bos }} <abbr>BOS</abbr></div>
+      <div class="frozen" v-if="!!totalFrozenAmount">{{ totalFrozenAmount | bos }} <abbr>BOS</abbr></div>
+    </header>
+    <div class="account-tabs">
+      <ul class="account-tabs-list">
+        <li :class="tabClasses('frozen')" @click="$emit('tab', 'frozen')">{{$t('frozen account')}}</li>
+      </ul>
+    </div>
+    <div class="account-tabs-content">
+      <bos-wallet-account-frozen :wallet="wallet" :frozenAccounts="frozenAccounts" v-if="active('frozen')"/>
+    </div>
+  </section>
 </template>
 
 <script>
+  import Helper from '@/lib/helper';
+
   import PassphraseDialog from './PassphraseDialog';
 
   export default {
     name: 'bos-wallet-account-section',
-    props: ['wallet'],
+    props: ['activeMenu', 'wallet'],
     components: {
       PassphraseDialog,
     },
+    data() {
+      return {
+        account: {},
+      };
+    },
     methods: {
-      freeze({ amount, passphrase }) {
-        return this.$store.dispatch('freeze', { address: this.address, amount, passphrase })
-          .then(() => this.loadOps());
-      },
-      unfreeze() {
-        const accounts = [];
-        for (let i = 0; i < this.$refs.items.length; i += 1) {
-          const ref = this.$refs.items[i];
-          if (ref.checked && ref.item.state === 'frozen') {
-            accounts.push({
-              address: ref.item.address,
-              sequenceId: ref.item.sequence_id,
-              amount: ref.item.amount,
-            });
-          }
-        }
-        this.$parent.promptPassphrase(`${accounts.length}개 언프리즈`).then(({ passphrase }) =>
-          accounts.map(account => this.$store.dispatch('unfreeze', {
-            ownerAddress: this.address,
-            address: account.address,
-            sequenceId: account.sequenceId,
-            passphrase,
-          })));
-      },
-      // test
-      withdraw() {
-        const accounts = [];
-        for (let i = 0; i < this.$refs.items.length; i += 1) {
-          const ref = this.$refs.items[i];
-          if (ref.checked) {
-            accounts.push({
-              address: ref.item.address,
-              sequenceId: ref.item.sequence_id,
-              amount: ref.item.amount,
-            });
-          }
-        }
-        this.$parent.promptPassphrase(`${accounts.length}개 회수`).then(({ passphrase }) =>
-          accounts.map(account => this.$store.dispatch('withdraw', {
-            address: this.address,
-            frozenAccountAddress: account.address,
-            sequenceId: account.sequenceId,
-            passphrase,
-          })));
-      },
-      loadOps() {
+      async loadOps() {
         return this.$store.dispatch('loadFrozenAccounts', this.address);
-      },
-      openPassphraseDialog() {
-        this.$refs.passphraseDialog.open();
       },
       tick() {
         this.loadOps();
+        this.loadAccount();
+      },
+      tabClasses(test) {
+        return {
+          'account-tabs-list-item': true,
+          'account-tabs-list-item--on': this.active(test),
+        };
+      },
+      active(test) {
+        return this.activeMenu === test;
+      },
+      async loadAccount() {
+        this.account = await this.$store.getters.account(this.address);
       },
     },
     mounted() {
       this.$root.$on('tick', this.tick);
       this.$store.dispatch('clearFrozenAccounts');
       this.loadOps();
+      this.loadAccount();
     },
     destroyed() {
       this.$root.$off('tick', this.tick);
@@ -104,6 +68,102 @@
       frozenAccounts() {
         return this.$store.state.RPC.frozenAccountOps;
       },
+      totalFrozenAmount() {
+        if (this.frozenAccounts) {
+          return this.frozenAccounts.reduce((accum, cur) => {
+            if (cur.state !== 'returned') {
+              return Helper.sumAmount(accum, cur.amount);
+            }
+            return accum.amount;
+          }, '0');
+        }
+        return null;
+      },
     },
   };
 </script>
+
+<style>
+  .Account .account-header  {
+    background-color: #fff;
+    height: 158px;
+    padding: 67px 30px 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .Account .account-header .balance {
+    display: inline-block;
+    position: relative;
+    width: 337px;
+  }
+
+  .Account .account-header .frozen {
+    display: inline-block;
+    position: relative;
+  }
+
+  .Account .account-header .balance:before {
+    content: "Balance";
+  }
+
+  .Account .account-header .frozen:before {
+    content: "Frozen";
+  }
+
+  .Account .account-header .balance:before,
+  .Account .account-header .frozen:before {
+    font-size: 13px;
+    font-weight: normal;
+    color: #97a5b3;
+    position: absolute;
+    top: -15px;
+    left: 0;
+  }
+
+  .Account .account-header .balance abbr,
+  .Account .account-header .frozen abbr {
+    font-size: 17px;
+    font-weight: normal;
+    color: #909090;
+    margin-left: -8px;
+  }
+
+  .Account .account-tabs {
+    height: 45px;
+    padding: 0 20px;
+    background-color: #fff;
+  }
+
+  .Account .account-tabs-list {
+    list-style: none;
+    padding: 0;
+    height: 45px;
+    display: flex;
+  }
+
+  .Account .account-tabs-list-item {
+    margin: 0 10px;
+    font-size: 13px;
+    color: #607481;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 2px solid #ffffff;
+  }
+
+  .Account .account-tabs-list-item--on,
+  .Account .account-tabs-list-item:hover {
+    color: #3c92e4;
+    border-bottom: 2px solid #3c92e4;;
+  }
+
+  .Account .account-tabs-content {
+    padding: 20px 30px;
+    background-color: #eaeff5;
+    height: 412px;
+    overflow-y: auto;
+  }
+</style>

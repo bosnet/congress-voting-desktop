@@ -19,4 +19,9 @@ export default {
       .multipliedBy(10000, 10)
       .toString(10);
   },
+  sumAmount(left, right) {
+    return new BigNumber(left, 10)
+      .plus(right, 10)
+      .toString(10);
+  },
 };

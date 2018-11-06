@@ -6,7 +6,7 @@
     <nav>
       <ul>
         <li :class="{account: true, on: activeMenu === 'account'}">
-          <router-link :to="`/wallet/${address}/#account`">Account</router-link>
+          <router-link :to="`/wallet/${address}/#account-frozen`">Account</router-link>
         </li>
         <li :class="{voting: true, on: activeMenu === 'voting'}">
           <router-link :to="`/wallet/${address}/#voting`">Congress Voting</router-link>

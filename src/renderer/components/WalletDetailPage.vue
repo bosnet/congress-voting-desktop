@@ -3,7 +3,7 @@
     <bos-wallet-sidebar :wallet="wallet" :activeMenu="activeMenu"/>
     <div class="wallet-detail-container-content">
       <bos-wallet-header :wallet="wallet" :title="title"/>
-      <bos-wallet-account-section :wallet="wallet" v-if="activeMenu == 'account'"/>
+      <bos-wallet-account-section :wallet="wallet" :activeMenu="activeSubMenu" v-if="activeMenu == 'account'"/>
       <bos-wallet-proposal-section :wallet="wallet" v-else-if="activeMenu == 'voting'"/>
       <bos-wallet-settings-section :wallet="wallet" :activeMenu="activeSubMenu" @tab="anchor" v-else/>
     </div>

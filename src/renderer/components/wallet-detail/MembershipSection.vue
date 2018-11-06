@@ -6,7 +6,7 @@
       <hr>
       <span>{{$t('registering membership guide')}}</span>
       <button class="button" @click="openfreezingDialog">{{$t('freezing')}}</button>
-      <freezing-dialog ref="freezingDialog" :wallet="wallet" :callback="freezingRequested"/>
+      <bos-freezing-dialog ref="freezingDialog" :wallet="wallet" :callback="freezingRequested"/>
     </div>
     <div class="after" v-else>
       <img :src="membershipReadyImg" />
@@ -22,17 +22,12 @@
 </template>
 
 <script>
-  import FreezingDialog from './FreezingDialog';
-
   import membershipReadyImg from '../../assets/svg/membership-ready.svg';
   import membershipFreezingImg from '../../assets/svg/membership-freezing.svg';
 
   export default {
     name: 'wallet-membership-section',
     props: ['wallet'],
-    components: {
-      FreezingDialog,
-    },
     data() {
       return {
         completed: false,

@@ -4,7 +4,10 @@ export { default as BosWalletHeader } from './wallet-detail/WalletHeader';
 export { default as BosWalletSidebar } from './wallet-detail/WalletSidebar';
 
 export { default as BosWalletAccountSection } from './wallet-detail/AccountSection';
-export { default as BosWalletAccountDerivationAccountItem } from './wallet-detail/AccountDerivationAccountItem';
+export { default as BosWalletAccountFrozen } from './wallet-detail/AccountFrozen';
+export { default as BosWalletAccountFrozenItem } from './wallet-detail/AccountFrozenItem';
+export { default as BosFreezingDialog } from './wallet-detail/FreezingDialog';
+export { default as BosUnfreezingDialog } from './wallet-detail/UnfreezingDialog';
 
 export { default as BosWalletPreMembershipSection } from './wallet-detail/PreMembershipSection';
 export { default as BosWalletMembershipPendingSection } from './wallet-detail/MembershipPendingSection';
