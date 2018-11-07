@@ -12,7 +12,7 @@ import store from './store';
 bootstrap(Vue);
 
 const i18n = new VueI18n({
-  locale: 'ko',
+  locale: navigator.language === 'ko' ? navigator.language : 'en',
   messages: {
     en: require('./i18n/en.json'),
     ko: require('./i18n/ko.json'),
