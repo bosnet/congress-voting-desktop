@@ -2,10 +2,8 @@ import { Keypair, StrKey } from 'stellar-base';
 import BaseX from 'base-x';
 import crypto from 'crypto';
 import rlp from 'rlp';
-import PromiseWorker from 'promise-worker';
 import config from 'config';
 
-const worker = new PromiseWorker(new Worker('/worker.js'));
 const B58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
 const iv = Buffer.from([0x42, 0x4F, 0x53, 0x5F, 0x43, 0x4F, 0x49, 0x4E,
   0x5F, 0x57, 0x41, 0x4C, 0x4C, 0x45, 0x54, 0x53]);
@@ -32,13 +30,6 @@ export default {
   },
   sha256(data) {
     return crypto.createHash('sha256').update(data).digest();
-  },
-  argon2(payload) {
-    const salt = config.get('salt');
-    return worker.postMessage(['argon2', {
-      bytes: rlp.encode(payload),
-      salt,
-    }]).then(hash => this.encodeB58(hash));
   },
   sign(seed, data) {
     const networkId = config.get('network');

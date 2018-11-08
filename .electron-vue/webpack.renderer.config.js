@@ -10,7 +10,6 @@ const BabiliWebpackPlugin = require('babili-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
 
 /**
  * List of node_modules to include in webpack bundle
@@ -119,11 +118,6 @@ let rendererConfig = {
   },
   plugins: [
     new ExtractTextPlugin('styles.css'),
-    new ServiceWorkerWebpackPlugin({
-      entry: path.join(__dirname, '../src/worker/main.js'),
-      filename: 'worker.js',
-      excludes: ['**/.*', '**/*.map', '*.html']
-    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
