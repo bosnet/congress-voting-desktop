@@ -2,7 +2,6 @@
   <section class="PreMembershipRegister">
     <div v-if="!showKYC">
       <h2>{{$t('joining membership and then attend congress voting')}}</h2>
-      <span>{{$t('membership benefit')}}</span>
       <img :src="membershipKycImg" alt="join membership" />
       <button class="button" @click="startKYC()">{{$t('registering membership')}}</button>
       <span>{{$t('by registering an membership you agree to delegate authority to operate node')}}</span>
@@ -134,10 +133,10 @@
   }
 
   .PreMembershipRegister img {
-    margin: 30px 0;
+    margin: 60px 0;
   }
 
   .PreMembershipRegister .button {
-    margin: 0 auto;
+    margin: 0 auto 10px;
   }
 </style>
