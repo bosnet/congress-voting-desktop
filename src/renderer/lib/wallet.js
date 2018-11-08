@@ -2,7 +2,7 @@ import { Keypair, StrKey } from 'stellar-base';
 import BaseX from 'base-x';
 import crypto from 'crypto';
 import rlp from 'rlp';
-import config from 'config';
+import config from '#config';
 
 const B58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
 const iv = Buffer.from([0x42, 0x4F, 0x53, 0x5F, 0x43, 0x4F, 0x49, 0x4E,

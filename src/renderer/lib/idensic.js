@@ -1,5 +1,5 @@
 // ref: https://test-api.sumsub.com/idensic/static/idensic.js
-import config from 'config';
+import config from '#config';
 
 const sumsub = config.get('sumsub');
 const defaultIframeOptions = {

@@ -131,7 +131,11 @@ let rendererConfig = {
         : false
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.IgnorePlugin(/cson/),
+    new webpack.IgnorePlugin(/hjson/),
+    new webpack.IgnorePlugin(/properties/),
+    new webpack.IgnorePlugin(/x2js/),
   ],
   output: {
     filename: '[name].js',
@@ -141,11 +145,16 @@ let rendererConfig = {
   resolve: {
     alias: {
       '@': path.join(__dirname, '../src/renderer'),
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      '#config': 'electron-node-config'
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
   },
   target: 'electron-renderer'
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  rendererConfig.resolve.alias['#config'] = 'config'
 }
 
 /**

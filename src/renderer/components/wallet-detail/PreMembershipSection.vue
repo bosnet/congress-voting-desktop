@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import config from 'config';
+  import config from '#config';
   import idensic from '@/lib/idensic';
 
   import membershipKycImg from '../../assets/svg/membership-kyc.svg';

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import config from 'config';
+import config from '#config';
 import moment from 'moment';
 import wallet from '@/lib/wallet';
 import wire from '@/lib/wire';
