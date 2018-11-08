@@ -12,8 +12,8 @@
       <vote-dialog ref="voteDialog" :callback="vote"/>
     </v-card>
 
-    <bos-wallet-membership-pending-section :wallet="wallet" v-else-if="state() == 'pending'"/>
-    <bos-wallet-membership-section :wallet="wallet" v-else-if="state() == 'verified'"/>
+    <bos-wallet-membership-pending-section :wallet="wallet" v-else-if="state == 'pending'"/>
+    <bos-wallet-membership-section :wallet="wallet" v-else-if="state == 'verified'"/>
     <bos-wallet-pre-membership-section :wallet="wallet" v-else />
   </div>
 </template>

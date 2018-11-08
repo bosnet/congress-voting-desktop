@@ -31,10 +31,7 @@
     },
     asyncComputed: {
       accessToken() {
-        if (this.wallet.address != null) {
-          return this.$store.getters.getSumsubAccessToken(this.wallet.address);
-        }
-        return {};
+        return this.$store.getters.getSumsubAccessToken(this.wallet.address);
       },
     },
     watch: {
@@ -47,7 +44,7 @@
     methods: {
       startKYC() {
         this.showKYC = true;
-        if (!this.accessToken.data) {
+        if (!this.accessToken || !this.accessToken.data) {
           return false;
         }
         this.$nextTick(() => {

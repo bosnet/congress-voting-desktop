@@ -119,13 +119,13 @@
   }
 
   .FrozenAccount .btn {
-    width: 90px;
     height: 34px;
     border-radius: 2px;
     border: solid 1px #b6c5d3;
     background-color: #ffffff;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
+    padding: 0 19px;
     color: #607481;
   }
 
