@@ -5,6 +5,7 @@
       <span>{{$t('membership benefit')}}</span>
       <img :src="membershipKycImg" alt="join membership" />
       <button class="button" @click="startKYC()">{{$t('registering membership')}}</button>
+      <span>{{$t('by registering an membership you agree to delegate authority to operate node')}}</span>
     </div>
     <div v-else>
       <div id="idensic"></div>
@@ -51,11 +52,12 @@
           return false;
         }
         this.$nextTick(() => {
+          const lang = navigator.language === 'ko' ? navigator.language : 'en';
           idensic.init(
             this.$el.querySelector('#idensic'),
             {
               accessToken: this.accessToken.data,
-              lang: 'en',
+              lang,
               applicantDataPage: {
                 enabled: true,
                 fields: [
@@ -71,6 +73,8 @@
                 agreementText: this.$t('agreement text'),
                 privacyText: this.$t('privacy text'),
               },
+              userAgreementUrl: 'https://boscoin.io/terms',
+              privacyPolicyUrl: lang === 'ko' ? 'https://boscoin.io/consent/' : 'https://www.sumsub.com/consent-to-personal-data-processing/',
               uiConf: {
                 customCssUrl: config.get('sumsub').customCss,
               },

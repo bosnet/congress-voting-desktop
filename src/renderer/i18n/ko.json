@@ -36,8 +36,8 @@
   "joining membership and then attend congress voting": "멤버쉽에 등록하여 콩그레스 보팅에 참여하고 각종 혜택을 받아보세요",
   "membership benefit": "프리징 리워드 | 500 BOS 지급 | BOS 에어드랍",
   "registering membership": "멤버쉽 등록하기",
-  "agreement text": "이용 약관",
-  "privacy text": "개인정보 이용 동의",
+  "agreement text": "${userAgreementLink}에 동의합니다",
+  "privacy text": "서비스 이용을 목적으로 ${privacyPolicyUrl}에 동의합니다",
   "edit account": "계좌정보 변경",
   "confirm recovery key": "복구키 확인",
   "confirm secret seed": "보안키 확인",
@@ -99,5 +99,6 @@
   "unfreezing amount": "언프리징 금액",
   "unfreezing is not cancelable, you can withdraw it after 14 days": "언프리징 요청 후에는 취소가 불가능하며 14일 뒤부터 이체가능합니다",
   "currently only one account allowed. If you want another account, please remove current one": "현재는 1개 계좌만 등록할 수 있습니다. 다른 계좌를 추가하려면 기존 계좌를 삭제해 주세요",
-  "confirm": "승인"
+  "confirm": "승인",
+  "by registering an membership you agree to delegate authority to operate node": "멤버쉽을 가입함으로써 노드 운영권한 위임에 동의합니다"
 }
