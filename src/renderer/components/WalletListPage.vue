@@ -12,7 +12,7 @@
       <v-flex class="empty">
         <h2>{{$t('welcome')}}</h2>
         <h1>{{$t('add your account and attend congress voting')}}</h1>
-        <div class="img"></div>
+        <img :src="welcomeImg"/>
 
         <v-dialog v-model="dialog" fullscreen hide-overlay>
           <button slot="activator" class="button">{{$t('add account')}}</button>
@@ -33,6 +33,7 @@
   import WalletList from './wallet-list/WalletList';
   import WalletNew from './WalletNewPage';
 
+  import welcomeImg from '../assets/svg/home-welcome.svg';
   import addBtn from '../assets/svg/home-add-btn.svg';
 
   export default {
@@ -57,6 +58,7 @@
       return {
         dialog: false,
         loaded: false,
+        welcomeImg,
         addBtn,
         showNotification: true,
         membershipStatus: null,
@@ -119,17 +121,13 @@
     margin: 5px 0 0 0;
   }
 
-  .WalletListPage .empty .img {
-    width: 215px;
-    height: 215px;
-    border-radius: 108px;
-    background-color: #ffffff;
-    opacity: 0.5;
-    margin: 45px auto 0;
+  .WalletListPage .empty img {
+    margin: 42px auto 0;
+    display: block;
   }
 
   .WalletListPage .empty .button {
-    margin: 60px auto 0;
+    margin: 52px auto 0;
   }
 
   .WalletListPage .dialog {
