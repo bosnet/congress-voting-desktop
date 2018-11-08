@@ -1,9 +1,9 @@
 {
   "name": "boscoin-congress-voting",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "K <zzim2x@gmail.com>",
   "description": "BOScoin Wallet & Congress Voting Application",
-  "license": null,
+  "license": "GPL-3.0-only",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -24,7 +24,7 @@
   },
   "build": {
     "productName": "BOScoin Congress Voting",
-    "appId": "org.simulatedgreg.electron-vue",
+    "appId": "io.boscoin.desktop-wallet",
     "directories": {
       "output": "build"
     },
