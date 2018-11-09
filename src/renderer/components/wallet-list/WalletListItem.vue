@@ -21,6 +21,9 @@
 
 <script>
   import Helper from '@/lib/helper';
+  import { remote } from 'electron';
+
+  const { Menu, MenuItem } = remote;
 
   export default {
     props: ['wallet', 'warn', 'notify'],
@@ -87,6 +90,21 @@
     },
     mounted() {
       this.loadOps();
+
+      const self = this;
+      const menu = new Menu();
+      menu.append(new MenuItem({
+        label: self.$t('deleting account'),
+        async click() {
+          await self.$store.dispatch('deleteWalletByAddress', self.wallet.address);
+          self.$router.push('/wallets');
+        },
+      }));
+
+      this.$el.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        menu.popup({ window: remote.getCurrentWindow() });
+      }, false);
     },
   };
 </script>
