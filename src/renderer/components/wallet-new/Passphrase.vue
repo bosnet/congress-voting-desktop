@@ -34,7 +34,7 @@
   import errorIcon from '../../assets/svg/input-error.svg';
 
   export default {
-    name: 'wallet-import-secret-seed',
+    name: 'wallet-import-passphrase',
     props: ['passed'],
     data() {
       return {
@@ -49,33 +49,48 @@
             if (!input) { return true; }
 
             if (Helper.isValidPassphrase(input)) {
-              this.$data.pass1failed = false;
-              this.$data.pass1success = true;
+              this.pass1failed = false;
+              this.pass1success = true;
               return true;
             }
 
-            this.$data.pass1success = false;
-            this.$data.pass1failed = true;
-            return this.$t('passphrase should be 12 characters which contain alphanumeric and special character');
+            this.pass1success = false;
+            this.pass1failed = true;
+            return this.$t('passphrase should be 8 characters which contain alphanumeric and special character');
           },
           pass2check: () => {
             if (!this.$refs.passphraseConfirm) { return true; }
 
             const passphrase = this.$refs.passphrase.internalValue;
             if (passphrase === this.$refs.passphraseConfirm.internalValue) {
-              this.$data.pass2failed = false;
-              this.$data.pass2success = true;
-              this.$emit('enable-next');
+              this.pass2failed = false;
+              this.pass2success = true;
+              console.log(this);
               return true;
             }
 
-            this.$data.pass2success = false;
-            this.$data.pass2failed = true;
-            this.$emit('disable-next');
+            this.pass2success = false;
+            this.pass2failed = true;
             return this.$t('both passphrases are not same');
           },
         },
       };
+    },
+    watch: {
+      pass1success(v) {
+        if (v && this.pass2success) {
+          this.$emit('enable-next');
+        } else {
+          this.$emit('disable-next');
+        }
+      },
+      pass2success(v) {
+        if (v && this.pass1success) {
+          this.$emit('enable-next');
+        } else {
+          this.$emit('disable-next');
+        }
+      },
     },
     methods: {
       value() {
