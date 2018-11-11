@@ -3,12 +3,13 @@
     <div v-if="!showKYC">
       <h2>{{$t('joining membership and then attend congress voting')}}</h2>
       <img :src="membershipKycImg" alt="join membership" />
-      <button class="button" @click="startKYC()">{{$t('registering membership')}}</button>
-      <span>{{$t('by registering an membership you agree to delegate authority to operate node')}}</span>
+      <button class="button" @click="openPassphraseDialog">{{$t('registering membership')}}</button>
+      <span class="desc">{{$t('by registering an membership you agree to delegate authority to operate node')}}</span>
+      <bos-passphrase-dialog ref="passphraseDialog"/>
+      <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
     </div>
     <div v-else>
       <div id="idensic"></div>
-      <bos-passphrase-dialog ref="passphraseDialog"/>
     </div>
   </section>
 </template>
@@ -27,32 +28,19 @@
         membershipKycImg,
         showKYC: false,
         applicantId: null,
+        showMessage: false,
+        message: '',
       };
     },
-    asyncComputed: {
-      accessToken() {
-        return this.$store.getters.getSumsubAccessToken(this.wallet.address);
-      },
-    },
-    watch: {
-      accessToken() {
-        if (this.showKYC) {
-          this.startKYC();
-        }
-      },
-    },
     methods: {
-      startKYC() {
+      startKYC(accessToken, passphrase) {
         this.showKYC = true;
-        if (!this.accessToken || !this.accessToken.data) {
-          return false;
-        }
         this.$nextTick(() => {
           const lang = navigator.language === 'ko' ? navigator.language : 'en';
           idensic.init(
             this.$el.querySelector('#idensic'),
             {
-              accessToken: this.accessToken.data,
+              accessToken,
               lang,
               applicantDataPage: {
                 enabled: true,
@@ -77,22 +65,59 @@
             },
             (messageType, payload) => {
               if (messageType === 'idCheck.onApplicantCreated') {
-                this.applicantId = payload.applicantId;
-              } else if (messageType === 'idCheck.onApplicantSubmitted') {
-                this.openPassphraseDialog();
+                this.updateApplicantId(payload.applicantId, passphrase);
               }
             },
           );
         });
         return true;
       },
+      async updateApplicantId(applicantId, passphrase) {
+        try {
+          await this.$store.dispatch('updateApplicantId', {
+            address: this.wallet.address,
+            applicantId,
+            passphrase,
+          });
+          const token = await this.$store.getters.getSumsubAccessToken(this.wallet.address);
+          console.log(token.data);
+        } catch (err) {
+          if (err.response && err.response.status >= 400 && err.response.status < 500) {
+            if (err.response.data && err.response.data.error) {
+              this.message = err.response.data.error;
+            } else {
+              this.message = this.$t('something is wrong');
+            }
+          } else {
+            this.message = this.$t('something is wrong');
+          }
+
+          this.showMessage = true;
+        }
+      },
       async registerPreMembership({ passphrase }) {
-        await this.$store.dispatch('preMembership', {
-          address: this.wallet.address,
-          applicantId: this.applicantId,
-          passphrase,
-        });
-        this.$router.push('/');
+        try {
+          await this.$store.dispatch('preMembership', {
+            address: this.wallet.address,
+            passphrase,
+          });
+          const token = await this.$store.getters.getSumsubAccessToken(this.wallet.address);
+          this.startKYC(token.data, passphrase);
+        } catch (err) {
+          if (err.message.match(/bad decrypt/)) {
+            this.message = this.$t('passphrase is wrong');
+          } else if (err.response && err.response.status >= 400 && err.response.status < 500) {
+            if (err.response.data && err.response.data.error) {
+              this.message = err.response.data.error;
+            } else {
+              this.message = this.$t('something is wrong');
+            }
+          } else {
+            this.message = this.$t('something is wrong');
+          }
+
+          this.showMessage = true;
+        }
       },
       openPassphraseDialog() {
         this.$refs.passphraseDialog.open({
@@ -121,7 +146,7 @@
     margin: 0 auto;
   }
 
-  .PreMembershipRegister span {
+  .PreMembershipRegister .desc {
     width: 100%;
     display: block;
     font-size: 14px;

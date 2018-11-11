@@ -93,7 +93,21 @@ const actions = {
     });
   },
 
-  async preMembership({ dispatch, getters }, { address, applicantId, passphrase }) {
+  async preMembership({ dispatch, getters }, { address, passphrase }) {
+    const res = await getters.getWallet(address);
+    const seed = wallet.decryptWallet(passphrase, res.data);
+    const array = [address];
+    const payload = {
+      data: array,
+      signature: '',
+    };
+
+    const hash = await wallet.hash(array);
+    payload.signature = wallet.sign(seed, hash);
+    await dispatch('sendPreMembershipTx', payload);
+  },
+
+  async updateApplicantId({ dispatch, getters }, { address, applicantId, passphrase }) {
     const res = await getters.getWallet(address);
     const seed = wallet.decryptWallet(passphrase, res.data);
     const array = [address, applicantId];
@@ -104,7 +118,7 @@ const actions = {
 
     const hash = await wallet.hash(array);
     payload.signature = wallet.sign(seed, hash);
-    await dispatch('sendPreMembershipTx', payload);
+    await dispatch('sendApplicantIdTx', { address, payload });
   },
 
   async registerMembership({ dispatch, getters }, { address, passphrase, frozenAddress }) {

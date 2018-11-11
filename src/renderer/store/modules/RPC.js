@@ -94,6 +94,12 @@ const actions = {
       .get();
   },
 
+  sendApplicantIdTx({ commit, dispatch }, { address, payload }) {
+    return intercept({ commit, dispatch })
+      .request(remoteRPC.updateApplicantId(address, payload))
+      .get();
+  },
+
   sendRegisterMembershipTx({ commit, dispatch }, { address, payload }) {
     return intercept({ commit, dispatch })
       .request(remoteRPC.registerMembership(address, payload))
