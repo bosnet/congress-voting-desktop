@@ -15,7 +15,7 @@
       </button>
       <span class="seed" id="SettingsSecretSeed">{{seed}}</span>
     </div>
-    <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
+    <bos-toast v-model="showMessage" :timeout="2000">{{message}}</bos-toast>
   </div>
 </template>
 
@@ -60,6 +60,9 @@
         } catch (err) {
           this.message = this.$t('passphrase is wrong');
           this.showMessage = true;
+          setTimeout(() => {
+            this.openPassphraseDialog();
+          }, 2000);
         }
       },
     },
