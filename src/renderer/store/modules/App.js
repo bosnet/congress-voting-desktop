@@ -40,7 +40,7 @@ const actions = {
   setCurrentWallet({ commit, dispatch }, wallet) {
     commit('SET_CURRENT_WALLET', wallet);
     if (wallet) {
-      dispatch('updateMembership', [wallet.address]);
+      dispatch('updateMembership', { wallets: [wallet], mutable: false });
     }
   },
   addMessage({ commit }, message) {

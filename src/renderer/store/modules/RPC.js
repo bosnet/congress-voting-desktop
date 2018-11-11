@@ -53,19 +53,16 @@ const actions = {
       .then(ops => commit('UPDATE_FROZEN_ACCOUNT_OPS', { address, ops }));
   },
 
-  updateAllBalance({ commit, dispatch }, addresses) {
+  updateAllBalance({ commit, dispatch }, wallets) {
     const requests = [];
-    for (let i = 0; i < addresses.length; i += 1) {
-      const address = addresses[i];
+    for (let i = 0; i < wallets.length; i += 1) {
+      const address = wallets[i].address;
       const req = remoteRPC.getAccount(address)
-        .then(data => commit('UPDATE_BALANCE', {
-          address,
-          balance: data && data.balance ? data.balance : '0',
-        }))
-        .catch((err) => {
-          if (err.response.status !== 404) { // ignore if account isn't exist
-            throw err;
-          }
+        .then((data) => {
+          wallets[i].balance = data && data.balance ? data.balance : '0';
+        })
+        .catch(() => {
+          wallets[i].balance = '-';
         });
       requests.push(req);
     }
@@ -73,15 +70,24 @@ const actions = {
     return intercept({ commit, dispatch }).request(Promise.all(requests)).get();
   },
 
-  updateMembership({ commit, dispatch }, addresses) {
+  updateMembership({ commit, dispatch }, { wallets, mutable }) {
     const requests = [];
-    for (let i = 0; i < addresses.length; i += 1) {
-      const address = addresses[i];
+    for (let i = 0; i < wallets.length; i += 1) {
+      const address = wallets[i].address;
       const req = remoteRPC.getMembership(address)
+        .then((data) => {
+          if (mutable) {
+            wallets[i].membership = data;
+          }
+          return data;
+        })
         .then(data => commit('UPDATE_MEMBERSHIP', {
           address,
           membership: data,
-        }));
+        }))
+        .catch(() => {
+          wallets[i].membership = null;
+        });
       requests.push(req);
     }
 

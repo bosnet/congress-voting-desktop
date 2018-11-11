@@ -35,6 +35,7 @@
     computed: {
       membershipStatus() {
         if (this.wallet.membership) {
+          this.notify(this.wallet.membership.status);
           return this.wallet.membership.status;
         }
         return '';
@@ -61,11 +62,6 @@
           }, '0');
         }
         return null;
-      },
-    },
-    watch: {
-      membershipStatus(status) {
-        this.notify(status);
       },
     },
     methods: {

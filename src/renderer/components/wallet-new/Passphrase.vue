@@ -65,7 +65,6 @@
             if (passphrase === this.$refs.passphraseConfirm.internalValue) {
               this.pass2failed = false;
               this.pass2success = true;
-              console.log(this);
               return true;
             }
 
