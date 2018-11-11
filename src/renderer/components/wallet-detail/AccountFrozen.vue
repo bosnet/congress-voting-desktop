@@ -2,7 +2,7 @@
   <div class="FrozenAccount">
     <div class="frozen-account-btns">
       <button class="btn" :disabled="willUnfreeze" @click="openFreezingDialog" v-if="isMembership">{{$t('freezing')}}</button>
-      <button class="btn" :disabled="willUnfreeze" @click="prepareUnfreeze">{{$t('unfreezing')}}</button>
+      <button class="btn" :disabled="willUnfreeze" @click="prepareUnfreeze" v-if="hasFrozen">{{$t('unfreezing')}}</button>
       <!--<button class="btn" :disabled="false" @click="withdraw()">{{$t('')}}</button>-->
     </div>
     <div class="frozen-account-list">
@@ -107,6 +107,9 @@
       },
       isMembership() {
         return this.wallet && this.wallet.membership && this.wallet.membership.status === 'active';
+      },
+      hasFrozen() {
+        return this.frozenAccounts && this.frozenAccounts.length > 0;
       },
     },
   };
