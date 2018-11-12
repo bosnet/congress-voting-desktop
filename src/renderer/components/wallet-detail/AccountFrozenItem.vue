@@ -1,8 +1,5 @@
 <template>
   <li class="frozen-item" @click="check">
-    <!--<v-checkbox v-model="checked" :disabled="!valid"/>-->
-    <!--<v-list-tile-title>{{ item.address }}</v-list-tile-title>-->
-    <!--<v-list-tile-sub-title>{{ item.amount | bos }} {{ item.state }} {{ item.sequence_id }}</v-list-tile-sub-title>-->
     <span class="action">
       <input type="checkbox" :value="item.address" v-model="checked" v-if="willUnfreeze"/>
       <img :src="frozenIcon" v-else/>
@@ -11,7 +8,7 @@
       <span class="state">
         <span :class="`state-${item.state}`" v-if="item.state === 'unfrozen'">{{$t('possible to withdraw')}}</span>
         <!-- TODO: show unfreezing d-day -->
-        <span :class="`state-${item.state}`" v-else-if="item.state === 'melting'">{{$t('unfreezed until')}} D-XX</span>
+        <span :class="`state-${item.state}`" v-else-if="item.state === 'melting'">{{$t('unfreezed until')}} {{remainingTime}}</span>
       </span>
       <span class="addr">{{ item.address | short }}</span>
       <span class="created">{{ item.create_block_height }} block</span>
@@ -51,6 +48,16 @@
     computed: {
       valid() {
         return this.item.state === 'frozen' || this.item.state === 'unfrozen';
+      },
+      remainingTime() {
+        // (blocks * 5 secs) / (24 hours * 60 minutes * 60 seconds)
+        const blockToSecs = this.item.unfreezing_remaining_blocks * 5;
+        const remainingDays = blockToSecs / (24 * 60 * 60);
+        if (remainingDays > 1) {
+          return `D-${Math.floor(remainingDays)}`;
+        }
+
+        return `${this.$t('remaining', { hours: Math.floor(blockToSecs / (60 * 60)) })}`;
       },
     },
   };

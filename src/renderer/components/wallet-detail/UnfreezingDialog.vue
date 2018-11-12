@@ -5,7 +5,7 @@
         <v-stepper-content step="1" class="step1">
           <h3>{{$t('requesting unfreezing')}}</h3>
           <!-- FIXME: show unfeezing date -->
-          <span class="desc">{{$t('you can withdraw after unfreezing', { account: wallet.title, until: '' })}}</span>
+          <span class="desc">{{$t('you can withdraw after unfreezing', { account: wallet.title, until: withdrawableDatetime })}}</span>
           <div class="preview">
             <div class="row">
               <span class="label">{{$t('unfreezing amount')}}</span>
@@ -50,6 +50,8 @@
 
   import closeIcon from '../../assets/svg/close.svg';
 
+  const UNFREEZING_PERIOD = 241920; // blocks
+
   export default {
     name: 'unfreezing-dialog',
     props: ['wallet', 'callback'],
@@ -69,6 +71,11 @@
       },
       totalWithdraw() {
         return this.totalAmount - Unit.convert(this.totalFee, 'bos', 'gon');
+      },
+      withdrawableDatetime() {
+        const until = new Date();
+        until.setSeconds(until.getSeconds() + (UNFREEZING_PERIOD * 5));
+        return until.toLocaleString();
       },
     },
     methods: {
@@ -122,10 +129,10 @@
 
           throw err;
         }
-        this.dialog = false;
         if (this.callback) {
           this.callback();
         }
+        this.reset();
       },
     },
   };
