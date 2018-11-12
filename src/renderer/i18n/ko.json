@@ -35,8 +35,6 @@
   "your identity is verified": "본인 확인에 성공하였습니다",
   "joining membership and then attend congress voting": "멤버십 등록 후 콩그레스 보팅에 참여하고 각종 혜택을 받아보세요",
   "registering membership": "멤버십 등록하기",
-  "agreement text": "${userAgreementLink}에 동의합니다",
-  "privacy text": "서비스 이용을 목적으로 ${privacyPolicyLink}에 동의합니다",
   "edit account": "계좌정보 변경",
   "confirm recovery key": "복구키 확인",
   "confirm secret seed": "보안키 확인",

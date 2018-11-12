@@ -53,10 +53,6 @@
                 ],
               },
               requiredDocuments: 'IDENTITY:PASSPORT,ID_CARD,DRIVERS;SELFIE:SELFIE',
-              copyConf: {
-                agreementText: this.$t('agreement text'),
-                privacyText: this.$t('privacy text'),
-              },
               userAgreementUrl: 'https://boscoin.io/terms',
               privacyPolicyUrl: lang === 'ko' ? 'https://boscoin.io/consent/' : 'https://www.sumsub.com/consent-to-personal-data-processing/',
               uiConf: {
