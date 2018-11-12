@@ -2,6 +2,8 @@
 
 import moment from 'moment';
 
+const TRANSACTION_VERSION = '1';
+
 export class Op {
   nestedArrays() {
     return [];
@@ -48,6 +50,7 @@ export class Tx {
     return {
       T: 'transaction',
       H: {
+        version: TRANSACTION_VERSION,
         created: moment().format('YYYY-MM-DDTHH:mm:ss.SSSSSSSSSZ'),
         signature: this.signature,
       },

@@ -75,8 +75,6 @@
             applicantId,
             passphrase,
           });
-          const token = await this.$store.getters.getSumsubAccessToken(this.wallet.address);
-          console.log(token.data);
         } catch (err) {
           if (err.response && err.response.status >= 400 && err.response.status < 500) {
             if (err.response.data && err.response.data.error) {
