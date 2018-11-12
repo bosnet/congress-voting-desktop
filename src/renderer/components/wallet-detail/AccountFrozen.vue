@@ -12,7 +12,7 @@
           :item="item"
           :willUnfreeze="willUnfreeze"
           v-on:checked="addUnfreezeCandidate"
-          v-for="item in frozenAccounts"/>
+          v-for="item in accounts"/>
       </ul>
     </div>
     <transition name="unfreeze-action-bar-transition">
@@ -37,8 +37,6 @@
   export default {
     name: 'bos-wallet-account-frozen',
     props: ['activeMenu', 'wallet', 'frozenAccounts'],
-    components: {
-    },
     data() {
       return {
         willUnfreeze: false,
@@ -99,6 +97,12 @@
       },
     },
     computed: {
+      accounts() {
+        if (this.willUnfreeze) {
+          return this.frozenAccounts.filter(a => a.state === 'frozen');
+        }
+        return this.frozenAccounts;
+      },
       address() {
         return this.wallet.address;
       },
