@@ -13,8 +13,13 @@
       <span class="addr">{{ item.address | short }}</span>
       <span class="created">{{ item.create_block_height }} block</span>
     </span>
-    <span class="balance">{{ item.amount | bos }}<abbr>BOS</abbr></span>
-
+    <span class="balance">
+      <span>{{ item.amount | bos }}<abbr>BOS</abbr></span>
+      <span v-if="item.state === 'unfrozen'">
+        <button class="withdraw" @click="openUnfreezingWithdrawDialog">{{$t('withdrawing')}}</button>
+        <bos-unfreezing-withdraw-dialog ref="unfreezingWithdrawDialog" :frozenAccount="item" :generalAccount="wallet"/>
+      </span>
+    </span>
   </li>
 </template>
 
@@ -23,7 +28,7 @@
 
   export default {
     name: 'bos-wallet-account-frozen-account-item',
-    props: ['item', 'willUnfreeze'],
+    props: ['item', 'wallet', 'willUnfreeze'],
     data() {
       return {
         frozenIcon,
@@ -43,6 +48,9 @@
         if (this.willUnfreeze) {
           this.checked = !this.checked;
         }
+      },
+      openUnfreezingWithdrawDialog() {
+        this.$refs.unfreezingWithdrawDialog.open();
       },
     },
     computed: {
@@ -142,7 +150,8 @@
   .frozen-item .balance {
     float: right;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     height: 100%;
     font-size: 16px;
     font-weight: bold;
@@ -156,5 +165,14 @@
     font-weight: normal;
     color: #909090;
     margin-left: 3px;
+  }
+
+  .frozen-item .balance .withdraw {
+    font-size: 13px;
+    font-style: normal;
+    color: #3c92e4;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: right;
   }
 </style>

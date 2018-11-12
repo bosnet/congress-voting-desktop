@@ -61,7 +61,10 @@
         return this.wallet.address;
       },
       frozenAccounts() {
-        return this.$store.state.RPC.frozenAccountOps;
+        if (this.$store.state.RPC.frozenAccountOps) {
+          return this.$store.state.RPC.frozenAccountOps.filter(a => a.state !== 'returned');
+        }
+        return [];
       },
       totalFrozenAmount() {
         if (this.frozenAccounts) {
@@ -69,7 +72,7 @@
             if (cur.state !== 'returned') {
               return Helper.sumAmount(accum, cur.amount);
             }
-            return accum.amount;
+            return accum;
           }, '0');
         }
         return null;

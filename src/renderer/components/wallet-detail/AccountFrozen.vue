@@ -10,6 +10,7 @@
         <bos-wallet-account-frozen-item
           ref="items"
           :item="item"
+          :wallet="wallet"
           :willUnfreeze="willUnfreeze"
           v-on:checked="addUnfreezeCandidate"
           v-for="item in accounts"/>

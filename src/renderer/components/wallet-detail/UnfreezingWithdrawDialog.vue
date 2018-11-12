@@ -1,31 +1,25 @@
 <template>
-  <v-dialog v-model="dialog" fullscreen persistent hide-overlay content-class="UnfreezingDialogOverlay">
-    <v-stepper v-model="stepNo" class="UnfreezingDialog">
+  <v-dialog v-model="dialog" fullscreen persistent hide-overlay content-class="UnfreezingWithdrawDialogOverlay">
+    <v-stepper v-model="stepNo" class="UnfreezingWithdrawDialog">
       <v-stepper-items>
         <v-stepper-content step="1" class="step1">
-          <h3>{{$t('requesting unfreezing')}}</h3>
-          <span class="desc">{{$t('you can withdraw after unfreezing', { account: wallet.title, until: withdrawableDatetime })}}</span>
+          <h3>{{$t('withdrawing all from the frozen account')}}</h3>
+          <span class="desc">{{$t('the frozen account will be removed after you withdraw them')}}</span>
           <div class="preview">
             <div class="row">
-              <span class="label">{{$t('unfreezing amount')}}</span>
-              <span class="value">{{totalAmount | bos}}</span>
-            </div>
-            <div class="row">
-              <span class="label">{{$t('fee')}}</span>
-              <span class="value">{{totalFee}}</span>
+              <span class="label">{{$t('receiving account')}}</span>
+              <span class="value">{{receivingAccount}}</span>
             </div>
             <div class="row">
               <span class="label">{{$t('total withdrawal')}}</span>
-              <span class="value">{{totalWithdraw | bos}}<em>BOS</em></span>
+              <span class="value">{{totalAmount | bos}}<em>BOS</em></span>
             </div>
           </div>
-          <span class="desc2">{{$t('unfreezing is not cancelable, you can withdraw it after 14 days')}}</span>
           <button class="button" @click="stepNo=2">{{$t('entering passphrase')}}</button>
         </v-stepper-content>
 
         <v-stepper-content step="2" class="step2">
           <h3>{{$t('confirm passphrase')}}</h3>
-          <span>{{$t('unfreezing is not cancelable, you can withdraw it after 14 days')}}</span>
           <v-text-field v-model="passphrase" ref="passphraseText" type="password"
                         :rules="passphraseRules" :label="$t('enter your passphrase')" required/>
           <button class="button" @click="submit">{{$t('done')}}</button>
@@ -37,53 +31,34 @@
         <span :class="{step: true, on: (stepNo === 2)}"></span>
       </div>
 
-      <img :src="closeIcon" @click="reset" class="UnfreezingDialogClose" alt="close"/>
+      <img :src="closeIcon" @click="reset" class="UnfreezingWithdrawDialogClose" alt="close"/>
     </v-stepper>
     <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
   </v-dialog>
 </template>
 
 <script>
-  import Unit from '@/lib/unit';
-  import Helper from '@/lib/helper';
-
   import closeIcon from '../../assets/svg/close.svg';
 
-  const UNFREEZING_PERIOD = 241920; // blocks
-
   export default {
-    name: 'unfreezing-dialog',
-    props: ['wallet', 'callback'],
+    name: 'unfreezing-withdraw-dialog',
+    props: ['frozenAccount', 'generalAccount', 'callback'],
     data() {
       return this.init();
     },
     computed: {
+      receivingAccount() {
+        return this.generalAccount.title;
+      },
       totalAmount() {
-        if (this.accounts) {
-          return this.accounts
-            .reduce((accum, cur) => Helper.sumAmount(accum, cur.amount), '0');
-        }
-        return null;
-      },
-      totalFee() {
-        return this.fee * (this.accounts ? this.accounts.length : 0);
-      },
-      totalWithdraw() {
-        return this.totalAmount - Unit.convert(this.totalFee, 'bos', 'gon');
-      },
-      withdrawableDatetime() {
-        const until = new Date();
-        until.setSeconds(until.getSeconds() + (UNFREEZING_PERIOD * 5));
-        return until.toLocaleString();
+        return this.frozenAccount.amount;
       },
     },
     methods: {
       init() {
         return {
           dialog: false,
-          fee: 0.001,
           stepNo: 1,
-          accounts: null,
           passphrase: null,
           passphraseRules: [
             v => !!v || this.$t('enter your passphrase'),
@@ -93,8 +68,8 @@
           closeIcon,
         };
       },
-      open(accounts) {
-        this.accounts = accounts;
+      open() {
+        console.log(this.frozenAccount);
         this.dialog = true;
       },
       reset() {
@@ -103,14 +78,12 @@
       },
       async submit() {
         try {
-          const promises = this.accounts.map(account => this.$store.dispatch('unfreeze', {
-            ownerAddress: this.wallet.address,
-            address: account.address,
-            sequenceId: account.sequence_id,
+          await this.$store.dispatch('withdraw', {
+            address: this.frozenAccount.linked,
+            frozenAccountAddress: this.frozenAccount.address,
+            sequenceId: this.frozenAccount.sequence_id,
             passphrase: this.passphrase,
-          }));
-
-          await Promise.all(promises);
+          });
         } catch (err) {
           if (err.message.match(/bad decrypt/)) {
             this.message = this.$t('passphrase is wrong');
@@ -130,7 +103,7 @@
 </script>
 
 <style>
-  .UnfreezingDialogOverlay {
+  .UnfreezingWithdrawDialogOverlay {
     background-color: rgba(216, 223, 232, 0.7);
     height: 100%;
     width: 714px;
@@ -140,7 +113,7 @@
     justify-items: center;
   }
 
-  .UnfreezingDialog.theme--light.v-stepper {
+  .UnfreezingWithdrawDialog.theme--light.v-stepper {
     padding: 56px 36px 31px;
     position: relative;
     width: 634px;
@@ -153,20 +126,20 @@
     margin-left: 40px;
   }
 
-  .UnfreezingDialogClose {
+  .UnfreezingWithdrawDialogClose {
     position: absolute;
     top: 30px;
     right: 30px;
     cursor: pointer;
   }
 
-  .UnfreezingDialog h3 {
+  .UnfreezingWithdrawDialog h3 {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
   }
 
-  .UnfreezingDialog span {
+  .UnfreezingWithdrawDialog span {
     font-size: 14px;
     color: #333333;
     display: block;
@@ -174,16 +147,16 @@
     text-align: center;
   }
 
-  .UnfreezingDialog .button {
+  .UnfreezingWithdrawDialog .button {
     margin: 0 auto;
   }
 
-  .UnfreezingDialog .stepIndicator {
+  .UnfreezingWithdrawDialog .stepIndicator {
     text-align: center;
     height: 20px;
   }
 
-  .UnfreezingDialog .step {
+  .UnfreezingWithdrawDialog .step {
     display: inline-block;
     width: 5px;
     height: 5px;
@@ -191,51 +164,56 @@
     background-color: #bdc2c7;
   }
 
-  .UnfreezingDialog .step.on {
+  .UnfreezingWithdrawDialog .step.on {
     background-color: #3c92e4;
   }
 
-  .UnfreezingDialog .step1 .desc {
-    margin-bottom: 39px;
+  .UnfreezingWithdrawDialog .step1 .desc {
+    margin-bottom: 36px;
   }
 
-  .UnfreezingDialog .step1 .preview {
+  .UnfreezingWithdrawDialog .step1 .preview {
     width: 450px;
-    margin: 0 auto 10px;
+    margin: 0 auto 80px;
     border-top: dashed 1px #b3bec8;
     border-bottom: dashed 1px #b3bec8;
   }
 
-  .UnfreezingDialog .step1 .preview .row {
+  .UnfreezingWithdrawDialog .step1 .preview .row {
     display: flex;
     align-items: center;
-    margin: 10px auto;
-    width: 349px;
+    margin: 29px auto;
+    width: 374px;
     height: 27px;
   }
 
-  .UnfreezingDialog .step1 .preview .row:last-child {
+  .UnfreezingWithdrawDialog .step1 .preview .row:first-child {
+    margin-top: 40px;
+  }
+
+  .UnfreezingWithdrawDialog .step1 .preview .row:last-child {
     height: 37px;
-    margin-bottom: 20px;
+    margin-bottom: 36px;
   }
 
-  .UnfreezingDialog .step1 .preview .row .label {
-    width: 150px;
+  .UnfreezingWithdrawDialog .step1 .preview .row .label {
+    width: 100px;
   }
 
-  .UnfreezingDialog .step1 .preview .row .value {
-    width: 199px;
+  .UnfreezingWithdrawDialog .step1 .preview .row .value {
+    width: 274px;
     text-align: right;
     position: relative;
+    font-size: 18px;
   }
 
-  .UnfreezingDialog .step1 .preview .row:last-child .value {
+  .UnfreezingWithdrawDialog .step1 .preview .row:last-child .value {
     font-size: 25px;
     font-weight: bold;
     color: #333333;
   }
 
-  .UnfreezingDialog .step1 .preview .row:last-child .value em {
+  .UnfreezingWithdrawDialog .step1 .preview .row:last-child .value em {
     font-size: 10px;
     color: #909090;
     position: absolute;
@@ -243,13 +221,7 @@
     right: -22px;
   }
 
-  .UnfreezingDialog .step1 .desc2 {
-    font-size: 11px;
-    color: #728395;
-    margin-bottom: 40px;
-  }
-
-  .UnfreezingDialog .step2 .v-input {
+  .UnfreezingWithdrawDialog .step2 .v-input {
     width: 400px;
     margin: 72px auto 125px;
   }

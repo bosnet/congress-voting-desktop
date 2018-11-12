@@ -58,7 +58,7 @@
             if (cur.state !== 'returned') {
               return Helper.sumAmount(accum, cur.amount);
             }
-            return accum.amount;
+            return accum;
           }, '0');
         }
         return null;

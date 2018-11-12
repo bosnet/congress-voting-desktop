@@ -98,5 +98,9 @@
   "currently only one account allowed. If you want another account, please remove current one": "현재는 1개 계좌만 등록할 수 있습니다. 다른 계좌를 추가하려면 기존 계좌를 삭제해 주세요",
   "confirm": "승인",
   "by registering an membership you agree to delegate authority to operate node": "멤버십을 획득함으로써 얻게 되는 노드 운영권한을 (주)블록체인오에스에 위임하는 것에 동의합니다",
-  "remaining": "{hours}시간 남음"
+  "remaining": "{hours}시간 남음",
+  "withdrawing": "이체하기",
+  "withdrawing all from the frozen account": "언프리징 잔액 이체",
+  "the frozen account will be removed after you withdraw them": "언프리징 잔액을 이체하면 해당 프로즌 계좌는 삭제됩니다",
+  "receiving account": "받는 계좌"
 }
