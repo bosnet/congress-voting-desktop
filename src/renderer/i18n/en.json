@@ -13,7 +13,7 @@
   "setting a new passphrase": "Set up password",
   "enter your passphrase": "Please enter your password to set up.",
   "enter your passphrase again": "Please enter again your password",
-  "passphrase should be 12 characters which contain alphanumeric and special character": "비밀번호는 대소문자, 숫자, 특수문자를 포함하고 12자 이상이어야 합니다",
+  "passphrase should be 12 characters which contain alphanumeric and special character": "Password have to include upper case, lower case and special character . It's length have to be more than 12 characters.",
   "both passphrases are not same": "Password is not the same",
   "creating new account": "create new BOScoin account",
   "please keep your secret seed safely": "Please keep your secret key in safe place, or you have in danger to lose your digital asset",
@@ -68,7 +68,7 @@
   "menu#voting": "Congress Voting",
   "menu#settings": "Settings",
   "requesting freezing": "BOScoin freezing request",
-  "registering membership guide": "해당 계좌에 10,000 BOS 이상 Freezing하셔야 콩그레스 보팅 자격이 주어집니다. Frozen 리워드 보팅이 통과된 후, Frozen 금액에 비례하여 리워드를 받을 수 있습니다.",
+  "registering membership guide": "User must freeze more than 10,000 BOScoin unit so as to be qualified congress voting participant.  User will be able to get proportional reward ro BOScoin freezing amount after the Frozen reward voting passed.",
   "freezing": "Conduct freezing",
   "done": "Finish",
   "freezing should be 10,000 bos at least": "Freezing BOScoin available only multiples of ten thousands BOScoin unit  ",
@@ -97,7 +97,7 @@
   "you can withdraw after unfreezing": "You will be able to withdrawal your BOScoin to {account} on {until}.",
   "unfreezing amount": "Unfreezing amount",
   "unfreezing is not cancelable, you can withdraw it after 14 days": "Unfreezing set back is unable. User can withdrawal BOScoin after 14days",
-  "currently only one account allowed. If you want another account, please remove current one": "현재는 1개 계좌만 등록할 수 있습니다. 다른 계좌를 추가하려면 기존 계좌를 삭제해 주세요",
+  "currently only one account allowed. If you want another account, please remove current one": "You can register only 1 account at the moment. If you wanted add another account, please remove existed account.",
   "confirm": "Confirm",
-  "by registering an membership you agree to delegate authority to operate node": "멤버십을 획득함으로써 얻게 되는 노드 운영권한을 (주)블록체인오에스에 위임하는 것에 동의합니다"
+  "by registering an membership you agree to delegate authority to operate node": "I, BOScoin holder, fully agree that the node operating privilege shall be delegated to the BlockchainOS by gained acquiring membership."
 }
