@@ -69,7 +69,6 @@
         };
       },
       open() {
-        console.log(this.frozenAccount);
         this.dialog = true;
       },
       reset() {

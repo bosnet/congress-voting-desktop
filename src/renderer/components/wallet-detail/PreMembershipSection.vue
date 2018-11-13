@@ -49,12 +49,11 @@
                   { name: 'lastName', required: true },
                   { name: 'email', required: true },
                   { name: 'dob', required: true },
-                  { name: 'country', required: true },
                 ],
               },
               requiredDocuments: 'IDENTITY:PASSPORT,ID_CARD,DRIVERS;SELFIE:SELFIE',
               userAgreementUrl: 'https://boscoin.io/terms',
-              privacyPolicyUrl: lang === 'ko' ? 'https://boscoin.io/consent/' : 'https://www.sumsub.com/consent-to-personal-data-processing/',
+              privacyPolicyUrl: lang === 'ko' ? 'https://boscoin.io/consent/' : 'https://sumsub.com/boscoin-consent-to-personal-data-processing',
               uiConf: {
                 customCssUrl: config.get('sumsub').customCss,
               },
