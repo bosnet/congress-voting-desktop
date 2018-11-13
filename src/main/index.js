@@ -1,4 +1,12 @@
 import { app, BrowserWindow, Menu, shell } from 'electron' // eslint-disable-line
+import * as Sentry from '@sentry/electron';
+import config from '#config';
+import path from 'path';
+
+Sentry.init({
+  dsn: config.sentry.dsn,
+  enableNative: false,
+});
 
 /**
  * Set `__static` path to static files in production
@@ -23,6 +31,9 @@ function createWindow() {
     height: 675,
     useContentSize: true,
     resizable: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'sentry.js'),
+    },
   });
 
   mainWindow.loadURL(winURL);

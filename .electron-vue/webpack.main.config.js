@@ -49,12 +49,23 @@ let mainConfig = {
     path: path.join(__dirname, '../dist/electron')
   },
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.IgnorePlugin(/cson/),
+    new webpack.IgnorePlugin(/hjson/),
+    new webpack.IgnorePlugin(/properties/),
+    new webpack.IgnorePlugin(/x2js/),
   ],
   resolve: {
+    alias: {
+      '#config': 'electron-node-config'
+    },
     extensions: ['.js', '.json', '.node']
   },
   target: 'electron-main'
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  mainConfig.resolve.alias['#config'] = 'config'
 }
 
 /**

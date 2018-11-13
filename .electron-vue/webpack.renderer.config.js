@@ -183,6 +183,12 @@ if (process.env.NODE_ENV === 'production') {
         ignore: ['.*']
       }
     ]),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(__dirname, '../node_modules/@sentry/browser/dist/index.js'),
+        to: path.join(__dirname, '../dist/electron/sentry.js')
+      }
+    ]),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),

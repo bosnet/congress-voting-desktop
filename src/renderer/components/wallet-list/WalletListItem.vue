@@ -21,7 +21,7 @@
 
 <script>
   import Helper from '@/lib/helper';
-  import { remote } from 'electron';
+  import { remote } from 'electron'; // eslint-disable-line
 
   const { Menu, MenuItem } = remote;
 
