@@ -2,19 +2,12 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import 'vuetify/dist/vuetify.css';
 import '@/assets/css/main.css';
-import * as Sentry from '@sentry/electron';
-import config from '#config';
 
 import bootstrap from './bootstrap';
 
 import App from './App';
 import router from './router';
 import store from './store';
-
-Sentry.init({
-  dsn: config.sentry.dsn,
-  enableNative: false,
-});
 
 bootstrap(Vue);
 
