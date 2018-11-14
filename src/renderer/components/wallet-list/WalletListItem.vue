@@ -66,10 +66,10 @@
     },
     methods: {
       detail() {
-        if (this.wallet.balance === '-' || parseInt(this.wallet.balance, 10) === 0) {
-          this.warn('empty');
-        } else {
+        if (parseInt(this.wallet.balance, 10) > 0) {
           this.$router.push(`/wallet/${this.wallet.address}/#account-frozen`);
+        } else {
+          this.warn('empty');
         }
       },
       copy(selector, tooltip) {
