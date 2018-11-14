@@ -1,13 +1,11 @@
 <template>
   <v-dialog v-model="show" fullscreen persistent hide-overlay lazy-validation content-class="PassphraseDialogOverlay">
     <div class="PassphraseDialog">
-      <v-form ref="form" v-model="valid">
-        <h3>{{$t('confirm passphrase')}}</h3>
-        <span>&nbsp;{{ desc }}&nbsp;</span>
-        <v-text-field v-model="data.passphrase" ref="passphraseText" type="password"
-                      :rules="passphraseRules" :label="$t('enter your passphrase')" required/>
-        <button class="button" @click="confirm" :disabled="!valid">{{$t('confirm')}}</button>
-      </v-form>
+      <h3>{{$t('confirm passphrase')}}</h3>
+      <span>&nbsp;{{ desc }}&nbsp;</span>
+      <v-text-field v-model="data.passphrase" ref="passphraseText" type="password"
+                    :rules="passphraseRules" :label="$t('enter your passphrase')" required/>
+      <button class="button" @click="confirm" :disabled="!valid">{{$t('confirm')}}</button>
       <img :src="closeIcon" @click="close()" class="PassphraseDialogClose" alt="close"/>
     </div>
   </v-dialog>
@@ -26,15 +24,14 @@
         this.confirmCallback = confirmCallback;
       },
       confirm() {
-        if (this.$refs.form.validate()) {
-          if (this.confirmCallback) {
-            this.confirmCallback(Object.assign({}, this.data));
-          }
-          this.close();
+        if (this.confirmCallback) {
+          this.confirmCallback(Object.assign({}, this.data));
         }
+        this.close();
       },
       close() {
-        this.$refs.form.reset();
+        this.data = {};
+        this.valid = false;
         this.show = false;
       },
     },
@@ -48,7 +45,13 @@
         data: {},
         passphrase: null,
         passphraseRules: [
-          v => !!v || 'Passphrase is required',
+          (v) => {
+            if (!v) {
+              return 'Passphrase is required';
+            }
+            this.valid = true;
+            return !!v;
+          },
         ],
       };
     },
