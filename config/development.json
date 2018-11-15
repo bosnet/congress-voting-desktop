@@ -6,8 +6,8 @@
   },
   "fee": 10000,
   "endpoint": {
-    "scheme": "http",
-    "port": 2821
+    "scheme": "https",
+    "port": 443
   },
   "membership": {
     "scheme": "https",
