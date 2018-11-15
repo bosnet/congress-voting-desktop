@@ -61,6 +61,10 @@
             (messageType, payload) => {
               if (messageType === 'idCheck.onApplicantCreated') {
                 this.updateApplicantId(payload.applicantId, passphrase);
+              } else if (messageType === 'idCheck.onApplicantSubmitted') {
+                setTimeout(() => {
+                  this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
+                }, 2000);
               }
             },
           );
