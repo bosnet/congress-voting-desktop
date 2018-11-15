@@ -70,11 +70,7 @@ class RPC {
   }
 
   lookup() {
-    return this.loadHosts()
-      .then((hosts) => {
-        const host = hosts[Math.floor(Math.random() * hosts.length)];
-        return `${this.endpoint.scheme}://${host}:${this.endpoint.port}`;
-      });
+    return Promise.resolve(`${this.endpoint.scheme}://${this.dnsSeed}:${this.endpoint.port}`);
   }
 
   sendTx(tx) {
