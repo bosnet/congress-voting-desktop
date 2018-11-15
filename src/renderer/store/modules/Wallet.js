@@ -298,10 +298,13 @@ const actions = {
     return new Promise((resolve, reject) => {
       beginTx('rw', db.wallets, async () => {
         const wallet = await db.wallets.get(address);
-        db.wallets.delete(address)
-          .then(() => commit('DELETE_WALLET', wallet))
-          .then(() => resolve(wallet))
-          .catch(reject);
+        try {
+          await db.wallets.delete(address);
+          await commit('DELETE_WALLET', wallet);
+          return resolve(wallet);
+        } catch (e) {
+          return reject(e);
+        }
       });
     }).then((wallet) => {
       wallet.ts = moment.now();

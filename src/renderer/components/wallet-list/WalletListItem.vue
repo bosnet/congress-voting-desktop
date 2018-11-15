@@ -26,7 +26,7 @@
   const { Menu, MenuItem } = remote;
 
   export default {
-    props: ['wallet', 'warn', 'notify'],
+    props: ['wallet', 'warn', 'notify', 'reload'],
     data() {
       return {
         addressCopied: false,
@@ -93,7 +93,10 @@
         label: self.$t('deleting account'),
         async click() {
           await self.$store.dispatch('deleteWalletByAddress', self.wallet.address);
-          self.$router.push('/wallets');
+          if (self.reload) {
+            if (self.membershipStatus) { self.notify(); }
+            self.reload();
+          }
         },
       }));
 

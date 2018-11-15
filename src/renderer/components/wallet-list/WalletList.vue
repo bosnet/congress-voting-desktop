@@ -6,6 +6,7 @@
         :wallet="wallet"
         :warn="warn"
         :notify="notify"
+        :reload="reload"
         v-for="wallet in wallets"
     />
     <bos-toast v-model="showEmptyAccountWarning">
@@ -18,7 +19,7 @@
   import WalletListItem from './WalletListItem';
 
   export default {
-    props: ['wallets', 'notify'],
+    props: ['wallets', 'notify', 'reload'],
     components: { WalletListItem },
     data() {
       return {

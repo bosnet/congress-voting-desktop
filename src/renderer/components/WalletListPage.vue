@@ -1,6 +1,6 @@
 <template>
   <v-container class="WalletListPage">
-    <wallet-list :wallets="wallets" v-show="wallets.length > 0" :notify="notify"/>
+    <wallet-list :wallets="wallets" v-show="wallets.length > 0" :notify="notify" :reload="load" />
     <div slot="activator" @click="addAccount" class="round-button" v-show="!dialog" v-if="wallets.length > 0">
       <img :src="addBtn" :alt="$t('add account')" />
     </div>
