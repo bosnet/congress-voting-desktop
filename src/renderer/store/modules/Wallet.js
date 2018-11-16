@@ -160,7 +160,7 @@ const actions = {
       const account = wallet.createFreezeAccount(seed, seqId);
       const tx = wire.createFreezeAccountTx(
         address,
-        unit.convertToNumber(amount, 'bos', 'gon'),
+        unit.convert(amount, 'bos', 'gon'),
         config.get('fee'),
         seqId,
         account.publicKey(),
@@ -175,7 +175,7 @@ const actions = {
               sender: address,
               address: account.publicKey(),
               sequenceId: seqId,
-              amount: unit.convertToNumber(amount, 'bos', 'gon'),
+              amount: unit.convert(amount, 'bos', 'gon'),
             };
           });
       });
@@ -243,7 +243,7 @@ const actions = {
       const account = wallet.createFreezeAccount(seed, sequenceId);
       const tx = wire.createPaymentTx(
         frozenAccountAddress,
-        balance.minus(config.get('fee')).toNumber(),
+        balance.minus(config.get('fee')),
         config.get('fee'),
         res[0].sequence_id,
         address,

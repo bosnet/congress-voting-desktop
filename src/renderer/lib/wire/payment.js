@@ -24,7 +24,7 @@ export default class PaymentOp extends Op {
       },
       B: {
         target: this.target,
-        amount: this.amount.toString(),
+        amount: this.amount,
       },
     };
   }

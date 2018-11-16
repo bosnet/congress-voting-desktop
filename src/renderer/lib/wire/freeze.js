@@ -26,7 +26,7 @@ export default class FreezeAccountOp extends Op {
       },
       B: {
         target: this.target,
-        amount: this.amount.toString(),
+        amount: this.amount,
         linked: this.linked,
       },
     };

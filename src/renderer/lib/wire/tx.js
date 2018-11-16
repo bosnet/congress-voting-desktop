@@ -40,7 +40,7 @@ export class Tx {
   nestedArrays() {
     return [
       this.source,
-      this.fee,
+      this.fee.toString(),
       this.seqId,
       this.ops.map(op => op.nestedArrays()),
     ];
