@@ -20,7 +20,7 @@
 
         <v-stepper-content step="2" class="step2">
           <h3>{{$t('requesting freezing')}}</h3>
-          <span class="desc">{{$t('you can get rewords by frozen amount')}}</span>
+          <span class="desc">{{$t('you can get rewards by frozen amount')}}</span>
           <div class="preview">
             <div class="row">
               <span class="label">{{$t('freezing amount')}}</span>
