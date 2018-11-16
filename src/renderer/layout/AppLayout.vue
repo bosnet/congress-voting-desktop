@@ -27,7 +27,7 @@
       },
     },
     created() {
-      this.timer = setInterval(() => this.$root.$emit('tick'), 10000);
+      this.timer = setInterval(() => this.$root.$emit('tick'), 5000);
       this.$root.$on('toast', (message) => {
         this.toast = true;
         this.lastMessage = message;
