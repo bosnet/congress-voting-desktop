@@ -1,4 +1,11 @@
 import { app, BrowserWindow, Menu, shell } from 'electron' // eslint-disable-line
+import * as Sentry from '@sentry/electron';
+import config from '#config';
+
+Sentry.init({
+  dsn: config.sentry.dsn,
+  enableNative: false,
+});
 
 /**
  * Set `__static` path to static files in production

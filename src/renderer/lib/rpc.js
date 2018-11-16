@@ -70,11 +70,7 @@ class RPC {
   }
 
   lookup() {
-    return this.loadHosts()
-      .then((hosts) => {
-        const host = hosts[Math.floor(Math.random() * hosts.length)];
-        return `${this.endpoint.scheme}://${host}:${this.endpoint.port}`;
-      });
+    return Promise.resolve(`${this.endpoint.scheme}://${this.dnsSeed}:${this.endpoint.port}`);
   }
 
   sendTx(tx) {
@@ -91,6 +87,11 @@ class RPC {
   registerPreMembership(payload) {
     return client
       .post(`${this.membershipEndpoint}/api/v1/memberships`, payload, { headers: HEADERS });
+  }
+
+  updateApplicantId(address, payload) {
+    return client
+      .put(`${this.membershipEndpoint}/api/v1/memberships/${address}`, payload, { headers: HEADERS });
   }
 
   registerMembership(address, payload) {

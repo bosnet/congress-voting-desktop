@@ -2,7 +2,7 @@
   <div class="FrozenAccount">
     <div class="frozen-account-btns">
       <button class="btn" :disabled="willUnfreeze" @click="openFreezingDialog" v-if="isMembership">{{$t('freezing')}}</button>
-      <button class="btn" :disabled="willUnfreeze" @click="prepareUnfreeze">{{$t('unfreezing')}}</button>
+      <button class="btn" :disabled="willUnfreeze" @click="prepareUnfreeze" v-if="hasFrozen">{{$t('unfreezing')}}</button>
       <!--<button class="btn" :disabled="false" @click="withdraw()">{{$t('')}}</button>-->
     </div>
     <div class="frozen-account-list">
@@ -10,9 +10,10 @@
         <bos-wallet-account-frozen-item
           ref="items"
           :item="item"
+          :wallet="wallet"
           :willUnfreeze="willUnfreeze"
           v-on:checked="addUnfreezeCandidate"
-          v-for="item in frozenAccounts"/>
+          v-for="item in accounts"/>
       </ul>
     </div>
     <transition name="unfreeze-action-bar-transition">
@@ -37,8 +38,6 @@
   export default {
     name: 'bos-wallet-account-frozen',
     props: ['activeMenu', 'wallet', 'frozenAccounts'],
-    components: {
-    },
     data() {
       return {
         willUnfreeze: false,
@@ -99,6 +98,12 @@
       },
     },
     computed: {
+      accounts() {
+        if (this.willUnfreeze) {
+          return this.frozenAccounts.filter(a => a.state === 'frozen');
+        }
+        return this.frozenAccounts;
+      },
       address() {
         return this.wallet.address;
       },
@@ -107,6 +112,9 @@
       },
       isMembership() {
         return this.wallet && this.wallet.membership && this.wallet.membership.status === 'active';
+      },
+      hasFrozen() {
+        return this.frozenAccounts && this.frozenAccounts.length > 0;
       },
     },
   };

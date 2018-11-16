@@ -63,15 +63,21 @@ const actions = {
   },
 
   loadWallets({ commit, dispatch }) {
-    return db.wallets.toArray().then((wallets) => {
-      for (let i = 0; i < wallets.length; i += 1) {
-        wallets[i].balance = '-';
-        wallets[i].membership = null;
-      }
-      dispatch('updateAllBalance', wallets.map(w => w.address));
-      dispatch('updateMembership', wallets.map(w => w.address));
-      return commit('LOAD_WALLETS', wallets);
-    });
+    return db.wallets.toArray()
+      .then((wallets) => {
+        for (let i = 0; i < wallets.length; i += 1) {
+          wallets[i].balance = '-';
+          wallets[i].membership = null;
+        }
+
+
+        return Promise.all([
+          wallets,
+          dispatch('updateAllBalance', wallets),
+          dispatch('updateMembership', { wallets, mutable: true }),
+        ]);
+      })
+      .then(([wallets]) => commit('LOAD_WALLETS', wallets));
   },
 
   vote({ dispatch, getters }, { address, proposalId, answer, passphrase }) {
@@ -93,7 +99,21 @@ const actions = {
     });
   },
 
-  async preMembership({ dispatch, getters }, { address, applicantId, passphrase }) {
+  async preMembership({ dispatch, getters }, { address, passphrase }) {
+    const res = await getters.getWallet(address);
+    const seed = wallet.decryptWallet(passphrase, res.data);
+    const array = [address];
+    const payload = {
+      data: array,
+      signature: '',
+    };
+
+    const hash = await wallet.hash(array);
+    payload.signature = wallet.sign(seed, hash);
+    await dispatch('sendPreMembershipTx', payload);
+  },
+
+  async updateApplicantId({ dispatch, getters }, { address, applicantId, passphrase }) {
     const res = await getters.getWallet(address);
     const seed = wallet.decryptWallet(passphrase, res.data);
     const array = [address, applicantId];
@@ -104,7 +124,7 @@ const actions = {
 
     const hash = await wallet.hash(array);
     payload.signature = wallet.sign(seed, hash);
-    await dispatch('sendPreMembershipTx', payload);
+    await dispatch('sendApplicantIdTx', { address, payload });
   },
 
   async registerMembership({ dispatch, getters }, { address, passphrase, frozenAddress }) {

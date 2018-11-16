@@ -4,6 +4,10 @@ import crypto from 'crypto';
 import rlp from 'rlp';
 import config from '#config';
 
+// ref https://github.com/bosnet/tokennet-wallet-android/blob/master/README.md#recovery-key
+const RECOVERY_KEY_PREFIX = 'BOS';
+const RECOVERY_KEY_POSTFIX = 'D1';
+
 const B58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz');
 const iv = Buffer.from([0x42, 0x4F, 0x53, 0x5F, 0x43, 0x4F, 0x49, 0x4E,
   0x5F, 0x57, 0x41, 0x4C, 0x4C, 0x45, 0x54, 0x53]);
@@ -51,11 +55,16 @@ export default {
   encryptWallet(passphrase, seed) {
     const cipher = crypto.createCipheriv('aes256', this.createKey(passphrase), iv);
     const encrypted = cipher.update(seed, 'utf8');
-    return B58.encode(Buffer.concat([encrypted, cipher.final()]));
+    const encoded = B58.encode(Buffer.concat([encrypted, cipher.final()]));
+    return `${RECOVERY_KEY_PREFIX}${encoded}${RECOVERY_KEY_POSTFIX}`;
   },
   decryptWallet(passphrase, encoded) {
+    const data = encoded.substring(
+      RECOVERY_KEY_PREFIX.length,
+      encoded.length - RECOVERY_KEY_POSTFIX.length,
+    );
     const decipher = crypto.createDecipheriv('aes256', this.createKey(passphrase), iv);
-    const decrypted = decipher.update(B58.decode(encoded), 'binary', 'utf8');
+    const decrypted = decipher.update(B58.decode(data), 'binary', 'utf8');
     return decrypted + decipher.final('utf8');
   },
   createFreezeAccount(seed, seqId) {

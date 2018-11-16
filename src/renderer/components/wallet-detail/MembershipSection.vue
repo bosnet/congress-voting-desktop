@@ -82,7 +82,7 @@
       },
       async update() {
         // TODO: fix routing to proposals
-        await this.$store.dispatch('updateMembership', [this.wallet.address]);
+        await this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
         this.isFrozen = true;
       },
       openfreezingDialog() {

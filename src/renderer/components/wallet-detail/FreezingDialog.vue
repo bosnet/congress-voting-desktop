@@ -144,10 +144,10 @@
 
           throw err;
         }
-        this.dialog = false;
         if (this.callback) {
           this.callback(this.passphrase);
         }
+        this.reset();
       },
       getAccount() {
         if (this.wallet.address != null) {

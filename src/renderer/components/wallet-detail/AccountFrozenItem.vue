@@ -1,8 +1,5 @@
 <template>
   <li class="frozen-item" @click="check">
-    <!--<v-checkbox v-model="checked" :disabled="!valid"/>-->
-    <!--<v-list-tile-title>{{ item.address }}</v-list-tile-title>-->
-    <!--<v-list-tile-sub-title>{{ item.amount | bos }} {{ item.state }} {{ item.sequence_id }}</v-list-tile-sub-title>-->
     <span class="action">
       <input type="checkbox" :value="item.address" v-model="checked" v-if="willUnfreeze"/>
       <img :src="frozenIcon" v-else/>
@@ -11,13 +8,18 @@
       <span class="state">
         <span :class="`state-${item.state}`" v-if="item.state === 'unfrozen'">{{$t('possible to withdraw')}}</span>
         <!-- TODO: show unfreezing d-day -->
-        <span :class="`state-${item.state}`" v-else-if="item.state === 'melting'">{{$t('unfreezed until')}} D-XX</span>
+        <span :class="`state-${item.state}`" v-else-if="item.state === 'melting'">{{$t('unfreezed until')}} {{remainingTime}}</span>
       </span>
       <span class="addr">{{ item.address | short }}</span>
       <span class="created">{{ item.create_block_height }} block</span>
     </span>
-    <span class="balance">{{ item.amount | bos }}<abbr>BOS</abbr></span>
-
+    <span class="balance">
+      <span>{{ item.amount | bos }}<abbr>BOS</abbr></span>
+      <span v-if="item.state === 'unfrozen'">
+        <button class="withdraw" @click="openUnfreezingWithdrawDialog">{{$t('withdrawing')}}</button>
+        <bos-unfreezing-withdraw-dialog ref="unfreezingWithdrawDialog" :frozenAccount="item" :generalAccount="wallet"/>
+      </span>
+    </span>
   </li>
 </template>
 
@@ -26,7 +28,7 @@
 
   export default {
     name: 'bos-wallet-account-frozen-account-item',
-    props: ['item', 'willUnfreeze'],
+    props: ['item', 'wallet', 'willUnfreeze'],
     data() {
       return {
         frozenIcon,
@@ -47,10 +49,23 @@
           this.checked = !this.checked;
         }
       },
+      openUnfreezingWithdrawDialog() {
+        this.$refs.unfreezingWithdrawDialog.open();
+      },
     },
     computed: {
       valid() {
         return this.item.state === 'frozen' || this.item.state === 'unfrozen';
+      },
+      remainingTime() {
+        // (blocks * 5 secs) / (24 hours * 60 minutes * 60 seconds)
+        const blockToSecs = this.item.unfreezing_remaining_blocks * 5;
+        const remainingDays = blockToSecs / (24 * 60 * 60);
+        if (remainingDays > 1) {
+          return `D-${Math.floor(remainingDays)}`;
+        }
+
+        return `${this.$t('remaining', { hours: Math.floor(blockToSecs / (60 * 60)) })}`;
       },
     },
   };
@@ -135,7 +150,8 @@
   .frozen-item .balance {
     float: right;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     height: 100%;
     font-size: 16px;
     font-weight: bold;
@@ -149,5 +165,14 @@
     font-weight: normal;
     color: #909090;
     margin-left: 3px;
+  }
+
+  .frozen-item .balance .withdraw {
+    font-size: 13px;
+    font-style: normal;
+    color: #3c92e4;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: right;
   }
 </style>

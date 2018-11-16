@@ -1,23 +1,26 @@
 {
-  "env": "development",
+  "env": "production",
   "network": "sebak-test-network",
   "dns": {
-    "seed": "localhost"
+    "seed": "testnet-sebak.blockchainos.org"
   },
   "fee": 10000,
   "endpoint": {
-    "scheme": "http",
-    "port": 2821
+    "scheme": "https",
+    "port": 443
   },
   "membership": {
-    "scheme": "http",
-    "host": "18.179.10.14",
-    "port": 3000
+    "scheme": "https",
+    "host": "testnet-membership.blockchainos.org",
+    "port": 443
   },
   "sumsub": {
     "scheme": "https",
     "host": "test-api.sumsub.com",
     "port": 443,
-    "customCss": "https://your-voting-server/desktop-sumsub.css"
+    "customCss": "https://testnet-membership.blockchainos.org/desktop-sumsub.css"
+  },
+  "sentry": {
+    "dsn": ""
   }
 }

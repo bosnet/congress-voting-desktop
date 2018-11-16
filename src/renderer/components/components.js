@@ -8,6 +8,7 @@ export { default as BosWalletAccountFrozen } from './wallet-detail/AccountFrozen
 export { default as BosWalletAccountFrozenItem } from './wallet-detail/AccountFrozenItem';
 export { default as BosFreezingDialog } from './wallet-detail/FreezingDialog';
 export { default as BosUnfreezingDialog } from './wallet-detail/UnfreezingDialog';
+export { default as BosUnfreezingWithdrawDialog } from './wallet-detail/UnfreezingWithdrawDialog';
 
 export { default as BosWalletPreMembershipSection } from './wallet-detail/PreMembershipSection';
 export { default as BosWalletMembershipPendingSection } from './wallet-detail/MembershipPendingSection';

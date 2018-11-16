@@ -21,6 +21,9 @@
 
 <script>
   import Helper from '@/lib/helper';
+  import { remote } from 'electron'; // eslint-disable-line
+
+  const { Menu, MenuItem } = remote;
 
   export default {
     props: ['wallet', 'warn', 'notify'],
@@ -32,6 +35,7 @@
     computed: {
       membershipStatus() {
         if (this.wallet.membership) {
+          this.notify(this.wallet.membership.status);
           return this.wallet.membership.status;
         }
         return '';
@@ -54,23 +58,18 @@
             if (cur.state !== 'returned') {
               return Helper.sumAmount(accum, cur.amount);
             }
-            return accum.amount;
+            return accum;
           }, '0');
         }
         return null;
       },
     },
-    watch: {
-      membershipStatus(status) {
-        this.notify(status);
-      },
-    },
     methods: {
       detail() {
-        if (this.wallet.balance === '-' || parseInt(this.wallet.balance, 10) === 0) {
-          this.warn('empty');
-        } else {
+        if (parseInt(this.wallet.balance, 10) > 0) {
           this.$router.push(`/wallet/${this.wallet.address}/#account-frozen`);
+        } else {
+          this.warn('empty');
         }
       },
       copy(selector, tooltip) {
@@ -87,6 +86,21 @@
     },
     mounted() {
       this.loadOps();
+
+      const self = this;
+      const menu = new Menu();
+      menu.append(new MenuItem({
+        label: self.$t('deleting account'),
+        async click() {
+          await self.$store.dispatch('deleteWalletByAddress', self.wallet.address);
+          self.$router.push('/wallets');
+        },
+      }));
+
+      this.$el.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        menu.popup({ window: remote.getCurrentWindow() });
+      }, false);
     },
   };
 </script>

@@ -9,7 +9,7 @@
         v-for="wallet in wallets"
     />
     <bos-toast v-model="showEmptyAccountWarning">
-      {{$t('To create your account, depositing over 1 BOS')}}
+      {{$t('To create your account, depositing over 0.1 BOS')}}
     </bos-toast>
   </div>
 </template>

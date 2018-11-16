@@ -76,25 +76,26 @@
     font-weight: bold;
     padding: 0 5px;
     margin-left: 6px;
+    border-radius: 2px;
   }
 
   .wallet-membership-state--pending {
     color: #1792f0;
+    border: 1px solid #1792f0;
   }
 
   .wallet-membership-state--rejected {
     color: #ed6060;
+    border: 1px solid #ed6060;
   }
 
   .wallet-membership-state--verified {
     color: #50b37c;
-    border-radius: 2px;
     border: 1px solid #50b37c;
   }
 
   .wallet-membership-state--active {
     color: #ef9e07;
-    border-radius: 2px;
     border: 1px solid #ef9e07;
   }
 </style>

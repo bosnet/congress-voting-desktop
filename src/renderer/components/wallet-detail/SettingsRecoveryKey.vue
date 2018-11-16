@@ -85,7 +85,7 @@
         rules: {
           oldPassphrase: (input) => {
             if (!input) { return true; }
-            const passed = input && input.length > 6;
+            const passed = input && input.length >= 8;
             if (passed) {
               this.oldPassphraseFailed = false;
               this.oldPassphraseSuccess = true;
@@ -106,7 +106,7 @@
 
             this.passphraseSuccess = false;
             this.passphraseFailed = true;
-            return this.$t('passphrase should be 12 characters which contain alphanumeric and special character');
+            return this.$t('passphrase should be 8 characters which contain alphanumeric and special character');
           },
           passphraseConfirm: () => {
             if (!this.$refs.passphraseConfirm) { return true; }
@@ -115,9 +115,6 @@
             if (passphrase === this.$refs.passphraseConfirm.internalValue) {
               this.passphraseConfirmFailed = false;
               this.passphraseConfirmSuccess = true;
-              if (this.$refs.oldPassphrase.internalValue) {
-                this.passphraseChangable = true;
-              }
               return true;
             }
 
@@ -128,6 +125,29 @@
           },
         },
       };
+    },
+    watch: {
+      oldPassphraseSuccess(v) {
+        if (v && this.passphraseSuccess && this.passphraseConfirmSuccess) {
+          this.passphraseChangable = true;
+        } else {
+          this.passphraseChangable = false;
+        }
+      },
+      passphraseSuccess(v) {
+        if (v && this.passphraseConfirmSuccess && this.oldPassphraseSuccess) {
+          this.passphraseChangable = true;
+        } else {
+          this.passphraseChangable = false;
+        }
+      },
+      passphraseConfirmSuccess(v) {
+        if (v && this.passphraseSuccess && this.oldPassphraseSuccess) {
+          this.passphraseChangable = true;
+        } else {
+          this.passphraseChangable = false;
+        }
+      },
     },
     methods: {
       copy(selector, tooltip) {

@@ -17,9 +17,6 @@
       if (process.env.NODE_ENV !== 'development') {
         window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
       }
-      if (process.env.NODE_ENV === undefined) {
-        process.env.NODE_ENV = 'production'
-      }
     </script>
 
     <!-- webpack builds are automatically injected -->
