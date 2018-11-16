@@ -95,6 +95,14 @@
       value() {
         return this.$refs.passphrase.internalValue;
       },
+      reset() {
+        this.pass1success = false;
+        this.pass1failed = false;
+        this.pass2success = false;
+        this.pass2failed = false;
+        this.$refs.passphrase.internalValue = null;
+        this.$refs.passphraseConfirm.internalValue = null;
+      },
     },
   };
 </script>

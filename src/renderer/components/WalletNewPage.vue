@@ -158,8 +158,15 @@
       reset() {
         this.close();
         setTimeout(() => {
-          this.$data.stepNo = 1;
-          this.$data.importMethod = null;
+          this.stepNo = 1;
+          this.importMethod = null;
+          this.stepNo = 1;
+          this.step2passed = false;
+          this.step3passed = false;
+          this.seed = null;
+          this.address = null;
+          this.passphrase = null;
+          this.$refs.passphrase.reset();
         }, 200);
       },
     },
