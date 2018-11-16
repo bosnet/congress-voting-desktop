@@ -14,12 +14,14 @@ export default {
     document.execCommand('copy');
     selection.removeAllRanges();
   },
-  fineMinimumFreezeAmount(amount, fee) {
-    const caculated = new BigNumber(amount, 10)
+  calcMinimumFreezeAmount(amount, fee) {
+    const calculated = new BigNumber(amount, 10)
       .minus(fee, 10)
-      .dividedBy(10000, 10).toFixed(0);
+      .minus(5000, 10)
+      .dividedBy(10000, 10)
+      .toFixed(0);
 
-    return new BigNumber(caculated, 10)
+    return new BigNumber(calculated, 10)
       .multipliedBy(10000, 10)
       .toString(10);
   },

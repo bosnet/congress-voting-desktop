@@ -6,7 +6,7 @@
           <h3>{{$t('requesting freezing')}}</h3>
           <span>{{$t('freezing should be 10,000 bos at least')}}</span>
           <v-text-field
-            v-model="amount"
+            v-model="amountDisplayed"
             ref="amountText"
             :rules="amountRules"
             autofocus
@@ -15,7 +15,7 @@
           </v-text-field>
           <div class="unit" :style="{ marginLeft: `${unitMargin * 15}px` }">{{unit}}<em>BOS</em></div>
           <div class="currentAmount">{{$t('available amount')}} {{prettify(availableBalance)}} BOS</div>
-          <button class="button" :disabled="!moveStep2" @click="stepNo=2">{{$t('freezing')}}</button>
+          <button class="button" :disabled="!isDoneStep1" @click="moveStep2">{{$t('freezing')}}</button>
         </v-stepper-content>
 
         <v-stepper-content step="2" class="step2">
@@ -24,7 +24,7 @@
           <div class="preview">
             <div class="row">
               <span class="label">{{$t('freezing amount')}}</span>
-              <span class="value">{{prettify(amount + '0000')}}</span>
+              <span class="value">{{prettify(amount)}}</span>
             </div>
             <div class="row">
               <span class="label">{{$t('fee')}}</span>
@@ -32,7 +32,7 @@
             </div>
             <div class="row">
               <span class="label">{{$t('total withdrawal')}}</span>
-              <span class="value">{{prettify(amount + '0000.001')}}<em>BOS</em></span>
+              <span class="value">{{prettify(amount + 0.001)}}<em>BOS</em></span>
             </div>
           </div>
           <span class="desc2">{{$t('freezing is not cancelable, you should unfreezing it')}}</span>
@@ -84,9 +84,10 @@
           availableBalance: '0',
           fee: 0.001,
           stepNo: 1,
-          moveStep2: false,
+          isDoneStep1: false,
           unitMargin: 0,
           amount: null,
+          amountDisplayed: null,
           amountRules: [
             (v) => {
               let amount = v ? v.match(/\d/g).join('') : '';
@@ -103,8 +104,8 @@
               // move unit guide
               this.unitMargin = numerCount + (commaCount * 0.5);
 
-              this.amount = amount;
-              this.moveStep2 = !!amount;
+              this.amountDisplayed = amount;
+              this.isDoneStep1 = !!amount;
               return true;
             },
           ],
@@ -121,6 +122,7 @@
         this.dialog = true;
       },
       prettify(b) {
+        if (!b) { return b; }
         return parseFloat(b, 10).toLocaleString();
       },
       reset() {
@@ -128,11 +130,15 @@
         Object.assign(this.$data, this.init());
         this.setBalance();
       },
+      moveStep2() {
+        this.amount = parseFloat(this.amountDisplayed.replace(',', '')) * 10000;
+        this.stepNo = 2;
+      },
       async submit() {
         try {
           await this.$store.dispatch('freeze', {
             address: this.wallet.address,
-            amount: this.amount * 10000,
+            amount: this.amount,
             passphrase: this.passphrase,
           });
         } catch (err) {
@@ -158,7 +164,7 @@
       async setBalance() {
         const account = await this.getAccount();
         const available = Unit.convert(account.balance, 'gon', 'bos');
-        this.availableBalance = Helper.fineMinimumFreezeAmount(available, this.fee);
+        this.availableBalance = Helper.calcMinimumFreezeAmount(available, this.fee);
       },
     },
     async mounted() {
