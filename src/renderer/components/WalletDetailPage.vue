@@ -36,6 +36,19 @@
       anchor(tab) {
         this.$router.push(`/wallet/${this.wallet.address}/#${this.activeMenu}-${tab}`);
       },
+      load() {
+        if (this.wallet.membership && this.wallet.membership.status === 'verified') {
+          this.$store.dispatch('loadFrozenAccounts', this.wallet.address);
+          if (this.$store.state.RPC.frozenAccountOps.length > 0) {
+            this.$store.dispatch('registerMembership', {
+              address: this.wallet.address,
+            });
+          }
+        }
+        if (this.wallet.membership && this.membership.status && this.membership.status !== 'active') {
+          this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
+        }
+      },
     },
     computed: {
       wallet() {
@@ -56,6 +69,10 @@
     mounted() {
       this.updateRouteInfo();
       this.$store.dispatch('loadWallet', this.$route.params.address);
+      this.$root.$on('tick', this.load);
+    },
+    destroyed() {
+      this.$root.$off('tick', this.load);
     },
   };
 </script>

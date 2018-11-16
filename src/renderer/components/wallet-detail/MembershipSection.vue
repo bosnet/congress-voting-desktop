@@ -58,8 +58,6 @@
           try {
             await this.$store.dispatch('registerMembership', {
               address: this.wallet.address,
-              passphrase: this.passphrase,
-              frozenAddress: ops[0].address,
             });
 
             this.update();
