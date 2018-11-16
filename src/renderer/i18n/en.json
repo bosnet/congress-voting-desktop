@@ -94,10 +94,15 @@
   "unfreezed until": "Unfreezing",
   "cancel": "cancel",
   "requesting unfreezing": "Request unfreezing",
-  "you can withdraw after unfreezing": "You will be able to withdrawal your BOScoin to {account} on {until}.",
+  "you can withdraw after unfreezing": "You will be able to withdrawal your BOScoin to {account} on {until} approximnately .",
   "unfreezing amount": "Unfreezing amount",
   "unfreezing is not cancelable, you can withdraw it after 14 days": "Unfreezing set back is unable. User can withdrawal BOScoin after 14days",
   "currently only one account allowed. If you want another account, please remove current one": "You can register only 1 account at the moment. If you wanted add another account, please remove existed account.",
   "confirm": "Confirm",
-  "by registering an membership you agree to delegate authority to operate node": "I, BOScoin holder, fully agree that the node operating privilege shall be delegated to the BlockchainOS by gained acquiring membership."
+  "by registering an membership you agree to delegate authority to operate node": "I, BOScoin holder, fully agree that the node operating privilege shall be delegated to the BlockchainOS by gained acquiring membership.",
+  "remaining": "{hours} hours left",
+  "withdrawing": "start withdrawal",
+  "withdrawing all from the frozen account": "releaase total unfreezing amount ",
+  "the frozen account will be removed after you withdraw them": " When you withdraw all amount of freezed BOScoin unit, exsiting frozen account will be deleted" ,
+  "receiving account": "Account to receive"
 }
