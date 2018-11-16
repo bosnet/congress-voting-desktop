@@ -65,7 +65,12 @@
           return `D-${Math.floor(remainingDays)}`;
         }
 
-        return `${this.$t('remaining', { hours: Math.floor(blockToSecs / (60 * 60)) })}`;
+        const remainingHours = Math.floor(blockToSecs / (60 * 60));
+        if (remainingHours > 0) {
+          return `${this.$t('remaining', { hours: remainingHours })}`;
+        }
+
+        return `${this.$t('remaining in 1 hour')}`;
       },
     },
   };
