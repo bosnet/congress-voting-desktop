@@ -90,7 +90,7 @@
           amountDisplayed: null,
           amountRules: [
             (v) => {
-              let amount = v ? v.match(/\d/g).join('') : '';
+              let amount = v && v.match(/\d/g) ? v.match(/\d/g).join('') : '';
               if (parseInt(amount, 10) * 10000 > parseInt(this.availableBalance, 10)) {
                 amount = this.availableBalance.substr(0, this.availableBalance.length - 4);
               }
