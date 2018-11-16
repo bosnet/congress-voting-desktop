@@ -64,7 +64,12 @@
               } else if (messageType === 'idCheck.onApplicantSubmitted') {
                 setTimeout(() => {
                   this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
-                }, 2000);
+                }, 2500);
+              } else if (messageType === 'idCheck.onApplicantResubmitted') {
+                this.updateApplicantId('ApplicantResubmitted', passphrase);
+                setTimeout(() => {
+                  this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
+                }, 2500);
               }
             },
           );

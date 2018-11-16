@@ -22,8 +22,7 @@
     </v-layout>
     <div :class="['notification', membershipStatus]" v-show="showNotification">
       {{notificationContent}}
-      <!-- TODO: fix link to retry sum&sub -->
-      <a href="#" v-if="membershipStatus === 'rejected'">{{$t('try again')}}</a>
+      <router-link :to="notificationMoveTarget" v-if="membershipStatus === 'rejected'">{{$t('try again')}}</router-link>
     </div>
     <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
   </v-container>
@@ -63,6 +62,7 @@
         showNotification: true,
         membershipStatus: null,
         notificationContent: null,
+        notificationMoveTarget: null,
         showMessage: false,
         message: '',
       };
@@ -76,12 +76,13 @@
       close() {
         this.dialog = false;
       },
-      notify(type) {
+      notify(type, address) {
         this.membershipStatus = type;
         if (type === 'pending') {
           this.notificationContent = this.$t('verifying your identity');
         } else if (type === 'rejected') {
           this.notificationContent = this.$t('your identity verification failed');
+          this.notificationMoveTarget = `/wallet/${address}/#voting`;
         } else if (type === 'verified') {
           this.notificationContent = this.$t('your identity is verified');
         }

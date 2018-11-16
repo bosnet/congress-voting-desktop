@@ -35,7 +35,7 @@
     computed: {
       membershipStatus() {
         if (this.wallet.membership) {
-          this.notify(this.wallet.membership.status);
+          this.notify(this.wallet.membership.status, this.wallet.address);
           return this.wallet.membership.status;
         }
         return '';
