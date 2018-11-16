@@ -103,7 +103,7 @@
   }
 
   .frozen-item .body {
-    width: 400px;
+    width: 300px;
     height: 100%;
     display: flex;
     justify-content: center;
