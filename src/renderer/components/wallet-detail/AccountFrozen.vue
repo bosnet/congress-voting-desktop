@@ -19,7 +19,7 @@
     <transition name="unfreeze-action-bar-transition">
       <div class="unfreeze-action-bar" v-if="willUnfreeze">
         <span class="unfreeze-total">
-          {{willUnfreezeAmount | bos}}<abbr>BOS ({{$t('fee')}} {{totalUnfreezeFeeAmount}} BOS)</abbr>
+          {{willUnfreezeAmount | bos}}<abbr>BOS</abbr>
         </span>
         <div>
           <button class="btn" @click="unprepareUnfreeze">{{$t('cancel')}}</button>
@@ -65,7 +65,6 @@
         this.willUnfreezeAmount = this.willUnfreezeAccounts
           .reduce((accum, cur) => Helper.sumAmount(accum, cur.item.amount), '0');
       },
-      // TODO: withdraw design is not ready
       withdraw() {
         const accounts = [];
         for (let i = 0; i < this.$refs.items.length; i += 1) {
@@ -106,9 +105,6 @@
       },
       address() {
         return this.wallet.address;
-      },
-      totalUnfreezeFeeAmount() {
-        return 0.001 * this.willUnfreezeAccounts.length;
       },
       isMembership() {
         return this.wallet && this.wallet.membership && this.wallet.membership.status === 'active';

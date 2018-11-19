@@ -151,7 +151,7 @@ const actions = {
       const tx = wire.createFreezeAccountTx(
         address,
         unit.convert(amount, 'bos', 'gon'),
-        config.get('fee'),
+        0,
         seqId,
         account.publicKey(),
       );
@@ -189,7 +189,7 @@ const actions = {
               const kp = wallet.createFreezeAccount(seed, ids[0]);
               const data = wire.createUnfreezeRequestTx(
                 kp.publicKey(),
-                config.get('fee'),
+                0,
                 ids[1],
               );
               return wallet.hash(data.nestedArrays()).then((hash) => {
@@ -211,7 +211,7 @@ const actions = {
       const sourceKeyPair = wallet.createFreezeAccount(seed, sequenceId);
       const data = wire.createUnfreezeRequestTx(
         sourceKeyPair.publicKey(),
-        config.get('fee'),
+        0,
         source.sequence_id,
       );
 
@@ -233,7 +233,7 @@ const actions = {
       const account = wallet.createFreezeAccount(seed, sequenceId);
       const tx = wire.createPaymentTx(
         frozenAccountAddress,
-        balance.minus(config.get('fee')),
+        balance.minus(config.get('fee')).toString(10),
         config.get('fee'),
         res[0].sequence_id,
         address,

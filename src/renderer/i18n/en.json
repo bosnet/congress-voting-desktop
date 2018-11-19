@@ -95,7 +95,6 @@
   "cancel": "cancel",
   "requesting unfreezing": "Request unfreezing",
   "you can withdraw after unfreezing": "You will be able to withdrawal your BOScoin to {account} on {until} approximnately .",
-  "unfreezing amount": "Unfreezing amount",
   "unfreezing is not cancelable, you can withdraw it after 14 days": "Unfreezing set back is unable. User can withdrawal BOScoin after 14days",
   "currently only one account allowed. If you want another account, please remove current one": "You can register only 1 account at the moment. If you wanted add another account, please remove existed account.",
   "confirm": "Confirm",

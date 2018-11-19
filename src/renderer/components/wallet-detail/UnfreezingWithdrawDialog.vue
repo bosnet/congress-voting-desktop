@@ -11,8 +11,16 @@
               <span class="value">{{receivingAccount}}</span>
             </div>
             <div class="row">
+              <span class="label">{{$t('freezing amount')}}</span>
+              <span class="value">{{totalAmount | bos}}</span>
+            </div>
+            <div class="row">
+              <span class="label">{{$t('fee')}}</span>
+              <span class="value">{{fee}}</span>
+            </div>
+            <div class="row">
               <span class="label">{{$t('total withdrawal')}}</span>
-              <span class="value">{{totalAmount | bos}}<em>BOS</em></span>
+              <span class="value">{{totalWithdraw | bos}}<em>BOS</em></span>
             </div>
           </div>
           <button class="button" @click="stepNo=2">{{$t('entering passphrase')}}</button>
@@ -38,6 +46,8 @@
 </template>
 
 <script>
+  import Unit from '@/lib/unit';
+
   import closeIcon from '../../assets/svg/close.svg';
 
   export default {
@@ -53,10 +63,14 @@
       totalAmount() {
         return this.frozenAccount.amount;
       },
+      totalWithdraw() {
+        return this.totalAmount - Unit.convert(this.fee, 'bos', 'gon');
+      },
     },
     methods: {
       init() {
         return {
+          fee: 0.001,
           dialog: false,
           stepNo: 1,
           passphrase: null,
@@ -173,7 +187,7 @@
 
   .UnfreezingWithdrawDialog .step1 .preview {
     width: 450px;
-    margin: 0 auto 80px;
+    margin: 0 auto 38px;
     border-top: dashed 1px #b3bec8;
     border-bottom: dashed 1px #b3bec8;
   }
@@ -181,18 +195,20 @@
   .UnfreezingWithdrawDialog .step1 .preview .row {
     display: flex;
     align-items: center;
-    margin: 29px auto;
+    margin: 10px auto;
     width: 374px;
     height: 27px;
   }
 
   .UnfreezingWithdrawDialog .step1 .preview .row:first-child {
-    margin-top: 40px;
+    margin-top: 24px;
+    margin-bottom: 25px;
   }
 
   .UnfreezingWithdrawDialog .step1 .preview .row:last-child {
     height: 37px;
-    margin-bottom: 36px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .UnfreezingWithdrawDialog .step1 .preview .row .label {

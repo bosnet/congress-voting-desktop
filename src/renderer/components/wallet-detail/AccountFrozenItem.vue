@@ -177,7 +177,20 @@
     font-style: normal;
     color: #3c92e4;
     cursor: pointer;
-    text-decoration: underline;
     text-align: right;
+  }
+
+  .frozen-item .balance .withdraw:hover {
+    text-decoration: underline;
+  }
+  .frozen-item .balance .withdraw:active {
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #1866b0;
   }
 </style>

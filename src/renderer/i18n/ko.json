@@ -93,7 +93,6 @@
   "cancel": "취소",
   "requesting unfreezing": "Unfreezing 요청",
   "you can withdraw after unfreezing": "{account} 계정으로 약 {until}에 이체가능합니다",
-  "unfreezing amount": "Unfreezing 금액",
   "unfreezing is not cancelable, you can withdraw it after 14 days": "Unfreezing 요청 후에는 취소할 수 없으며 14일 뒤부터 이체 가능합니다",
   "currently only one account allowed. If you want another account, please remove current one": "현재는 1개 계좌만 등록할 수 있습니다. 다른 계좌를 추가하려면 기존 계좌를 삭제해 주세요",
   "confirm": "승인",
