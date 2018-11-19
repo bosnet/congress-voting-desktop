@@ -7,8 +7,16 @@
           <span class="desc">{{$t('you can withdraw after unfreezing', { account: wallet.title, until: withdrawableDatetime })}}</span>
           <div class="preview">
             <div class="row">
+              <span class="label">{{$t('unfreezing amount')}}</span>
+              <span class="value">{{totalAmount | bos}}</span>
+            </div>
+            <div class="row">
+              <span class="label">{{$t('fee')}}</span>
+              <span class="value">{{totalFee}}</span>
+            </div>
+            <div class="row">
               <span class="label">{{$t('total withdrawal')}}</span>
-              <span class="value">{{totalAmount | bos}}<em>BOS</em></span>
+              <span class="value">{{totalWithdraw | bos}}<em>BOS</em></span>
             </div>
           </div>
           <span class="desc2">{{$t('unfreezing is not cancelable, you can withdraw it after 14 days')}}</span>
@@ -36,6 +44,7 @@
 </template>
 
 <script>
+  import Unit from '@/lib/unit';
   import Helper from '@/lib/helper';
 
   import closeIcon from '../../assets/svg/close.svg';
@@ -55,6 +64,12 @@
             .reduce((accum, cur) => Helper.sumAmount(accum, cur.amount), '0');
         }
         return null;
+      },
+      totalFee() {
+        return this.fee * (this.accounts ? this.accounts.length : 0);
+      },
+      totalWithdraw() {
+        return this.totalAmount - Unit.convert(this.totalFee, 'bos', 'gon');
       },
       withdrawableDatetime() {
         const until = new Date();
@@ -181,7 +196,7 @@
   }
 
   .UnfreezingDialog .step1 .desc {
-    margin-bottom: 50px;
+    margin-bottom: 39px;
   }
 
   .UnfreezingDialog .step1 .preview {
@@ -194,9 +209,14 @@
   .UnfreezingDialog .step1 .preview .row {
     display: flex;
     align-items: center;
-    margin: 31px auto;
+    margin: 10px auto;
     width: 349px;
+    height: 27px;
+  }
+
+  .UnfreezingDialog .step1 .preview .row:last-child {
     height: 37px;
+    margin-bottom: 20px;
   }
 
   .UnfreezingDialog .step1 .preview .row .label {
@@ -205,14 +225,17 @@
 
   .UnfreezingDialog .step1 .preview .row .value {
     width: 199px;
-    font-size: 25px;
-    font-weight: bold;
     text-align: right;
     position: relative;
+  }
+
+  .UnfreezingDialog .step1 .preview .row:last-child .value {
+    font-size: 25px;
+    font-weight: bold;
     color: #333333;
   }
 
-  .UnfreezingDialog .step1 .preview .row .value em {
+  .UnfreezingDialog .step1 .preview .row:last-child .value em {
     font-size: 10px;
     color: #909090;
     position: absolute;
@@ -223,7 +246,7 @@
   .UnfreezingDialog .step1 .desc2 {
     font-size: 11px;
     color: #728395;
-    margin-bottom: 92px;
+    margin-bottom: 40px;
   }
 
   .UnfreezingDialog .step2 .v-input {

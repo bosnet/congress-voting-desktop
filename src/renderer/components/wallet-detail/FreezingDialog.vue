@@ -23,8 +23,16 @@
           <span class="desc">{{$t('you can get rewards by frozen amount')}}</span>
           <div class="preview">
             <div class="row">
+              <span class="label">{{$t('freezing amount')}}</span>
+              <span class="value">{{prettify(amount)}}</span>
+            </div>
+            <div class="row">
+              <span class="label">{{$t('fee')}}</span>
+              <span class="value">0.001</span>
+            </div>
+            <div class="row">
               <span class="label">{{$t('total withdrawal')}}</span>
-              <span class="value">{{prettify(amount)}}<em>BOS</em></span>
+              <span class="value">{{prettify(amount + 0.001)}}<em>BOS</em></span>
             </div>
           </div>
           <span class="desc2">{{$t('freezing is not cancelable, you should unfreezing it')}}</span>
@@ -270,7 +278,7 @@
   }
 
   .FreezingDialog .step2 .desc {
-    margin-bottom: 50px;
+    margin-bottom: 39px;
   }
 
   .FreezingDialog .step2 .preview {
@@ -283,9 +291,14 @@
   .FreezingDialog .step2 .preview .row {
     display: flex;
     align-items: center;
-    margin: 31px auto;
+    margin: 10px auto;
     width: 349px;
+    height: 27px;
+  }
+
+  .FreezingDialog .step2 .preview .row:last-child {
     height: 37px;
+    margin-bottom: 20px;
   }
 
   .FreezingDialog .step2 .preview .row .label {
@@ -294,14 +307,17 @@
 
   .FreezingDialog .step2 .preview .row .value {
     width: 199px;
-    font-size: 25px;
-    font-weight: bold;
     text-align: right;
-    color: #333333;
     position: relative;
   }
 
-  .FreezingDialog .step2 .preview .row .value em {
+  .FreezingDialog .step2 .preview .row:last-child .value {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333333;
+  }
+
+  .FreezingDialog .step2 .preview .row:last-child .value em {
     font-size: 10px;
     color: #909090;
     position: absolute;
@@ -312,7 +328,7 @@
   .FreezingDialog .step2 .desc2 {
     font-size: 11px;
     color: #728395;
-    margin-bottom: 90px;
+    margin-bottom: 40px;
   }
 
   .FreezingDialog .step3 .v-input {

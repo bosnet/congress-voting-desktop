@@ -14,8 +14,9 @@ export default {
     document.execCommand('copy');
     selection.removeAllRanges();
   },
-  calcMinimumFreezeAmount(amount) {
+  calcMinimumFreezeAmount(amount, fee) {
     const calculated = new BigNumber(amount, 10)
+      .minus(fee, 10)
       .minus(5000, 10)
       .dividedBy(10000, 10)
       .toFixed(0);
