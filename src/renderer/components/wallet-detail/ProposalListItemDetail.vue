@@ -1,10 +1,10 @@
 <template>
-  <div class="ProposalListItem" @click="$emit('show', item)">
+  <div class="ProposalListItemDetail">
     <div class="code">{{ item.code }}</div>
-    <h4 class="title">{{ item.title }}</h4>
+    <h2 class="title">{{ item.title }}</h2>
     <span class="time" v-if="remainTime">{{ remainTime }}</span>
-    <!--<v-btn flat color="primary">Detail</v-btn>-->
-        <!--<v-btn flat color="success" @click="vote(item)">Vote</v-btn>-->
+    <hr>
+    <div class="contract">{{ item.content }}</div>
   </div>
 </template>
 
@@ -12,6 +12,8 @@
   export default {
     name: 'bos-wallet-proposal-item',
     props: ['item', 'vote'],
+    methods: {
+    },
     computed: {
       remainTime() {
         if (this.item.remain) {
@@ -38,46 +40,30 @@
 </script>
 
 <style>
-  .ProposalListItem {
-    width: 322px;
-    height: 230px;
+  .ProposalListItemDetail {
+    width: 100%;
     border-radius: 2px;
     background-color: #ffffff;
-    display: inline-block;
     margin: 5px;
-    padding: 30px 20px;
+    padding: 30px 40px;
     position: relative;
-    cursor: pointer;
   }
 
-  .ProposalListItem:hover,
-  .ProposalListItem:active {
-    box-shadow: 0 10px 25px 0 rgba(193, 217, 240, 0.87);
-  }
-
-  .ProposalListItem .code {
+  .ProposalListItemDetail .code {
     font-size: 12px;
-    color: #728395;
+    color: #1792f0;
   }
 
-  .ProposalListItem .title {
-    font-size: 16px;
-    font-weight: normal;
-    color: #000000;
-    margin-top: 15px;
-  }
-
-  .ProposalListItem .time {
+  .ProposalListItemDetail .time {
     font-size: 11px;
     text-align: right;
     color: #728395;
-    right: 20px;
-    bottom: 20px;
     position: absolute;
-    display: inline-block;
+    top: 30px;
+    right: 40px;
   }
 
-  .ProposalListItem .time:before {
+  .ProposalListItemDetail .time:before {
     content: "";
     width: 12px;
     height: 12px;
@@ -88,18 +74,21 @@
     background: url(../../assets/svg/proposal-clock.svg);
   }
 
-  .ProposalListItem:hover .code,
-  .ProposalListItem:active .code {
-    color: #1792f0;
+  .ProposalListItemDetail .title {
+    margin-top: 30px;
   }
 
-  .ProposalListItem:hover .time,
-  .ProposalListItem:active .time {
-    color: #ec1f1f;
+  .ProposalListItemDetail hr {
+    width: 100%;
+    height: 1px;
+    background-color: #c4d1d6;
+    margin: 40px 0;
+    border: none;
   }
 
-  .ProposalListItem:hover .time:before,
-  .ProposalListItem:active .time:before {
-    background: url(../../assets/svg/proposal-clock-highlight.svg);
+  .ProposalListItemDetail .contract {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: inherit;
   }
 </style>

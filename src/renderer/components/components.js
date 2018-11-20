@@ -15,7 +15,9 @@ export { default as BosWalletMembershipPendingSection } from './wallet-detail/Me
 export { default as BosWalletMembershipSection } from './wallet-detail/MembershipSection';
 
 export { default as BosWalletProposalSection } from './wallet-detail/ProposalSection';
+export { default as BosWalletProposalList } from './wallet-detail/ProposalList';
 export { default as BosWalletProposalItem } from './wallet-detail/ProposalListItem';
+export { default as BosWalletProposalItemDetail } from './wallet-detail/ProposalListItemDetail';
 
 export { default as BosWalletSettingsSection } from './wallet-detail/SettingsSection';
 export { default as BosWalletSettingsDeleteMembership } from './wallet-detail/SettingsDeleteMembership';

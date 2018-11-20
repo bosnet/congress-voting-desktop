@@ -104,5 +104,9 @@
   "withdrawing all from the frozen account": "releaase total unfreezing amount ",
   "the frozen account will be removed after you withdraw them": " When you withdraw all amount of freezed BOScoin unit, exsiting frozen account will be deleted" ,
   "receiving account": "Account to receive",
-  "remaining in 1 hour": "remaining within an hour"
+  "remaining in 1 hour": "remaining within an hour",
+  "ongoing voting": "",
+  "closed voting": "",
+  "voting remained more than a day": "",
+  "voting remained less than a day": ""
 }

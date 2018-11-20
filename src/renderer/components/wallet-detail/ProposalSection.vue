@@ -1,16 +1,17 @@
 <template>
   <div>
-    <v-card v-if="state === 'active'">
-      <v-container fluid grid-list-lg>
-        <v-layout row wrap>
-          <bos-wallet-proposal-item
-              :vote="openDialog"
-              :item="item"
-              v-for="item in items"/>
-        </v-layout>
-      </v-container>
-      <vote-dialog ref="voteDialog" :callback="vote"/>
-    </v-card>
+    <bos-wallet-proposal-list :wallet="wallet" v-if="state === 'active'"/>
+    <!--<v-card v-if="state === 'active'">-->
+      <!--<v-container fluid grid-list-lg>-->
+        <!--<v-layout row wrap>-->
+          <!--<bos-wallet-proposal-item-->
+              <!--:vote="openDialog"-->
+              <!--:item="item"-->
+              <!--v-for="item in items"/>-->
+        <!--</v-layout>-->
+      <!--</v-container>-->
+      <!--<vote-dialog ref="voteDialog" :callback="vote"/>-->
+    <!--</v-card>-->
 
     <bos-wallet-membership-pending-section :wallet="wallet" v-else-if="state == 'pending'"/>
     <bos-wallet-membership-section :wallet="wallet" v-else-if="state == 'verified'"/>
@@ -19,35 +20,12 @@
 </template>
 
 <script>
-  import VoteDialog from './VoteDialog';
-
   export default {
     name: 'bos-wallet-proposal-section',
     props: ['wallet'],
-    components: {
-      VoteDialog,
-    },
-    methods: {
-      openDialog(proposal) {
-        this.$refs.voteDialog.open(proposal);
-      },
-      vote({ proposalId, answer, passphrase }) {
-        return this.$store.dispatch('vote', {
-          address: this.wallet.address,
-          proposalId,
-          answer,
-          passphrase,
-        });
-      },
-    },
     computed: {
       state() {
         return this.wallet.membership && this.wallet.membership.status;
-      },
-    },
-    asyncComputed: {
-      items() {
-        return this.$store.getters.getProposals();
       },
     },
   };

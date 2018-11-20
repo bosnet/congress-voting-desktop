@@ -102,5 +102,9 @@
   "withdrawing all from the frozen account": "언프리징 잔액 이체",
   "the frozen account will be removed after you withdraw them": "언프리징 잔액을 이체하면 해당 프로즌 계좌는 삭제됩니다",
   "receiving account": "받는 계좌",
-  "remaining in 1 hour": "1시간 이내 남음"
+  "remaining in 1 hour": "1시간 이내 남음",
+  "ongoing voting": "진행중인 투표",
+  "closed voting": "지난 투표",
+  "voting remained more than a day": "{day}일 {time} 남음",
+  "voting remained less than a day": "{time} 남음"
 }
