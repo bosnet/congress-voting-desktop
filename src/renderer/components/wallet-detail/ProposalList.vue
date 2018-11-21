@@ -9,29 +9,25 @@
     <div class="ProposalContent">
       <div v-if="!currentProposal">
         <bos-wallet-proposal-item
-          :vote="openDialog"
           @show="showDetail"
           :item="p"
+          :wallet="wallet"
           v-for="p in list"/>
       </div>
-      <bos-wallet-proposal-item-detail :item="currentProposal" v-else />
+      <bos-wallet-proposal-item-detail :item="currentProposal" :wallet="wallet" v-else />
     </div>
   </section>
 </template>
 
 <script>
-  import VoteDialog from './VoteDialog';
-
   export default {
     name: 'bos-wallet-proposal-list',
     props: ['wallet'],
-    components: {
-      VoteDialog,
-    },
     data() {
       return {
         activeMenu: 'now',
         currentProposal: null,
+        proposals: null,
       };
     },
     methods: {
@@ -51,16 +47,8 @@
       showDetail(proposal) {
         this.currentProposal = proposal;
       },
-      openDialog(proposal) {
-        this.$refs.voteDialog.open(proposal);
-      },
-      vote({ proposalId, answer, passphrase }) {
-        return this.$store.dispatch('vote', {
-          address: this.wallet.address,
-          proposalId,
-          answer,
-          passphrase,
-        });
+      async refreshProposals() {
+        this.proposals = await this.$store.getters.getProposals();
       },
     },
     computed: {
@@ -76,10 +64,12 @@
         return null;
       },
     },
-    asyncComputed: {
-      proposals() {
-        return this.$store.getters.getProposals();
-      },
+    mounted() {
+      this.$root.$on('tick', this.refreshProposals);
+      this.refreshProposals();
+    },
+    destroyed() {
+      this.$root.$off('tick', this.refreshProposals);
     },
   };
 </script>

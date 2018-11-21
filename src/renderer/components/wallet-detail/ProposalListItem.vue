@@ -3,15 +3,13 @@
     <div class="code">{{ item.code }}</div>
     <h4 class="title">{{ item.title }}</h4>
     <span class="time" v-if="remainTime">{{ remainTime }}</span>
-    <!--<v-btn flat color="primary">Detail</v-btn>-->
-        <!--<v-btn flat color="success" @click="vote(item)">Vote</v-btn>-->
   </div>
 </template>
 
 <script>
   export default {
     name: 'bos-wallet-proposal-item',
-    props: ['item', 'vote'],
+    props: ['item', 'wallet'],
     computed: {
       imminent() {
         // 17280 => block for 1 day = 60 * 60 * 24 / 5

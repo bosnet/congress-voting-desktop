@@ -110,5 +110,8 @@
   "voting remained more than a day": "",
   "voting remained less than a day": "",
   "voting start in more than a day": "",
-  "voting start in less than a day": ""
+  "voting start in less than a day": "",
+  "agree": "",
+  "disagree": "",
+  "abstain": ""
 }
