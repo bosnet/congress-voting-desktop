@@ -1,5 +1,5 @@
 <template>
-  <div class="ProposalListItem" @click="$emit('show', item)">
+  <div :class="['ProposalListItem', imminent]" class="" @click="$emit('show', item)">
     <div class="code">{{ item.code }}</div>
     <h4 class="title">{{ item.title }}</h4>
     <span class="time" v-if="remainTime">{{ remainTime }}</span>
@@ -13,23 +13,45 @@
     name: 'bos-wallet-proposal-item',
     props: ['item', 'vote'],
     computed: {
+      imminent() {
+        // 17280 => block for 1 day = 60 * 60 * 24 / 5
+        if (this.item.state === 'opened' && this.item.remain < 17280) {
+          return 'imminent';
+        }
+        return null;
+      },
       remainTime() {
         if (this.item.remain) {
           const now = new Date();
           const until = new Date();
           until.setSeconds(until.getSeconds() + (this.item.remain * 5));
           const diff = new Date(until.getTime() - now.getTime());
+          const time = `${diff.getUTCHours()}:${diff.getUTCMinutes()}:${diff.getUTCSeconds()}`;
 
           if (diff.getUTCDate() - 1 > 0) {
-            return this.$t('voting remained more than a day', {
-              day: diff.getUTCDate() - 1,
-              time: `${diff.getUTCHours()}:${diff.getUTCMinutes()}:${diff.getUTCSeconds()}`,
-            });
+            if (this.item.state === 'opened') {
+              return this.$t('voting remained more than a day', {
+                day: diff.getUTCDate() - 1,
+                time,
+              });
+            } else if (this.item.state === 'open-before') {
+              return this.$t('voting start in more than a day', {
+                day: diff.getUTCDate() - 1,
+                time,
+              });
+            }
           }
 
-          return this.$t('voting remained less than a day', {
-            time: `${diff.getUTCHours()}:${diff.getUTCMinutes()}:${diff.getUTCSeconds()}`,
-          });
+          if (this.item.state === 'opened') {
+            return this.$t('voting remained less than a day', {
+              time,
+            });
+          } else if (this.item.state === 'open-before') {
+            return this.$t('voting start in less than a day', {
+              day: diff.getUTCDate() - 1,
+              time,
+            });
+          }
         }
         return null;
       },
@@ -93,13 +115,13 @@
     color: #1792f0;
   }
 
-  .ProposalListItem:hover .time,
-  .ProposalListItem:active .time {
+  .ProposalListItem.imminent .time,
+  .ProposalListItem.imminent .time {
     color: #ec1f1f;
   }
 
-  .ProposalListItem:hover .time:before,
-  .ProposalListItem:active .time:before {
+  .ProposalListItem.imminent .time:before,
+  .ProposalListItem.imminent .time:before {
     background: url(../../assets/svg/proposal-clock-highlight.svg);
   }
 </style>

@@ -105,6 +105,8 @@
   "remaining in 1 hour": "1시간 이내 남음",
   "ongoing voting": "진행중인 투표",
   "closed voting": "지난 투표",
-  "voting remained more than a day": "{day}일 {time} 남음",
-  "voting remained less than a day": "{time} 남음"
+  "voting remained more than a day": "투표 종료까지 {day}일 {time} 남음",
+  "voting remained less than a day": "투표 종료까지 {time} 남음",
+  "voting start in more than a day": "투표 시작까지 {day}일 {time} 남음",
+  "voting start in less than a day": "투표 시작까지 {time} 남음"
 }

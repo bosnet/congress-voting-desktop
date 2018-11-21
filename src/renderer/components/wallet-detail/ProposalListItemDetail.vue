@@ -21,17 +21,32 @@
           const until = new Date();
           until.setSeconds(until.getSeconds() + (this.item.remain * 5));
           const diff = new Date(until.getTime() - now.getTime());
+          const time = `${diff.getUTCHours()}:${diff.getUTCMinutes()}:${diff.getUTCSeconds()}`;
 
           if (diff.getUTCDate() - 1 > 0) {
-            return this.$t('voting remained more than a day', {
-              day: diff.getUTCDate() - 1,
-              time: `${diff.getUTCHours()}:${diff.getUTCMinutes()}:${diff.getUTCSeconds()}`,
-            });
+            if (this.item.state === 'opened') {
+              return this.$t('voting remained more than a day', {
+                day: diff.getUTCDate() - 1,
+                time,
+              });
+            } else if (this.item.state === 'open-before') {
+              return this.$t('voting start in more than a day', {
+                day: diff.getUTCDate() - 1,
+                time,
+              });
+            }
           }
 
-          return this.$t('voting remained less than a day', {
-            time: `${diff.getUTCHours()}:${diff.getUTCMinutes()}:${diff.getUTCSeconds()}`,
-          });
+          if (this.item.state === 'opened') {
+            return this.$t('voting remained less than a day', {
+              time,
+            });
+          } else if (this.item.state === 'open-before') {
+            return this.$t('voting start in less than a day', {
+              day: diff.getUTCDate() - 1,
+              time,
+            });
+          }
         }
         return null;
       },
