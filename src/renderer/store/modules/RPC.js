@@ -133,6 +133,8 @@ const getters = {
   getSumsubAccessToken: () => address => remoteRPC.getSumsubAccessToken(address),
 
   getProposals: () => () => remoteRPC.getProposals(),
+
+  hasVotedForProposal: () => (id, address) => remoteRPC.hasVotedForProposal(id, address),
 };
 
 export default {

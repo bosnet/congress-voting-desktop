@@ -4,9 +4,14 @@
     <h2 class="title">{{ item.title }}</h2>
     <span class="time" v-if="remainTime">{{ remainTime }}</span>
     <div class="btns" v-if="votable">
-      <button class="btn agree" @click="openPassphraseDialog('yes')">{{$t('agree')}}</button>
-      <button class="btn disagree" @click="openPassphraseDialog('no')">{{$t('disagree')}}</button>
-      <button class="btn abstain" @click="openPassphraseDialog('abs')">{{$t('abstain')}}</button>
+      <div v-if="voted">
+        <button class="btn edit" @click="voted = false">{{$t('change my vote')}}</button>
+      </div>
+      <div v-else>
+        <button class="btn agree" @click="openPassphraseDialog('yes')">{{$t('agree')}}</button>
+        <button class="btn disagree" @click="openPassphraseDialog('no')">{{$t('disagree')}}</button>
+        <button class="btn abstain" @click="openPassphraseDialog('abs')">{{$t('abstain')}}</button>
+      </div>
     </div>
     <hr>
     <div class="contract">{{ item.content }}</div>
@@ -24,6 +29,7 @@
         answer: null,
         showMessage: false,
         message: '',
+        voted: false,
       };
     },
     methods: {
@@ -41,6 +47,7 @@
             answer: this.answer,
             passphrase,
           });
+          this.checkVoted();
         } catch (err) {
           if (err.message.match(/bad decrypt/)) {
             this.message = this.$t('passphrase is wrong');
@@ -56,6 +63,9 @@
 
           this.showMessage = true;
         }
+      },
+      async checkVoted() {
+        this.voted = await this.$store.getters.hasVotedForProposal(this.item.id, this.wallet.address);
       },
     },
     computed: {
@@ -97,6 +107,13 @@
       votable() {
         return this.item.state === 'opened';
       },
+    },
+    mounted() {
+      this.checkVoted();
+    },
+    destroyed() {
+      this.answer = null;
+      this.voted = false;
     },
   };
 </script>

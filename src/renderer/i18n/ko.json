@@ -111,5 +111,6 @@
   "voting start in less than a day": "투표 시작까지 약 {time} 남음",
   "agree": "찬성",
   "disagree": "반대",
-  "abstain": "기권"
+  "abstain": "기권",
+  "change my vote": "투표 수정"
 }

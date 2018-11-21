@@ -47,6 +47,12 @@ class RPC {
       .then(res => res.data.data);
   }
 
+  hasVotedForProposal(id, address) {
+    return client
+      .get(`${this.membershipEndpoint}/api/v1/proposals/${id}/votes/${address}`)
+      .then(res => res.data.data);
+  }
+
   getTransaction(hash) {
     return this.lookup()
       .then(endpoint => client
