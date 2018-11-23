@@ -19,7 +19,7 @@
   "please keep your secret seed safely": "보안키를 안전한 곳에 기록해 두세요! 보안키를 잃어버리면 모든 코인을 잃게 됩니다.",
   "public address": "공개 주소",
   "secret seed": "보안키",
-  "entering recovery key": "복구키를 입력하기",
+  "entering recovery key": "복구키 입력하기",
   "enter your recovery key": "복구키를 입력하세요",
   "the recovery key is wrong": "복구키가 잘못되었습니다",
   "available accounts": "사용 가능한 계좌",
