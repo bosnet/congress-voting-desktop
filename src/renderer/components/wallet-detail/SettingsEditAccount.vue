@@ -18,8 +18,7 @@
       <div class="DeleteAccountDialog">
         <h3>{{$t('deleting account')}}</h3>
         <span>{{$t('please back the account up before deleting it')}}</span>
-        <img :src="deleteAccountImg" />
-        <!-- TODO: apply hover/active design -->
+        <img class="img" :src="deleteAccountImg" />
         <button class="button" @click="deleteAccount">{{$t('deleting account')}}</button>
         <img :src="closeIcon" @click="dialog = false" class="DeleteAccountDialogClose" alt="close"/>
       </div>
@@ -157,8 +156,8 @@
     word-break: keep-all;
   }
 
-  .DeleteAccountDialog img {
-    margin: 26px auto 65px;
+  .DeleteAccountDialog .img {
+    margin: 34px auto 76px;
   }
 
   .DeleteAccountDialog .button {

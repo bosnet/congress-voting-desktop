@@ -106,7 +106,7 @@
   }
 
   .MembershipRegister .before img {
-    margin: 8px auto 25px;
+    margin: 20px auto 25px;
     display: block;
   }
 
@@ -122,8 +122,10 @@
 
   .MembershipRegister .before hr {
     width: 120px;
+    height: 1px;
     background-color: #c4d1d6;
     margin: 0 auto;
+    border: none;
   }
 
   .MembershipRegister .before span {
