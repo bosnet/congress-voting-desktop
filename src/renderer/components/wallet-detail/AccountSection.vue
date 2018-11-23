@@ -159,7 +159,7 @@
   }
 
   .Account .account-tabs-content {
-    padding: 20px 30px;
+    padding: 10px 30px;
     background-color: #eaeff5;
     height: 412px;
     overflow-y: auto;

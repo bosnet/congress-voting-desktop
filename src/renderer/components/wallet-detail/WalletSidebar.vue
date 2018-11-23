@@ -16,30 +16,7 @@
     <footer>
       <ul>
         <li :class="{setting: true, on: activeMenu === 'settings'}">
-          <v-menu
-            v-model="showMenu"
-            absolute
-            top
-            transition="slide-y-reverse-transition"
-          >
-            <a slot="activator">Settings</a>
-            <div class="SidebarSettingMenu">
-              <ul>
-                <li>
-                  <router-link :to="`/wallet/${address}/#settings-account`">Edit Account</router-link>
-                </li>
-                <li>
-                  <router-link :to="`/wallet/${address}/#settings-recovery`">Confirm Recovery Key</router-link>
-                </li>
-                <li>
-                  <router-link :to="`/wallet/${address}/#settings-seed`">Confirm Secret Seed</router-link>
-                </li>
-                <li v-if="membershipState">
-                  <router-link :to="`/wallet/${address}/#settings-delete-membership`">Delete Membership</router-link>
-                </li>
-              </ul>
-            </div>
-          </v-menu>
+          <router-link :to="`/wallet/${address}/#settings-account`">Settings</router-link>
         </li>
         <li class="home">
           <router-link to="/">Home</router-link>
@@ -61,11 +38,6 @@
         address: this.wallet.address,
         showMenu: false,
       };
-    },
-    computed: {
-      membershipState() {
-        return this.wallet && this.wallet.membership && this.wallet.membership.status;
-      },
     },
   };
 </script>
@@ -101,12 +73,12 @@
     cursor: pointer;
   }
 
-  .Sidebar li:hover {
+  .Sidebar li:hover,
+  .Sidebar li:active {
     background-color: #314070;
   }
 
-  .Sidebar li.on,
-  .Sidebar li:active {
+  .Sidebar li.on {
     color: #fff;
     background-color: #283766;
   }
@@ -121,9 +93,7 @@
     align-items: center;
   }
 
-  .Sidebar li a:active,
-  .Sidebar li.on a,
-  .Sidebar li:active a {
+  .Sidebar li.on a {
     color: #fff;
   }
 
@@ -138,21 +108,21 @@
     vertical-align: top;
   }
 
-  .Sidebar nav li.account a:before {
+  .Sidebar nav li.account a:before,
+  .Sidebar nav li.account:active a:before {
     background: url(../../assets/svg/nav-account.svg);
   }
 
-  .Sidebar nav li.account.on a:before,
-  .Sidebar nav li.account:active a:before {
+  .Sidebar nav li.account.on a:before {
     background: url(../../assets/svg/nav-account-on.svg);
   }
 
-  .Sidebar nav li.voting a:before {
+  .Sidebar nav li.voting a:before,
+  .Sidebar nav li.voting:active a:before {
     background: url(../../assets/svg/navi-voting.svg);
   }
 
-  .Sidebar nav li.voting.on a:before,
-  .Sidebar nav li.voting:active a:before {
+  .Sidebar nav li.voting.on a:before {
     background: url(../../assets/svg/navi-voting-on.svg);
   }
 
@@ -166,21 +136,21 @@
     height: 40px;
   }
 
-  .Sidebar footer li.setting a:before {
+  .Sidebar footer li.setting a:before,
+  .Sidebar footer li.setting:active a:before {
     background: url(../../assets/svg/navi-settings.svg);
   }
 
-  .Sidebar footer li.setting.on a:before,
-  .Sidebar footer li.setting:active a:before {
+  .Sidebar footer li.setting.on a:before {
     background: url(../../assets/svg/navi-settings-on.svg);
   }
 
-  .Sidebar footer li.home a:before {
+  .Sidebar footer li.home a:before,
+  .Sidebar footer li.home:active a:before {
     background: url(../../assets/svg/navi-home.svg);
   }
 
-  .Sidebar footer li.home.on a:before,
-  .Sidebar footer li.home:active a:before {
+  .Sidebar footer li.home.on a:before {
     background: url(../../assets/svg/navi-home-on.svg);
   }
 
@@ -193,45 +163,5 @@
   .Sidebar footer li.setting .v-menu div {
     width: 100%;
     height: 100%;
-  }
-
-  .SidebarSettingMenu {
-    width: 173px;
-    border-radius: 2px;
-    box-shadow: 0 0 10px 0 rgba(57, 103, 148, 0.35);
-    background-color: #ffffff;
-    padding: 10px 0;
-  }
-
-  .SidebarSettingMenu ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .SidebarSettingMenu ul li {
-    height: 45px;
-    padding: 0;
-    cursor: pointer;
-    font-size: 13px;
-    color: #333333;
-  }
-
-  .SidebarSettingMenu ul li:hover {
-    background-color: #3c92e4;
-    color: #fff;
-  }
-
-  .SidebarSettingMenu ul li a {
-    text-decoration: none;
-    color: #333333;
-    padding: 0 20px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  .SidebarSettingMenu ul li:hover a {
-    color: #fff;
   }
 </style>

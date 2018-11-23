@@ -3,7 +3,6 @@
     <div class="frozen-account-btns">
       <button class="btn" :disabled="willUnfreeze" @click="openFreezingDialog" v-if="isMembership">{{$t('freezing')}}</button>
       <button class="btn" :disabled="willUnfreeze" @click="prepareUnfreeze" v-if="hasFrozen">{{$t('unfreezing')}}</button>
-      <!--<button class="btn" :disabled="false" @click="withdraw()">{{$t('')}}</button>-->
     </div>
     <div class="frozen-account-list">
       <ul>
@@ -29,6 +28,7 @@
     </transition>
     <bos-freezing-dialog ref="freezingDialog" :wallet="wallet"/>
     <bos-unfreezing-dialog ref="unfreezingDialog" :wallet="wallet" :callback="unfreezingRequested"/>
+    <bos-toast v-model="showMessage" :timeout="2500" pullRight>{{message}}</bos-toast>
   </div>
 </template>
 
@@ -43,11 +43,18 @@
         willUnfreeze: false,
         willUnfreezeAccounts: [],
         willUnfreezeAmount: 0,
+        showMessage: false,
+        message: '',
       };
     },
     methods: {
       prepareUnfreeze() {
         this.willUnfreeze = true;
+        if (this.accounts.length < 1) {
+          this.message = this.$t('there is no account for unfreezing');
+          this.showMessage = true;
+          this.unprepareUnfreeze();
+        }
       },
       unprepareUnfreeze() {
         this.willUnfreeze = false;
@@ -131,6 +138,7 @@
     text-align: center;
     padding: 0 19px;
     color: #607481;
+    margin: 0 1px;
   }
 
   .FrozenAccount .btn:hover:enabled {
@@ -153,6 +161,10 @@
 
   .FrozenAccount > ul  {
     list-style: none;
+  }
+
+  .FrozenAccount .frozen-account-list ul  {
+    padding-left: 0;
   }
 
   .FrozenAccount .unfreeze-action-bar {

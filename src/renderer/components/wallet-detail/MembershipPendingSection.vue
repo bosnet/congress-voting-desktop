@@ -48,8 +48,10 @@
 
   .PreMembershipPending hr {
     width: 120px;
+    height: 1px;
     background-color: #c4d1d6;
     margin: 0 auto;
+    border: none;
   }
 
   .PreMembershipPending span {

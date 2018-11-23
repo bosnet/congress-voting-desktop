@@ -13,7 +13,7 @@
             required
           >
           </v-text-field>
-          <div class="unit" :style="{ marginLeft: `${unitMargin * 15}px` }">{{unit}}<em>BOS</em></div>
+          <div class="unit" :style="{ marginLeft: `${unitMargin * 15}px` }">{{unit}}<abbr>BOS</abbr></div>
           <div class="currentAmount">{{$t('available amount')}} {{prettify(availableBalance)}} BOS</div>
           <button class="button" :disabled="!isDoneStep1" @click="moveStep2">{{$t('freezing')}}</button>
         </v-stepper-content>
@@ -24,7 +24,7 @@
           <div class="preview">
             <div class="row">
               <span class="label">{{$t('total withdrawal')}}</span>
-              <span class="value">{{prettify(amount)}}<em>BOS</em></span>
+              <span class="value">{{prettify(amount)}}<abbr>BOS</abbr></span>
             </div>
           </div>
           <span class="desc2">{{$t('freezing is not cancelable, you should unfreezing it')}}</span>
@@ -217,13 +217,22 @@
   .FreezingDialog .stepIndicator {
     text-align: center;
     height: 20px;
+    margin-top: -7px;
+  }
+
+  .FreezingDialog .v-stepper__content {
+    padding-bottom: 0;
+  }
+
+  .FreezingDialog .v-stepper__wrapper {
+    padding-bottom: 15px;
   }
 
   .FreezingDialog .step {
     display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
     background-color: #bdc2c7;
   }
 
@@ -242,7 +251,7 @@
     margin-top: -55px;
   }
 
-  .FreezingDialog .step1 .unit em {
+  .FreezingDialog .step1 .unit abbr {
     font-size: 10px;
     color: #909090;
   }
@@ -270,7 +279,7 @@
   }
 
   .FreezingDialog .step2 .desc {
-    margin-bottom: 50px;
+    margin-bottom: 42px;
   }
 
   .FreezingDialog .step2 .preview {
@@ -290,6 +299,7 @@
 
   .FreezingDialog .step2 .preview .row .label {
     width: 150px;
+    text-align: left;
   }
 
   .FreezingDialog .step2 .preview .row .value {
@@ -301,16 +311,16 @@
     position: relative;
   }
 
-  .FreezingDialog .step2 .preview .row .value em {
+  .FreezingDialog .step2 .preview .row .value abbr {
     font-size: 10px;
     color: #909090;
     position: absolute;
     bottom: 6px;
-    right: -22px;
+    right: -24px;
   }
 
   .FreezingDialog .step2 .desc2 {
-    font-size: 11px;
+    font-size: 12px;
     color: #728395;
     margin-bottom: 90px;
   }

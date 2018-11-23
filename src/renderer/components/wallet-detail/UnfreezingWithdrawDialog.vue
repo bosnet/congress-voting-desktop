@@ -20,7 +20,7 @@
             </div>
             <div class="row">
               <span class="label">{{$t('total withdrawal')}}</span>
-              <span class="value">{{totalWithdraw | bos}}<em>BOS</em></span>
+              <span class="value">{{totalWithdraw | bos}}<abbr>BOS</abbr></span>
             </div>
           </div>
           <button class="button" @click="stepNo=2">{{$t('entering passphrase')}}</button>
@@ -167,13 +167,22 @@
   .UnfreezingWithdrawDialog .stepIndicator {
     text-align: center;
     height: 20px;
+    margin-top: -7px
+  }
+
+  .FreezingDialog .v-stepper__content {
+    padding-bottom: 0;
+  }
+
+  .FreezingDialog .v-stepper__wrapper {
+    padding-bottom: 15px;
   }
 
   .UnfreezingWithdrawDialog .step {
     display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
     background-color: #bdc2c7;
   }
 
@@ -213,6 +222,7 @@
 
   .UnfreezingWithdrawDialog .step1 .preview .row .label {
     width: 100px;
+    text-align: left;
   }
 
   .UnfreezingWithdrawDialog .step1 .preview .row .value {
@@ -228,12 +238,12 @@
     color: #333333;
   }
 
-  .UnfreezingWithdrawDialog .step1 .preview .row:last-child .value em {
+  .UnfreezingWithdrawDialog .step1 .preview .row:last-child .value abbr {
     font-size: 10px;
     color: #909090;
     position: absolute;
     bottom: 6px;
-    right: -22px;
+    right: -24px;
   }
 
   .UnfreezingWithdrawDialog .step2 .v-input {

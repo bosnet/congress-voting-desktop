@@ -71,7 +71,7 @@
     font-weight: bold;
     color: #99a4b0;
     margin-top: -60px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
   }
 
   .NewAccount .account {
@@ -96,22 +96,23 @@
     height: 38px;
     font-size: 16px;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     color: #728395;
     vertical-align: top;
     line-height: 38px;
+    padding-left: 60px;
   }
 
   .NewAccount .account .value {
     display: inline-block;
-    width: 320px;
+    width: 270px;
     height: 38px;
     word-break: break-all;
   }
 
   .NewAccount .account .copy {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 60px;
     cursor: pointer;
     width: 32px;
     height: 32px;

@@ -103,7 +103,7 @@
 <style>
   .WalletListPage {
     color: #728395;
-    padding: 70px 50px 50px 50px;
+    padding: 50px;
     display: block;
   }
 
@@ -113,17 +113,16 @@
   }
 
   .WalletListPage .empty h2 {
-    font-size: 30px;
+    font-size: 25px;
     margin: 0;
   }
 
   .WalletListPage .empty h1 {
-    font-size: 25px;
-    margin: 5px 0 0 0;
+    font-size: 30px;
   }
 
   .WalletListPage .empty img {
-    margin: 42px auto 0;
+    margin: 37px auto 0;
     display: block;
   }
 

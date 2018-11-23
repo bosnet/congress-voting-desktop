@@ -137,7 +137,7 @@
     word-break: keep-all;
     margin: 15px auto 60px;
     width: 500px;
-    line-height: 30px;
+    line-height: 25px;
   }
 
   .MembershipRegister .before .img {
@@ -169,8 +169,10 @@
 
   .MembershipRegister .after hr {
     width: 120px;
+    height: 1px;
     background-color: #c4d1d6;
     margin: 15px auto;
+    border: none;
   }
 
   .MembershipRegister .after .guide {
@@ -178,10 +180,11 @@
     color: #728395;
     word-break: keep-all;
     margin: 0 auto;
-    width: 410px;
-    line-height: 30px;
+    width: 430px;
+    line-height: 20px;
     text-align: left;
     padding-left: 10px;
+    margin-bottom: 10px;
   }
 
   .MembershipRegister .after .guide:before {

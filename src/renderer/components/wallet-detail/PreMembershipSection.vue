@@ -1,5 +1,5 @@
 <template>
-  <section class="PreMembershipRegister">
+  <section :class="{PreMembershipRegister: true, kyc: showKYC}">
     <div v-if="!showKYC">
       <h2>{{$t('joining membership and then attend congress voting')}}</h2>
       <img :src="membershipKycImg" alt="join membership" />
@@ -132,10 +132,13 @@
 
 <style>
   .PreMembershipRegister {
-    padding: 70px;
+    padding: 80px 70px 70px 70px;
     text-align: center;
     height: 615px;
     overflow-y: auto;
+  }
+  .PreMembershipRegister.kyc {
+    padding-top: 25px;
   }
 
   .PreMembershipRegister h2 {
@@ -151,13 +154,13 @@
   .PreMembershipRegister .desc {
     width: 100%;
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     color: #728395;
     text-align: center;
   }
 
   .PreMembershipRegister img {
-    margin: 60px 0;
+    margin: 25px 0 20px;
   }
 
   .PreMembershipRegister .button {

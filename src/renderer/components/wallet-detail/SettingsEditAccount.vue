@@ -81,10 +81,15 @@
   .SettingsEditAccountBody .v-input {
     width: 400px;
     margin: 0 auto;
+    font-size: 16px;
   }
 
   .SettingsEditAccountBody .v-input .v-input__control {
     margin: 10px auto;
+  }
+
+  .SettingsEditAccountBody .theme--light.v-label {
+    top: 3px;
   }
 
   .SettingsEditAccountBody .button {

@@ -4,14 +4,14 @@
       <v-stepper-items>
         <v-stepper-content step="1" class="step1">
           <h3>{{$t('requesting unfreezing')}}</h3>
-          <span class="desc">{{$t('you can withdraw after unfreezing', { account: wallet.title, until: withdrawableDatetime })}}</span>
+          <span class="desc">{{$t('unfreezing is not cancelable, you can withdraw it after 14 days')}}</span>
           <div class="preview">
             <div class="row">
               <span class="label">{{$t('total withdrawal')}}</span>
-              <span class="value">{{totalAmount | bos}}<em>BOS</em></span>
+              <span class="value">{{totalAmount | bos}}<abbr>BOS</abbr></span>
             </div>
           </div>
-          <span class="desc2">{{$t('unfreezing is not cancelable, you can withdraw it after 14 days')}}</span>
+          <span class="desc2">{{$t('you can withdraw after unfreezing', { account: wallet.title, until: withdrawableDatetime })}}</span>
           <button class="button" @click="stepNo=2">{{$t('entering passphrase')}}</button>
         </v-stepper-content>
 
@@ -166,13 +166,22 @@
   .UnfreezingDialog .stepIndicator {
     text-align: center;
     height: 20px;
+    margin-top: -7px;
+  }
+
+  .UnfreezingDialog .v-stepper__content {
+   padding-bottom: 0;
+  }
+
+  .UnfreezingDialog .v-stepper__wrapper {
+    padding-bottom: 15px;
   }
 
   .UnfreezingDialog .step {
     display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
     background-color: #bdc2c7;
   }
 
@@ -201,6 +210,7 @@
 
   .UnfreezingDialog .step1 .preview .row .label {
     width: 150px;
+    text-align: left;
   }
 
   .UnfreezingDialog .step1 .preview .row .value {
@@ -212,16 +222,16 @@
     color: #333333;
   }
 
-  .UnfreezingDialog .step1 .preview .row .value em {
+  .UnfreezingDialog .step1 .preview .row .value abbr {
     font-size: 10px;
     color: #909090;
     position: absolute;
     bottom: 6px;
-    right: -22px;
+    right: -24px;
   }
 
   .UnfreezingDialog .step1 .desc2 {
-    font-size: 11px;
+    font-size: 12px;
     color: #728395;
     margin-bottom: 92px;
   }

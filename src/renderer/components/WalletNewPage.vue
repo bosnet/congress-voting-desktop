@@ -185,7 +185,12 @@
 
   .WalletNewPage h1 {
     color: #728395;
-    margin: 100px 0 65px 0;
+    margin: 76px 0 65px 0;
+  }
+
+
+  .WalletNewPage .v-stepper__content {
+    padding-bottom: 8px;
   }
 
   .WalletNewPage .method {
@@ -203,13 +208,13 @@
   }
 
   .WalletNewPage .method:hover {
-    box-shadow: 0 10px 25px 0 #a2c7ed;
+    box-shadow: 0 3px 25px 0 #bedaf7;
   }
 
   .WalletNewPage .method.on {
     color: #3c92e4;
-    box-shadow: 0 10px 25px 0 #a2c7ed;
-    border: solid 3px #3c92e4;
+    box-shadow: 0 3px 25px 0 #bedaf7;
+    border: solid 2px #3c92e4;
   }
 
   .WalletNewPage .method img {
@@ -218,14 +223,14 @@
   }
 
   .WalletNewPage .button {
-    margin: 80px auto 30px;
+    margin: 68px auto 16px;
   }
 
   .WalletNewPage .step {
     display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
     background-color: #bdc2c7;
   }
 

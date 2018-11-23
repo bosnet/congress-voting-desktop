@@ -66,7 +66,7 @@
   .wallet-header-account-info {
     font-size: 13px;
     color: #333333;
-    margin-right: 12px;
+    margin-right: 30px;
   }
 
   .wallet-membership-state {
@@ -74,7 +74,7 @@
     margin-bottom: -3px;
     font-size: 11px;
     font-weight: bold;
-    padding: 0 5px;
+    padding: 1px 5px;
     margin-left: 6px;
     border-radius: 2px;
   }

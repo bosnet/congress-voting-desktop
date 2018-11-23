@@ -107,6 +107,10 @@
     right: 0;
   }
 
+  .frozen-item .action img {
+    margin-left: 10px;
+  }
+
   .frozen-item .body {
     width: 300px;
     height: 100%;
@@ -136,6 +140,7 @@
     background-color: #f7e9e7;
     font-size: 11px;
     font-weight: bold;
+    padding: 1px 6px;
     color: #b44c4c;
   }
 
@@ -149,7 +154,7 @@
     width: 100%;
     font-size: 11px;
     color: #909090;
-    margin-top: -5px
+    margin-top: -2px
   }
 
   .frozen-item .balance {
