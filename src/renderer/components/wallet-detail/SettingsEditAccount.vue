@@ -55,6 +55,7 @@
     },
     methods: {
       async update() {
+        if (!this.$refs.aliasText.internalValue) { return; }
         await this.$store.dispatch('updateWallet', {
           title: this.$refs.aliasText.internalValue,
           address: this.wallet.address,
