@@ -114,5 +114,10 @@
   "agree": "",
   "disagree": "",
   "abstain": "",
-  "change my vote": ""
+  "change my vote": "",
+  "there is no congress voting": "",
+  "counting": "",
+  "passed": "",
+  "rejected": "",
+  "you voted for it": ""
 }

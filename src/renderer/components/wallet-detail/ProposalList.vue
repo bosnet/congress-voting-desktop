@@ -6,7 +6,10 @@
         <li :class="tabClasses('past')" @click="setTab('past')">{{$t('closed voting')}}</li>
       </ul>
     </div>
-    <div class="ProposalContent">
+    <div class="ProposalContentEmpty" v-if="!list || list.length === 0">
+      <div>{{$t('there is no congress voting')}}</div>
+    </div>
+    <div class="ProposalContent" v-else >
       <div v-if="!currentProposal">
         <bos-wallet-proposal-item
           @show="showDetail"
@@ -112,5 +115,14 @@
 
   .ProposalContent {
     padding: 15px 25px;
+  }
+
+  .ProposalContentEmpty {
+    height: 100%;
+    font-size: 14px;
+    color: #728395;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

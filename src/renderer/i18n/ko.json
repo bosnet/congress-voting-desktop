@@ -112,5 +112,10 @@
   "agree": "찬성",
   "disagree": "반대",
   "abstain": "기권",
-  "change my vote": "투표 수정"
+  "change my vote": "투표 수정",
+  "there is no congress voting": "투표가 없습니다",
+  "counting": "집계중",
+  "passed": "통과",
+  "rejected": "거절",
+  "you voted for it": "참여한 투표입니다"
 }

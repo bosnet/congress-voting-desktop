@@ -3,6 +3,7 @@
     <div class="code">{{ item.code }}</div>
     <h4 class="title">{{ item.title }}</h4>
     <span class="time" v-if="remainTime">{{ remainTime }}</span>
+    <span :class="['result', result]" v-if="result">{{ $t(result) }}</span>
   </div>
 </template>
 
@@ -50,6 +51,15 @@
               time,
             });
           }
+        }
+        return null;
+      },
+      result() {
+        if (this.item.state === 'closed') {
+          if (this.item.result_final) {
+            return this.item.result_final;
+          }
+          return 'counting';
         }
         return null;
       },
@@ -113,13 +123,36 @@
     color: #1792f0;
   }
 
-  .ProposalListItem.imminent .time,
   .ProposalListItem.imminent .time {
     color: #ec1f1f;
   }
 
-  .ProposalListItem.imminent .time:before,
   .ProposalListItem.imminent .time:before {
     background: url(../../assets/svg/proposal-clock-highlight.svg);
+  }
+
+  .ProposalListItem .result {
+    right: 20px;
+    bottom: 20px;
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    padding-bottom: 2px;
+  }
+
+  .ProposalListItem .result.counting {
+    color: #000000;
+    border-bottom: 1px solid #000000;
+  }
+
+  .ProposalListItem .result.passed {
+    color: #1792f0;
+    border-bottom: 1px solid #1792f0;
+  }
+
+  .ProposalListItem .result.rejected {
+    color: #ed6060;
+    border-bottom: 1px solid #ed6060;
   }
 </style>
