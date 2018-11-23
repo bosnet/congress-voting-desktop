@@ -15,7 +15,7 @@
       <hr>
       <div class="guide">{{$t('membership guide message 1')}}</div>
       <div class="guide">{{$t('membership guide message 2')}}</div>
-      <button class="button" :disabled="!isFrozen" @click="openfreezingDialog">{{completedButton}}</button>
+      <button class="button" :disabled="!isFrozen" @click="$emit('done')">{{completedButton}}</button>
     </div>
     <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
   </section>
