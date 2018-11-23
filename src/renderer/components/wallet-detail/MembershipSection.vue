@@ -17,7 +17,7 @@
       <div class="guide">{{$t('membership guide message 2')}}</div>
       <button class="button" :disabled="!isFrozen" @click="$emit('done')">{{completedButton}}</button>
     </div>
-    <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
+    <bos-toast v-model="showMessage" :timeout="3000" pullRight>{{message}}</bos-toast>
   </section>
 </template>
 

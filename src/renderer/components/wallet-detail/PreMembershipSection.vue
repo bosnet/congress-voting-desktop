@@ -6,7 +6,7 @@
       <button class="button" @click="openPassphraseDialog">{{$t('registering membership')}}</button>
       <span class="desc">{{$t('by registering an membership you agree to delegate authority to operate node')}}</span>
       <bos-passphrase-dialog ref="passphraseDialog"/>
-      <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
+      <bos-toast v-model="showMessage" :timeout="3000" pullRight>{{message}}</bos-toast>
     </div>
     <div v-else>
       <div id="idensic"></div>

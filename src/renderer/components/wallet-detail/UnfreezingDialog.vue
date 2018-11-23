@@ -31,7 +31,7 @@
 
       <img :src="closeIcon" @click="reset" class="UnfreezingDialogClose" alt="close"/>
     </v-stepper>
-    <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
+    <bos-toast v-model="showMessage" :timeout="3000" pullRight>{{message}}</bos-toast>
   </v-dialog>
 </template>
 

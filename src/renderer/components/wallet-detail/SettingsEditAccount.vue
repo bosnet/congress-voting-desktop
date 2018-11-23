@@ -23,7 +23,7 @@
         <img :src="closeIcon" @click="dialog = false" class="DeleteAccountDialogClose" alt="close"/>
       </div>
     </v-dialog>
-    <bos-toast v-model="showMessage">{{$t('modified')}}</bos-toast>
+    <bos-toast v-model="showMessage" pullRight>{{$t('modified')}}</bos-toast>
   </div>
 </template>
 

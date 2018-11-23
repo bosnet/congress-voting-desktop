@@ -52,7 +52,7 @@
       </v-text-field>
       <button class="button" :disabled="!passphraseChangable" @click="updatePassword">{{$t('modify')}}</button>
     </div>
-    <bos-toast v-model="showMessage">{{message}}</bos-toast>
+    <bos-toast v-model="showMessage" pullRight>{{message}}</bos-toast>
   </div>
 </template>
 

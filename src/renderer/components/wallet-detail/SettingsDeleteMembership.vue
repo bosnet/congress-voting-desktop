@@ -13,7 +13,7 @@
       </ul>
       <button class="button" @click="openPassphraseDialog">{{$t('deregistering your membership')}}</button>
     </div>
-    <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
+    <bos-toast v-model="showMessage" :timeout="3000" pullRight>{{message}}</bos-toast>
     <bos-passphrase-dialog ref="passphraseDialog"/>
   </div>
 </template>

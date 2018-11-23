@@ -1,6 +1,6 @@
 <template>
   <transition name="bos-toast-transition">
-    <div class="bos-toast" v-show="value">
+    <div :class="{'bos-toast': true, 'bos-toast--pull-right': pullRight}" v-show="value">
       <span :class="classes">
         <slot/>
       </span>
@@ -20,6 +20,10 @@
       timeout: {
         type: Number,
         default: 2000,
+      },
+      pullRight: {
+        type: Boolean,
+        default: false,
       },
     },
     data() {
@@ -72,6 +76,10 @@
     padding: 5px 30px;
     font-size: 13px;
     color: #ffffff;
+  }
+
+  .bos-toast--pull-right {
+    left: 79px
   }
 
   .bos-toast-transition-enter-active {

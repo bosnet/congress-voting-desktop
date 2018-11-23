@@ -15,7 +15,7 @@
       </button>
       <span class="seed" id="SettingsSecretSeed">{{seed}}</span>
     </div>
-    <bos-toast v-model="showMessage" :timeout="2000">{{message}}</bos-toast>
+    <bos-toast v-model="showMessage" :timeout="2000" pullRight>{{message}}</bos-toast>
   </div>
 </template>
 

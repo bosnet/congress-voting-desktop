@@ -21,7 +21,7 @@
     <hr class="line2">
     <div class="contract">{{ item.content }}</div>
     <bos-passphrase-dialog ref="passphraseDialog"/>
-    <bos-toast v-model="showMessage" :timeout="2500">{{message}}</bos-toast>
+    <bos-toast v-model="showMessage" :timeout="2500" pullRight>{{message}}</bos-toast>
   </div>
 </template>
 
