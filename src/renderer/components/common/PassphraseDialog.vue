@@ -50,7 +50,7 @@
         passphraseRules: [
           (v) => {
             if (!v) {
-              return 'Passphrase is required';
+              return this.$t('passphrase is required');
             }
             this.valid = true;
             return !!v;

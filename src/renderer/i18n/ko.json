@@ -119,5 +119,6 @@
   "passed": "통과",
   "rejected": "거절",
   "you voted for it": "참여한 투표입니다",
-  "there is no account for unfreezing": "Unfreezing 할 계좌가 없습니다"
+  "there is no account for unfreezing": "Unfreezing 할 계좌가 없습니다",
+  "passphrase is required": "비밀번호를 입력하세요"
 }
