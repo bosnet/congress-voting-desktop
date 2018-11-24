@@ -135,6 +135,8 @@ const getters = {
   getProposals: () => () => remoteRPC.getProposals(),
 
   hasVotedForProposal: () => (id, address) => remoteRPC.hasVotedForProposal(id, address),
+
+  isOngoingProposal: () => () => remoteRPC.isOngoingProposal(),
 };
 
 export default {

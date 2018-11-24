@@ -121,5 +121,7 @@
   "you voted for it": "You voted for it",
   "there is no account for unfreezing": "There is no account for unfreezing",
   "passphrase is required": "Passphrase is required",
-  "please set passphrase": ""
+  "please set passphrase": "Please set passphrase",
+  "you can not delete your membership now": "You can not delete your membership now",
+  "if there is ongoing votes, you can not delete you membership": "If there is ongoing votes, you can not delete you membership"
 }

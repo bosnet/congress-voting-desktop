@@ -53,6 +53,12 @@ class RPC {
       .then(res => res.data.data);
   }
 
+  isOngoingProposal() {
+    return client
+      .get(`${this.membershipEndpoint}/api/v1/proposals/ongoing`)
+      .then(res => res.data.data);
+  }
+
   getTransaction(hash) {
     return this.lookup()
       .then(endpoint => client

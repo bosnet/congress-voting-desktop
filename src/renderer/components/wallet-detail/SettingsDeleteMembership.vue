@@ -1,6 +1,12 @@
 <template>
   <div class="SettingsDeleteMembership">
-    <div class="SettingsDeleteMembershipBody">
+    <div class="SettingsDeleteMembershipBody impossible" v-if="isOngoingProposal">
+      <img :src="impossibleDeleteAccountImg" />
+      <h3>{{$t('you can not delete your membership now')}}</h3>
+      <hr>
+      <div class="desc">{{$t('if there is ongoing votes, you can not delete you membership')}}</div>
+    </div>
+    <div class="SettingsDeleteMembershipBody" v-else>
       <h3>{{$t('deregistering your membership guide')}}</h3>
       <span>{{$t('please read following before deregistering your membership')}}</span>
       <hr>
@@ -19,14 +25,22 @@
 </template>
 
 <script>
+  import impossibleDeleteAccountImg from '../../assets/svg/settings-impossible-delete-account.svg';
+
   export default {
     name: 'bos-wallet-settings-delete-membership',
     props: ['wallet'],
     data() {
       return {
+        impossibleDeleteAccountImg,
         showMessage: false,
         message: '',
       };
+    },
+    asyncComputed: {
+      isOngoingProposal() {
+        return this.$store.getters.isOngoingProposal();
+      },
     },
     methods: {
       openPassphraseDialog() {
@@ -111,7 +125,6 @@
     border: 1px solid #f1f2f3;
   }
 
-
   .SettingsDeleteMembershipBody ul {
     font-size: 14px;
     color: #333333;
@@ -120,5 +133,37 @@
 
   .SettingsDeleteMembershipBody .button {
     margin: 70px auto 0;
+  }
+
+  .SettingsDeleteMembershipBody.impossible {
+    text-align: center;
+    padding-bottom: 130px;
+  }
+
+  .SettingsDeleteMembershipBody.impossible img {
+    margin-top: 41px;
+    margin-bottom: 20px
+  }
+
+  .SettingsDeleteMembershipBody.impossible h3 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #728395;
+  }
+
+  .SettingsDeleteMembershipBody.impossible hr {
+    width: 120px;
+    height: 1px;
+    margin: 15px auto;
+    background-color: #c4d1d6;
+    border: none;
+  }
+
+  .SettingsDeleteMembershipBody.impossible .desc {
+    font-size: 14px;
+    color: #728395;
+    width: 330px;
+    margin: 0 auto;
+    word-break: keep-all;
   }
 </style>
