@@ -7,7 +7,8 @@
       </ul>
     </div>
     <div class="ProposalContentEmpty" v-if="!list || list.length === 0">
-      <div>{{$t('there is no congress voting')}}</div>
+      <div v-if="active('now')">{{$t('there is no ongoing congress voting')}}</div>
+      <div v-else>{{$t('there is no closed congress voting')}}</div>
     </div>
     <div class="ProposalContent" v-else >
       <div v-if="!currentProposal">
