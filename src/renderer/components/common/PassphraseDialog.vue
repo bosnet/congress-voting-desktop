@@ -3,8 +3,10 @@
     <div class="PassphraseDialog">
       <h3>{{$t('confirm passphrase')}}</h3>
       <span>&nbsp;{{ desc }}&nbsp;</span>
-      <v-text-field v-model="data.passphrase" ref="passphraseText" type="password"
-                    :rules="passphraseRules" :label="$t('enter your passphrase')" required/>
+      <v-form ref="form">
+        <v-text-field v-model="data.passphrase" ref="passphraseText" type="password"
+                      :rules="passphraseRules" :label="$t('enter your passphrase')" required/>
+      </v-form>
       <button class="button" @click="confirm" :disabled="!valid">{{$t('confirm')}}</button>
       <img :src="closeIcon" @click="close()" class="PassphraseDialogClose" alt="close"/>
     </div>
@@ -33,6 +35,7 @@
         this.data = {};
         this.valid = false;
         this.show = false;
+        this.$refs.form.reset();
       },
     },
     data() {
