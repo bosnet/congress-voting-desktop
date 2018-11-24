@@ -71,7 +71,7 @@
     font-weight: bold;
     color: #99a4b0;
     margin-top: -60px;
-    margin-bottom: 40px;
+    margin-bottom: 39px;
   }
 
   .NewAccount .account {
@@ -105,14 +105,14 @@
 
   .NewAccount .account .value {
     display: inline-block;
-    width: 270px;
+    width: 280px;
     height: 38px;
     word-break: break-all;
   }
 
   .NewAccount .account .copy {
     display: inline-block;
-    margin-left: 60px;
+    margin-left: 50px;
     cursor: pointer;
     width: 32px;
     height: 32px;

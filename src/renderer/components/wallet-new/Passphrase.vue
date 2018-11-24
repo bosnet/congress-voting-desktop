@@ -1,6 +1,7 @@
 <template>
   <div class="NewPassphrase">
     <h1>{{$t('setting a new passphrase')}}</h1>
+    <h4>{{$t('please set passphrase')}}</h4>
     <div class="content">
       <v-text-field
           :label="$t('enter your passphrase')"
@@ -108,6 +109,14 @@
 </script>
 
 <style>
+  .NewPassphrase h4 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #99a4b0;
+    margin: -60px auto 18px;
+    width: 500px;
+  }
+
   .NewPassphrase .v-input {
     width: 400px;
     margin: 0 auto;
@@ -115,5 +124,9 @@
 
   .NewPassphrase .passphrase {
     margin-bottom: 35px;
+  }
+
+  .NewPassphrase .button {
+    margin: 38px auto 16px;
   }
 </style>
