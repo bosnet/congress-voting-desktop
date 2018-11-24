@@ -19,8 +19,5 @@
     "host": "test-api.sumsub.com",
     "port": 443,
     "customCss": "https://testnet-membership.blockchainos.org/desktop-sumsub.css"
-  },
-  "sentry": {
-    "dsn": ""
   }
 }

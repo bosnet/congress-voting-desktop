@@ -1,9 +1,8 @@
 import { app, BrowserWindow, Menu, shell } from 'electron' // eslint-disable-line
 import * as Sentry from '@sentry/electron';
-import config from '#config';
 
 Sentry.init({
-  dsn: config.sentry.dsn,
+  dsn: process.env.SENTRY_DSN,
   enableNative: false,
 });
 

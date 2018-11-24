@@ -49,23 +49,12 @@ let mainConfig = {
     path: path.join(__dirname, '../dist/electron')
   },
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.IgnorePlugin(/cson/),
-    new webpack.IgnorePlugin(/hjson/),
-    new webpack.IgnorePlugin(/properties/),
-    new webpack.IgnorePlugin(/x2js/),
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   resolve: {
-    alias: {
-      '#config': 'electron-node-config'
-    },
     extensions: ['.js', '.json', '.node']
   },
   target: 'electron-main'
-}
-
-if (process.env.NODE_ENV !== 'production') {
-  mainConfig.resolve.alias['#config'] = 'config'
 }
 
 /**
@@ -86,8 +75,9 @@ if (process.env.NODE_ENV === 'production') {
   mainConfig.plugins.push(
     new BabiliWebpackPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    })
+      'process.env.NODE_ENV': '"production"',
+      'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
+    }),
   )
 }
 
