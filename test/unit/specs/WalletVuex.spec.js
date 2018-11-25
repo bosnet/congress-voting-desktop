@@ -67,14 +67,17 @@ describe('WalletVuex', function () {
       amount,
       passphrase: '1234',
     }).then(data => later(5500, data))
-      .then(data => Promise.all([rpc.getAccount(address), rpc.getAccount(data.address)]), raiseHttpResponse)
+      .then(data => Promise.all([
+        rpc.getAccount(address),
+        rpc.getAccount(data.address),
+      ]), raiseHttpResponse)
       .then((data) => {
         const gon = unit.convert(amount, 'bos', 'gon');
         const [sender, receiver] = data;
         expect(new BigNumber(source.balance, 10)
           .minus(gon)
           .minus(10000)
-          .toString(10)
+          .toString(10),
         ).to.equal(sender.balance);
         expect(gon).to.equal(receiver.balance);
       });
