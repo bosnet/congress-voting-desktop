@@ -85,6 +85,8 @@
           this.notificationMoveTarget = `/wallet/${address}/#voting`;
         } else if (type === 'verified') {
           this.notificationContent = this.$t('your identity is verified');
+        } else {
+          this.notificationContent = '';
         }
         return '';
       },
