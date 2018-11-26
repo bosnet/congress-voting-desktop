@@ -1,6 +1,6 @@
 {
   "name": "boscoin-congress-voting",
-  "version": "0.1.6-alpha.5",
+  "version": "0.1.6-alpha.6",
   "author": "K <zzim2x@gmail.com>",
   "description": "BOScoin Wallet & Congress Voting Application",
   "license": "GPL-3.0-only",
@@ -20,7 +20,8 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "test": "npm run unit && npm run e2e",
     "unit": "karma start test/unit/karma.conf.js",
-    "postinstall": "npm run lint:fix"
+    "postinstall": "npm run lint:fix",
+    "release": "build"
   },
   "build": {
     "productName": "BOScoin Congress Voting",
