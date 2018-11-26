@@ -10,6 +10,7 @@
   "entering secret seed title": "보안키 입력하기",
   "enter your secret seed": "보안키를 입력하세요",
   "the secret seed is wrong": "잘못된 보안키입니다",
+  "the passphrase is wrong": "잘못된 비밀번호입니다",
   "setting a new passphrase": "비밀번호 설정하기",
   "enter your passphrase": "비밀번호를 입력하세요",
   "enter your passphrase again": "비밀번호를 다시 입력하세요",

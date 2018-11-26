@@ -10,6 +10,7 @@
   "entering secret seed title": "Input Secret Seed",
   "enter your secret seed": "Enter Secret Seed",
   "the secret seed is wrong": "Incorrect Secret Seed",
+  "the passphrase is wrong": "Password is incorrect",
   "setting a new passphrase": "Set up password",
   "enter your passphrase": "Enter password",
   "enter your passphrase again": "Re-enter password",

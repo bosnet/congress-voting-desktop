@@ -41,7 +41,10 @@
         decrypted: null,
         rules: {
           check: (seed) => {
-            if (!seed) { return true; }
+            if (!seed) {
+              this.failed = false;
+              return true;
+            }
 
             const recoveryKey = this.$refs.recoveryKey.internalValue;
             const passphrase = this.$refs.passphrase.internalValue;
@@ -49,16 +52,16 @@
             try {
               this.decrypted = Wallet.decryptWallet(passphrase, recoveryKey);
               if (this.decrypted) {
-                this.$data.failed = false;
-                this.$data.success = true;
+                this.failed = false;
+                this.success = true;
                 this.$emit('enable-next');
               }
               return true;
             } catch (e) {
-              this.$data.success = false;
-              this.$data.failed = true;
+              this.success = false;
+              this.failed = true;
               this.$emit('disable-next');
-              return this.$t('the recovery key is wrong');
+              return this.$t('the passphrase is wrong');
             }
           },
         },
