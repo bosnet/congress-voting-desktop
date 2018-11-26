@@ -1,6 +1,6 @@
 {
   "name": "boscoin-congress-voting",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "K <zzim2x@gmail.com>",
   "description": "BOScoin Wallet & Congress Voting Application",
   "license": "GPL-3.0-only",
@@ -24,8 +24,8 @@
     "release": "node .electron-vue/build.js && electron-builder --publish onTagOrDraft"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/bosnet/congress-voting-desktop.git"
+    "type": "git",
+    "url": "https://github.com/bosnet/congress-voting-desktop.git"
   },
   "build": {
     "productName": "BOScoin Congress Voting",
@@ -54,11 +54,15 @@
     },
     "mac": {
       "icon": "build/icons/icon.icns",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "win": {
       "icon": "build/icons/icon.ico",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     }
   },
   "dependencies": {
@@ -68,6 +72,7 @@
     "bignumber.js": "^7.2.1",
     "dexie": "^2.0.4",
     "electron-node-config": "^1.1.0",
+    "electron-updater": "^4.0.4",
     "moment": "^2.22.2",
     "promise-worker": "^2.0.0",
     "random-word": "^2.0.0",
