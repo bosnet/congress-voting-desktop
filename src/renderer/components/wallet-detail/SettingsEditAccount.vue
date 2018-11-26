@@ -10,7 +10,7 @@
             class="alias"
         />
 
-      <button class="button" @click="update">{{$t('modify')}}</button>
+      <button class="button" :disabled="!modifiable" @click="update">{{$t('modify')}}</button>
     </div>
     <span class="delete-info">{{$t('do not use the account no longer')}}</span>
     <span class="delete" @click="dialog = true">{{$t('deleting account')}}</span>
@@ -40,12 +40,24 @@
       return {
         alias: this.wallet.title,
         aliasRules: [
-          v => !!v || 'account alias is required',
+          (v) => {
+            if (!v) {
+              this.modifiable = false;
+              return this.$t('account alias is required');
+            }
+            if (this.wallet.title === this.alias) {
+              this.modifiable = false;
+              return true;
+            }
+            this.modifiable = true;
+            return true;
+          },
         ],
         showMessage: false,
         dialog: false,
         deleteAccountImg,
         closeIcon,
+        modifiable: false,
       };
     },
     watch: {
