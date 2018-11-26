@@ -184,7 +184,8 @@ if (process.env.NODE_ENV === 'production') {
       }
     ]),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': '"production"',
+      'process.env.GA_ID': JSON.stringify(process.env.GA_ID),
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true

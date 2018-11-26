@@ -71,6 +71,7 @@
     "base-x": "^3.0.4",
     "bignumber.js": "^7.2.1",
     "dexie": "^2.0.4",
+    "electron-ga": "^1.0.6",
     "electron-node-config": "^1.1.0",
     "electron-updater": "^4.0.4",
     "moment": "^2.22.2",
