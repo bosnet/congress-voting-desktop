@@ -1,6 +1,6 @@
 {
   "name": "boscoin-congress-voting",
-  "version": "0.1.6-alpha.7",
+  "version": "0.1.6-alpha.8",
   "author": "K <zzim2x@gmail.com>",
   "description": "BOScoin Wallet & Congress Voting Application",
   "license": "GPL-3.0-only",
@@ -22,6 +22,10 @@
     "unit": "karma start test/unit/karma.conf.js",
     "postinstall": "npm run lint:fix",
     "release": "build"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/bosnet/congress-voting-desktop.git"
   },
   "build": {
     "productName": "BOScoin Congress Voting",
