@@ -61,7 +61,6 @@
 </template>
 
 <script>
-  import randomWord from 'random-word';
   import Wallet from '@/lib/wallet';
   import SecretSeed from './wallet-new/SecretSeed';
   import RecoveryKey from './wallet-new/RecoveryKey';
@@ -145,9 +144,10 @@
 
       complete() {
         const data = Wallet.encryptWallet(this.passphrase, this.seed);
+        const address = Wallet.parsePubKey(this.seed);
         this.$store.dispatch('addWallet', {
-          title: randomWord(),
-          address: Wallet.parsePubKey(this.seed),
+          title: `Account ${address.substr(0, 6)}`,
+          address,
           data,
         }).then(() => {
           this.$router.push({ name: 'wallet-list' });

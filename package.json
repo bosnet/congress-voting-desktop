@@ -76,7 +76,6 @@
     "electron-updater": "^4.0.4",
     "moment": "^2.22.2",
     "promise-worker": "^2.0.0",
-    "random-word": "^2.0.0",
     "rlp": "^2.1.0",
     "stellar-base": "^0.9.0",
     "stellar-sdk": "^0.10.3",
