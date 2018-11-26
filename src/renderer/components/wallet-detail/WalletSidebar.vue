@@ -6,20 +6,20 @@
     <nav>
       <ul>
         <li :class="{account: true, on: activeMenu === 'account'}">
-          <router-link :to="`/wallet/${address}/#account-frozen`">Account</router-link>
+          <router-link :to="`/wallet/${address}/#account-frozen`">{{$t('menu#account')}}</router-link>
         </li>
         <li :class="{voting: true, on: activeMenu === 'voting'}">
-          <router-link :to="`/wallet/${address}/#voting`">Congress Voting</router-link>
+          <router-link :to="`/wallet/${address}/#voting`">{{$t('menu#voting')}}</router-link>
         </li>
       </ul>
     </nav>
     <footer>
       <ul>
         <li :class="{setting: true, on: activeMenu === 'settings'}">
-          <router-link :to="`/wallet/${address}/#settings-account`">Settings</router-link>
+          <router-link :to="`/wallet/${address}/#settings-account`">{{$t('menu#settings')}}</router-link>
         </li>
         <li class="home">
-          <router-link to="/">Home</router-link>
+          <router-link to="/">{{$t('menu#home')}}</router-link>
         </li>
       </ul>
     </footer>
