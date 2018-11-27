@@ -30,6 +30,7 @@
         applicantId: null,
         showMessage: false,
         message: '',
+        updateApplicantId: () => {},
       };
     },
     methods: {
@@ -60,12 +61,18 @@
             },
             (messageType, payload) => {
               if (messageType === 'idCheck.onApplicantCreated') {
-                this.updateApplicantId(payload.applicantId, passphrase);
+                this.applicantId = payload.applicantId;
+                this.updateApplicantId = this.makeUpdateApplicantId(this.applicantId, passphrase);
+                this.updateApplicantId();
+              } else if (messageType === 'idCheck.stepCompleted' && payload.step === 'IDENTITY') {
+                this.$root.$on('tick', this.updateApplicantId);
               } else if (messageType === 'idCheck.onApplicantSubmitted') {
+                this.$root.$off('tick', this.updateApplicantId);
                 setTimeout(() => {
                   this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
                 }, 2500);
               } else if (messageType === 'idCheck.onApplicantResubmitted') {
+                this.$root.$off('tick', this.updateApplicantId);
                 this.updateApplicantId('ApplicantResubmitted', passphrase);
                 setTimeout(() => {
                   this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
@@ -76,26 +83,28 @@
         });
         return true;
       },
-      async updateApplicantId(applicantId, passphrase) {
-        try {
-          await this.$store.dispatch('updateApplicantId', {
-            address: this.wallet.address,
-            applicantId,
-            passphrase,
-          });
-        } catch (err) {
-          if (err.response && err.response.status >= 400 && err.response.status < 500) {
-            if (err.response.data && err.response.data.error) {
-              this.message = err.response.data.error;
+      makeUpdateApplicantId(applicantId, passphrase) {
+        return async () => {
+          try {
+            await this.$store.dispatch('updateApplicantId', {
+              address: this.wallet.address,
+              applicantId,
+              passphrase,
+            });
+          } catch (err) {
+            if (err.response && err.response.status >= 400 && err.response.status < 500) {
+              if (err.response.data && err.response.data.error) {
+                this.message = err.response.data.error;
+              } else {
+                this.message = this.$t('something is wrong');
+              }
             } else {
               this.message = this.$t('something is wrong');
             }
-          } else {
-            this.message = this.$t('something is wrong');
-          }
 
-          this.showMessage = true;
-        }
+            this.showMessage = true;
+          }
+        };
       },
       async registerPreMembership({ passphrase }) {
         try {
@@ -126,6 +135,9 @@
           confirmCallback: this.registerPreMembership,
         });
       },
+    },
+    destroyed() {
+      this.$root.$off('tick', this.updateApplicantId);
     },
   };
 </script>
