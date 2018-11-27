@@ -101,6 +101,10 @@ function createWindow() {
       { type: 'separator' },
       { role: 'front' },
     ];
+
+    app.setAboutPanelOptions({
+      copyright: 'Copyright©2018 BlockchainOS Inc.',
+    });
   }
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
