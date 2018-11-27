@@ -1,6 +1,6 @@
 {
   "name": "boscoin-congress-voting",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "author": "K <zzim2x@gmail.com>",
   "description": "BOScoin Wallet & Congress Voting Application",
   "license": "GPL-3.0-only",
@@ -109,7 +109,7 @@
     "del": "^3.0.0",
     "devtron": "^1.4.0",
     "electron": "^3.0.10",
-    "electron-builder": "^19.19.1",
+    "electron-builder": "^20.36.2",
     "electron-debug": "^1.4.0",
     "electron-devtools-installer": "^2.2.0",
     "electron-download": "^4.1.1",
