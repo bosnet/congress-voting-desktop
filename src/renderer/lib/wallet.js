@@ -70,7 +70,7 @@ export default {
   createFreezeAccount(seed, seqId) {
     const buffer = Buffer.alloc(40);
     StrKey.decodeEd25519SecretSeed(seed).copy(buffer);
-    buffer.writeUIntBE(seqId, 32, 8);
+    buffer.writeUIntBE(seqId, 34, 6);
     const hm = crypto.createHmac('sha512', 'freeze-account');
     hm.update(buffer);
     const rawSeed = hm.digest();
