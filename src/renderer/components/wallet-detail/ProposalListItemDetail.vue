@@ -10,7 +10,7 @@
     </div>
     <div class="btns" v-if="votable">
       <div v-if="voted">
-        <button class="btn edit" @click="voted = false">{{$t('change my vote')}}</button>
+        <button class="btn edit" @click="change">{{$t('change my vote')}}</button>
       </div>
       <div v-else>
         <button class="btn agree" @click="openPassphraseDialog('yes')">{{$t('agree')}}</button>
@@ -38,6 +38,10 @@
       };
     },
     methods: {
+      change(evt) {
+        this.voted = false;
+        evt.target.blur();
+      },
       openPassphraseDialog(answer) {
         this.answer = answer;
         this.$refs.passphraseDialog.open({
