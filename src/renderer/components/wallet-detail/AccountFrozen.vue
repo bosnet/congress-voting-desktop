@@ -5,7 +5,22 @@
       <button class="btn" :disabled="willUnfreeze" @click="prepareUnfreeze" v-if="hasFrozen">{{$t('unfreezing')}}</button>
     </div>
     <div class="frozen-account-list">
-      <ul>
+      <div class="membership-guide" v-if="membershipStatus === ''">
+        <span>{{$t('joining membership and then attend congress voting')}}</span>
+        <button class="button" @click="moveToVoting">{{$t('registering membership')}}</button>
+      </div>
+      <div class="membership-guide pending" v-else-if="membershipStatus === 'pending'">
+        <span>{{$t('verifying your identity')}}</span>
+      </div>
+      <div class="membership-guide" v-else-if="membershipStatus === 'verified'">
+        <span>{{$t('registering membership guide')}}</span>
+        <button class="button" @click="moveToVoting">{{$t('freezing')}}</button>
+      </div>
+      <div class="membership-guide" v-else-if="membershipStatus === 'rejected'">
+        <span>{{$t('identity verification failed')}}</span>
+        <button class="button" @click="moveToVoting">{{$t('try again')}}</button>
+      </div>
+      <ul v-else>
         <bos-wallet-account-frozen-item
           ref="items"
           :item="item"
@@ -102,6 +117,9 @@
       unfreezingRequested() {
         this.unprepareUnfreeze();
       },
+      moveToVoting() {
+        this.$router.push(`/wallet/${this.wallet.address}/#voting`);
+      },
     },
     computed: {
       accounts() {
@@ -112,6 +130,12 @@
       },
       address() {
         return this.wallet.address;
+      },
+      membershipStatus() {
+        if (this.wallet && this.wallet.membership) {
+          return this.wallet.membership.status;
+        }
+        return '';
       },
       isMembership() {
         return this.wallet && this.wallet.membership && this.wallet.membership.status === 'active';
@@ -235,5 +259,24 @@
       transform: translateY(0);
       opacity: 1;
     }
+  }
+
+  .FrozenAccount .membership-guide {
+    padding-top: 80px;
+    text-align: center;
+    font-size: 15px;
+    color: #728395;
+  }
+
+  .FrozenAccount .membership-guide span {
+    width: 480px;
+  }
+
+  .FrozenAccount .membership-guide.pending {
+    padding-top: 120px;
+  }
+
+  .FrozenAccount .membership-guide .button {
+    margin: 35px auto 0;
   }
 </style>
