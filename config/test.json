@@ -1,0 +1,23 @@
+{
+  "env": "test",
+  "network": "sebak-test-network",
+  "dns": {
+    "seed": "testnet-sebak.blockchainos.org"
+  },
+  "fee": 10000,
+  "endpoint": {
+    "scheme": "https",
+    "port": 443
+  },
+  "membership": {
+    "scheme": "https",
+    "host": "testnet-membership.blockchainos.org",
+    "port": 443
+  },
+  "sumsub": {
+    "scheme": "https",
+    "host": "test-api.sumsub.com",
+    "port": 443,
+    "customCss": "https://testnet-membership.blockchainos.org/desktop-sumsub.css"
+  }
+}
