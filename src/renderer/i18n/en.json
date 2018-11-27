@@ -60,7 +60,7 @@
   "deregistirng membership warning message 1": "When your Membership is cancelled, your present Membership cannot be recovered",
   "deregistirng membership warning message 2": "Your votes are voided in case of Membership cancellation",
   "deregistirng membership warning message 3": "All Membership information will be terminated after Membership cancellation",
-  "deregistirng membership warning message 4": "If you want to change Membership account, you must cancel membership and re-register",
+  "deregistirng membership warning message 4": "If you want to change your Membership account, you need to cancel your Membership and re-register it. (Re-registering will take up to 5 days.)",
   "deregistirng membership warning message 5": "During ongoing Congress Voting, you cannot cancel membership until it ends for the total vote count",
   "deregistering your membership": "Request Membership Cancellation",
   "your membership is deregistered": "Membership is canceled",

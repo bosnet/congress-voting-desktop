@@ -58,7 +58,7 @@
   "deregistirng membership warning message 1": "사용 중인 멤버십을 해지할 경우 복구 및 재사용을 할 수 없습니다",
   "deregistirng membership warning message 2": "멤버십을 해지하면 투표한 투표권도 무효처리됩니다",
   "deregistirng membership warning message 3": "해지 후에는 관련 멤버십 정보가 모두 삭제됩니다",
-  "deregistirng membership warning message 4": "멤버십 계좌를 변경하려면 멤버십 해지 후, 다시 등록해야 합니다",
+  "deregistirng membership warning message 4": "멤버십 계좌를 변경하려면 멤버십 탈퇴 후 다시 등록하시기 바랍니다. (재가입을 위해서는 최대 5일이 소요됩니다.)",
   "deregistirng membership warning message 5": "콩그레스 보팅이 진행 중인 경우, 투표 집계를 위해 콩그레스 보팅이 끝날 때까지 멤버십을 해지할 수 없습니다",
   "deregistering your membership": "멤버십 해지하기",
   "your membership is deregistered": "멤버십이 해지되었습니다",
