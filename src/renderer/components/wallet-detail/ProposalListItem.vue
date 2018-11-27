@@ -69,12 +69,12 @@
 
 <style>
   .ProposalListItem {
-    width: 322px;
+    width: 48%;
     height: 230px;
     border-radius: 2px;
     background-color: #ffffff;
     display: inline-block;
-    margin: 5px;
+    margin: 1%;
     padding: 30px 20px;
     position: relative;
     cursor: pointer;
