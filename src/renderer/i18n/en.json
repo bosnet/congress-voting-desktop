@@ -70,7 +70,7 @@
   "menu#settings": "Settings",
   "menu#home": "Home",
   "requesting freezing": "Request Freezing",
-  "registering membership guide": "You must freeze more than 10,000 BOS unit to be qualified as a Congress Voting participant. You will receive reward in proportion to the BOScoin Freezing amount if the Frozen reward voting passes",
+  "registering membership guide": "You must freeze more than 10,000 BOS unit to be qualified as a Congress Voting participant.",
   "freezing": "Conduct Freezing",
   "done": "Done",
   "freezing should be 10,000 bos at least": "Freezing is only available in multiples of ten thousands BOS unit",
