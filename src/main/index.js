@@ -38,8 +38,6 @@ function createWindow() {
     mainWindow = null;
   });
 
-  mainWindow.webContents.openDevTools();
-
   // menus
   const template = [
     {
