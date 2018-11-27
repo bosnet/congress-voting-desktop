@@ -14,7 +14,7 @@
   "setting a new passphrase": "Set up password",
   "enter your passphrase": "Enter password",
   "enter your passphrase again": "Re-enter password",
-  "passphrase should be 12 characters which contain alphanumeric and special character": "Password should include uppercase, lowercase and a special character. It's length should be more than 12 characters",
+  "passphrase should be 8 characters which contain alphanumeric and special character": "Password should include uppercase, lowercase and a special character. It's length should be more than 8 characters",
   "both passphrases are not same": "Password does not match",
   "creating new account": "Create a new account",
   "please keep your secret seed safely": "Please store your Secret Seed in safe place, or you are in danger of losing your asset",
