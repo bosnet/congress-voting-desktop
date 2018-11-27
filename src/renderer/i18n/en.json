@@ -125,5 +125,6 @@
   "passphrase is required": "Enter password",
   "please set passphrase": "Please change your password to protect your assets! If the password has been changed, please backup the new Recovery Key via Settings> Confirm Recovery Key menu",
   "you can not delete your membership now": "You cannot cancel your membership now",
-  "if there is ongoing votes, you can not delete you membership": "If there are active proposals, you cannot cancel you membership. You can try to cancel it after voting is closed on the active proposals."
+  "if there is ongoing votes, you can not delete you membership": "If there are active proposals, you cannot cancel you membership. You can try to cancel it after voting is closed on the active proposals.",
+  "maintainance in progress": "Maintainance In Progress"
 }

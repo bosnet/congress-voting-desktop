@@ -25,10 +25,13 @@
       <router-link :to="notificationMoveTarget" v-if="membershipStatus === 'rejected'">{{$t('try again')}}</router-link>
     </div>
     <bos-toast v-model="showMessage" :timeout="3000">{{message}}</bos-toast>
+    <bos-shutdown v-if="shutdown"></bos-shutdown>
   </v-container>
 </template>
 
 <script>
+  import Helper from '@/lib/helper';
+
   import WalletList from './wallet-list/WalletList';
   import WalletNew from './WalletNewPage';
 
@@ -43,10 +46,12 @@
     },
     mounted() {
       this.$root.$on('tick', this.load);
+      this.$root.$on('long-tick', this.checkup);
       this.load();
     },
     destroyed() {
       this.$root.$off('tick', this.load);
+      this.$root.$off('long-tick', this.checkup);
     },
     computed: {
       wallets() {
@@ -65,6 +70,7 @@
         notificationMoveTarget: null,
         showMessage: false,
         message: '',
+        shutdown: false,
       };
     },
     methods: {
@@ -96,6 +102,17 @@
           this.showMessage = true;
         } else {
           this.dialog = true;
+        }
+      },
+      async checkup() {
+        const onTime = await Helper.checkup();
+        this.shutdown = onTime;
+        if (onTime && !this.shutdown) {
+          this.$root.$off('tick', this.load);
+          this.shutdown = true;
+        } else if (!onTime && this.shutdown) {
+          this.$root.$on('tick', this.load);
+          this.shutdown = false;
         }
       },
     },

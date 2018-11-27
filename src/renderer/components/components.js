@@ -1,5 +1,6 @@
 export { default as BosPassphraseDialog } from './common/PassphraseDialog';
 export { default as BosToast } from './common/Toast';
+export { default as BosShutdown } from './common/Shutdown';
 export { default as BosWalletHeader } from './wallet-detail/WalletHeader';
 export { default as BosWalletSidebar } from './wallet-detail/WalletSidebar';
 

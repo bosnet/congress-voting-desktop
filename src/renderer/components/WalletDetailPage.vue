@@ -8,16 +8,20 @@
       <bos-wallet-settings-section :wallet="wallet" :activeMenu="activeSubMenu" @tab="anchor" v-else/>
     </div>
     <bos-passphrase-dialog ref="passphraseDialog"/>
+    <bos-shutdown v-if="shutdown"></bos-shutdown>
   </v-container>
 </template>
 
 <script>
+  import Helper from '@/lib/helper';
+
   export default {
     name: 'wallet-detail-page',
     data() {
       return {
         activeMenu: '',
         activeSubMenu: '',
+        shutdown: false,
       };
     },
     methods: {
@@ -49,6 +53,17 @@
           this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
         }
       },
+      async checkup() {
+        const onTime = await Helper.checkup();
+        this.shutdown = onTime;
+        if (onTime && !this.shutdown) {
+          this.$root.$off('tick', this.load);
+          this.shutdown = true;
+        } else if (!onTime && this.shutdown) {
+          this.$root.$on('tick', this.load);
+          this.shutdown = false;
+        }
+      },
     },
     computed: {
       wallet() {
@@ -70,9 +85,11 @@
       this.updateRouteInfo();
       this.$store.dispatch('loadWallet', this.$route.params.address);
       this.$root.$on('tick', this.load);
+      this.$root.$on('long-tick', this.checkup);
     },
     destroyed() {
       this.$root.$off('tick', this.load);
+      this.$root.$off('long-tick', this.checkup);
     },
   };
 </script>

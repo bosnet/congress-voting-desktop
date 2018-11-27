@@ -1,4 +1,9 @@
 import BigNumber from 'bignumber.js';
+import axios from 'axios';
+import config from '#config';
+
+const client = axios.create();
+const checkupUrl = config.get('checkup');
 
 export default {
   isValidPassphrase(input) {
@@ -28,5 +33,21 @@ export default {
     return new BigNumber(left, 10)
       .plus(right, 10)
       .toString(10);
+  },
+  async checkup() {
+    try {
+      const res = await client.get(`${checkupUrl}?ts=${(new Date()).getTime()}`);
+      if (res.data.start_time && res.data.end_time) {
+        const start = new Date(res.data.start_time);
+        const end = new Date(res.data.end_time);
+        const now = new Date();
+        if (start < now && now < end) {
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
   },
 };

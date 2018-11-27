@@ -57,10 +57,12 @@
     </div>
 
     <img :src="closeIcon" @click="reset" class="WalletNewPageClose" alt="close"/>
+    <bos-shutdown v-if="shutdown"></bos-shutdown>
   </v-stepper>
 </template>
 
 <script>
+  import Helper from '@/lib/helper';
   import Wallet from '@/lib/wallet';
   import SecretSeed from './wallet-new/SecretSeed';
   import RecoveryKey from './wallet-new/RecoveryKey';
@@ -114,6 +116,7 @@
           },
         ],
         closeIcon,
+        shutdown: false,
       };
     },
     methods: {
@@ -168,6 +171,15 @@
           this.passphrase = null;
           this.$refs.passphrase.reset();
         }, 200);
+      },
+      async checkup() {
+        const onTime = await Helper.checkup();
+        this.shutdown = onTime;
+        if (onTime) {
+          this.shutdown = true;
+        } else {
+          this.shutdown = false;
+        }
       },
     },
   };

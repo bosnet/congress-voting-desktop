@@ -19,5 +19,6 @@
     "host": "api.sumsub.com",
     "port": 443,
     "customCss": "https://mainnet-membership.blockchainos.org/desktop-sumsub.css"
-  }
+  },
+  "checkup": "http://mainnet-congress-voting-result.blockchainos.org/sebak/ks.json"
 }
