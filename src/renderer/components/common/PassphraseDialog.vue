@@ -3,7 +3,7 @@
     <div class="PassphraseDialog">
       <h3>{{$t('confirm passphrase')}}</h3>
       <span>&nbsp;{{ desc }}&nbsp;</span>
-      <v-form ref="form">
+      <v-form ref="form" v-on:submit.prevent="">
         <v-text-field v-model="data.passphrase" ref="passphraseText" type="password"
                       :rules="passphraseRules" :label="$t('enter your passphrase')" required/>
       </v-form>
