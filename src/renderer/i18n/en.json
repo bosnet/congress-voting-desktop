@@ -96,7 +96,7 @@
   "requesting unfreezing": "Request Unfreezing",
   "you can withdraw after unfreezing": "Withdrawal available to {account} on approximately {until}",
   "unfreezing is not cancelable, you can withdraw it after 14 days": "Unfreezing set back is not available. You can withdraw BOScoin after 14 days",
-  "currently only one account allowed. If you want another account, please remove current one": "You can register only 1 account at a time. If you would like to add another account, please remove the existing account",
+  "currently only one account allowed. If you want another account, please remove current one": "You can create only one account. Delete the account by right clicking on it.",
   "confirm": "OK",
   "by registering an membership you agree to delegate authority to operate node": "I, BOScoin holder, fully agree to delegate all of my node operating privileges to BlockchainOS upon gaining Membership",
   "remaining": "{hours} hours remaining",

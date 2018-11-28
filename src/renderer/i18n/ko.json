@@ -96,7 +96,7 @@
   "requesting unfreezing": "Unfreezing 요청",
   "you can withdraw after unfreezing": "{account} 계좌으로 약 {until}에 이체가능합니다",
   "unfreezing is not cancelable, you can withdraw it after 14 days": "Unfreezing 요청 후에는 취소할 수 없으며 14일 뒤부터 이체 가능합니다",
-  "currently only one account allowed. If you want another account, please remove current one": "현재는 1개 계좌만 등록할 수 있습니다. 다른 계좌를 추가하려면 기존 계좌를 삭제해 주세요",
+  "currently only one account allowed. If you want another account, please remove current one": "계좌는 한개만 생성할 수 있습니다. 계좌를 마우스 우클릭하여 삭제하세요.",
   "confirm": "승인",
   "by registering an membership you agree to delegate authority to operate node": "멤버십을 획득함으로써 얻게 되는 노드 운영권한을 (주)블록체인오에스에 위임하는 것에 동의합니다",
   "remaining": "{hours}시간 남음",
