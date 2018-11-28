@@ -48,7 +48,7 @@
   "recovery key": "Recovery Key",
   "please keep your recovery key safely": "Please store your Recovery Key in a safe location, it will be used for importing the account",
   "do not use the account no longer": "If this account is no longer in use",
-  "deleting account": "Cancel Account",
+  "deleting account": "Delete Account",
   "account alias is required": "Missing Account Name",
   "please back the account up before deleting it": "Please back up account before deletion. Otherwise, importing account will be impossible",
   "copy": "Copy",
