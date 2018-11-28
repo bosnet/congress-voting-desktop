@@ -133,6 +133,9 @@
 
   .SettingsDeleteMembershipBody .button {
     margin: 70px auto 0;
+    width: auto;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
   .SettingsDeleteMembershipBody.impossible {
