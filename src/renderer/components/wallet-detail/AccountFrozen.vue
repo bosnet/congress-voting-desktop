@@ -5,10 +5,15 @@
       <button class="btn" :disabled="willUnfreeze" @click="prepareUnfreeze" v-if="hasFrozen">{{$t('unfreezing')}}</button>
     </div>
     <div class="frozen-account-list">
-      <div class="membership-guide" v-if="membershipStatus === ''">
-        <span>{{$t('joining membership and then attend congress voting')}}</span>
-        <button class="button" @click="moveToVoting">{{$t('registering membership')}}</button>
-      </div>
+      <ul v-if="accounts.length > 0">
+        <bos-wallet-account-frozen-item
+          ref="items"
+          :item="item"
+          :wallet="wallet"
+          :willUnfreeze="willUnfreeze"
+          v-on:checked="addUnfreezeCandidate"
+          v-for="item in accounts"/>
+      </ul>
       <div class="membership-guide pending" v-else-if="membershipStatus === 'pending'">
         <span>{{$t('verifying your identity')}}</span>
       </div>
@@ -20,15 +25,10 @@
         <span>{{$t('identity verification failed')}}</span>
         <button class="button" @click="moveToVoting">{{$t('try again')}}</button>
       </div>
-      <ul v-else>
-        <bos-wallet-account-frozen-item
-          ref="items"
-          :item="item"
-          :wallet="wallet"
-          :willUnfreeze="willUnfreeze"
-          v-on:checked="addUnfreezeCandidate"
-          v-for="item in accounts"/>
-      </ul>
+      <div class="membership-guide" v-else>
+        <span>{{$t('joining membership and then attend congress voting')}}</span>
+        <button class="button" @click="moveToVoting">{{$t('registering membership')}}</button>
+      </div>
     </div>
     <transition name="unfreeze-action-bar-transition">
       <div class="unfreeze-action-bar" v-if="willUnfreeze">
