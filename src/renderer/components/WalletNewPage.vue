@@ -78,7 +78,7 @@
   import closeIcon from '../assets/svg/close.svg';
 
   export default {
-    name: 'onboarding',
+    name: 'wallet-new-page',
     props: ['close'],
     components: {
       SecretSeed,
@@ -181,6 +181,9 @@
           this.shutdown = false;
         }
       },
+    },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-new-page' });
     },
   };
 </script>

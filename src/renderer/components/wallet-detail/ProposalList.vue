@@ -69,6 +69,7 @@
       },
     },
     mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-proposal-list' });
       this.$root.$on('tick', this.refreshProposals);
       this.refreshProposals();
     },

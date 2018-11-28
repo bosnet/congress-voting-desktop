@@ -140,6 +140,9 @@
     destroyed() {
       this.$root.$off('tick', this.updateApplicantId);
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-pre-membership-section' });
+    },
   };
 </script>
 

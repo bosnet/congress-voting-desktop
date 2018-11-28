@@ -54,6 +54,9 @@
         return this.$refs.secretSeed.internalValue;
       },
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-import-secret-seed' });
+    },
   };
 </script>
 

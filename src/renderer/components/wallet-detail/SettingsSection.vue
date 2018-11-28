@@ -39,6 +39,9 @@
         return this.wallet && this.wallet.membership && this.wallet.membership.status;
       },
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-settings-section' });
+    },
   };
 </script>
 

@@ -2,15 +2,12 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import 'vuetify/dist/vuetify.css';
 import '@/assets/css/main.css';
-import Analytics from 'electron-ga';
 
 import bootstrap from './bootstrap';
 
 import App from './App';
 import router from './router';
 import store from './store';
-
-const analytics = new Analytics(process.env.GA_ID); // eslint-disable-line
 
 bootstrap(Vue);
 

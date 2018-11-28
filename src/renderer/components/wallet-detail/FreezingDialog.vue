@@ -160,6 +160,7 @@
       },
     },
     async mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'freezing-dialog' });
       await this.setBalance();
     },
   };

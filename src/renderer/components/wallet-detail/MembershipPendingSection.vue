@@ -20,6 +20,9 @@
         membershipPendingImg,
       };
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-membership-pending-section' });
+    },
   };
 </script>
 

@@ -94,6 +94,9 @@
         this.activateMembership();
       },
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-membership-section' });
+    },
   };
 </script>
 

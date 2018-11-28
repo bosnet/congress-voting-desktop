@@ -105,6 +105,9 @@
         this.$refs.passphraseConfirm.internalValue = null;
       },
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-import-passphrase' });
+    },
   };
 </script>
 

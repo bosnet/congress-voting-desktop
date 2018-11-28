@@ -36,6 +36,7 @@
     name: 'wallet-create-new-account',
     props: ['passed'],
     mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-create-new-account' });
       const account = Wallet.createAccount();
       this.$data.address = account.address;
       this.$data.secret = account.seed;

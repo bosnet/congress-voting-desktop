@@ -37,6 +37,7 @@
       };
     },
     mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-settings-secret-seed' });
       this.openPassphraseDialog();
     },
     methods: {

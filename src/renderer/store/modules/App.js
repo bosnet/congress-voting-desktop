@@ -1,10 +1,12 @@
 import moment from 'moment';
+import Analytics from 'electron-ga';
 
 const state = {
   currentWallet: null,
   errors: [],
   requestCount: 0,
   lastRequestTs: 0,
+  ga: new Analytics(process.env.GA_ID),
 };
 
 const mutations = {

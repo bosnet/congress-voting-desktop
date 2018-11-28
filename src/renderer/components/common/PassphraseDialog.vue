@@ -58,6 +58,9 @@
         ],
       };
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { screenName: 'passphrase-dialog' });
+    },
   };
 </script>
 

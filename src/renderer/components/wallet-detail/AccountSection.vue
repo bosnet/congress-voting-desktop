@@ -48,6 +48,7 @@
       },
     },
     mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-account-section' });
       this.$root.$on('tick', this.tick);
       this.$store.dispatch('clearFrozenAccounts');
       this.loadOps();

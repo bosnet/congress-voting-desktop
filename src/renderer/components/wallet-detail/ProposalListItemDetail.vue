@@ -27,7 +27,7 @@
 
 <script>
   export default {
-    name: 'bos-wallet-proposal-item',
+    name: 'bos-wallet-proposal-item-detail',
     props: ['item', 'wallet'],
     data() {
       return {
@@ -137,6 +137,7 @@
       },
     },
     mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-proposal-item-detail' });
       this.checkVoted();
     },
     destroyed() {

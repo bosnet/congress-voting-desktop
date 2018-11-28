@@ -82,6 +82,7 @@
       },
     },
     mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-detail-page' });
       this.updateRouteInfo();
       this.$store.dispatch('loadWallet', this.$route.params.address);
       this.$root.$on('tick', this.load);

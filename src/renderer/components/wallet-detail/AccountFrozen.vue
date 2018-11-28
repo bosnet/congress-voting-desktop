@@ -144,6 +144,9 @@
         return this.frozenAccounts && this.frozenAccounts.length > 0;
       },
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-account-frozen' });
+    },
   };
 </script>
 

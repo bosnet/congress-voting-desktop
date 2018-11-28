@@ -1,6 +1,6 @@
 <template>
   <v-container class="WalletListPage">
-    <wallet-list :wallets="wallets" v-show="wallets.length > 0" :notify="notify" :reload="load" />
+    <wallet-list :wallets="wallets" v-if="wallets.length > 0" :notify="notify" :reload="load" />
     <div slot="activator" @click="addAccount" class="round-button" v-show="!dialog" v-if="wallets.length > 0">
       <img :src="addBtn" :alt="$t('add account')" />
     </div>
@@ -8,7 +8,7 @@
       <wallet-new :close="close" />
     </v-dialog>
     <!-- TODO: add right click side menu to remove account which has no balance -->
-    <v-layout v-show="loaded && wallets.length == 0">
+    <v-layout v-if="loaded && wallets.length == 0">
       <v-flex class="empty">
         <h2>{{$t('welcome')}}</h2>
         <h1>{{$t('add your account and attend congress voting')}}</h1>
@@ -45,6 +45,7 @@
       WalletNew,
     },
     mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-list-page' });
       this.$root.$on('tick', this.load);
       this.$root.$on('long-tick', this.checkup);
       this.load();

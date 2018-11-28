@@ -112,6 +112,9 @@
         this.reset();
       },
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'unfreezing-withdraw-dialog' });
+    },
   };
 </script>
 

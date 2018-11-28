@@ -19,6 +19,7 @@
   import WalletListItem from './WalletListItem';
 
   export default {
+    name: 'wallet-list',
     props: ['wallets', 'notify', 'reload'],
     components: { WalletListItem },
     data() {
@@ -32,6 +33,9 @@
           this.showEmptyAccountWarning = true;
         }
       },
+    },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'wallet-list' });
     },
   };
 </script>

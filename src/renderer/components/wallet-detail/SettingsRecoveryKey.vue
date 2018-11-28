@@ -183,6 +183,9 @@
         this.$refs.passphraseConfirm.reset();
       },
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-settings-recovery-key' });
+    },
   };
 </script>
 

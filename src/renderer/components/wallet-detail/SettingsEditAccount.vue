@@ -80,6 +80,9 @@
         this.dialog = false;
       },
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-settings-edit-account' });
+    },
   };
 </script>
 

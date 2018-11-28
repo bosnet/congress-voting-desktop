@@ -17,6 +17,9 @@
         shutdownImg,
       };
     },
+    mounted() {
+      this.$store.state.App.ga.send('screenview', { screenName: 'shutdown-page' });
+    },
   };
 </script>
 
