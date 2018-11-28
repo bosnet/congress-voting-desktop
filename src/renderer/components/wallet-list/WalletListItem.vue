@@ -66,7 +66,7 @@
     },
     methods: {
       detail() {
-        if (parseInt(this.wallet.balance, 10) > 0) {
+        if (parseInt(this.wallet.balance, 10) >= 0) {
           this.$router.push(`/wallet/${this.wallet.address}/#account-frozen`);
         } else {
           this.warn('empty');
