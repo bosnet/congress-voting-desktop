@@ -67,13 +67,14 @@
               } else if (messageType === 'idCheck.stepCompleted' && payload.step === 'IDENTITY') {
                 this.$root.$on('tick', this.updateApplicantId);
               } else if (messageType === 'idCheck.onApplicantSubmitted') {
-                this.$root.$off('tick', this.updateApplicantId);
                 setTimeout(() => {
+                  this.$root.$off('tick', this.updateApplicantId);
                   this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
                 }, 2500);
               } else if (messageType === 'idCheck.onApplicantResubmitted') {
                 this.$root.$off('tick', this.updateApplicantId);
-                this.updateApplicantId('ApplicantResubmitted', passphrase);
+                const updateApplicantId = this.makeUpdateApplicantId('ApplicantResubmitted', passphrase);
+                updateApplicantId();
                 setTimeout(() => {
                   this.$store.dispatch('updateMembership', { wallets: [this.wallet], mutable: false });
                 }, 2500);
