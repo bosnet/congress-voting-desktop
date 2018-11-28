@@ -1,8 +1,8 @@
 {
-  "env": "production",
-  "network": "sebak-network; 2018-11-26",
+  "env": "test",
+  "network": "sebak-test-network",
   "dns": {
-    "seed": "mainnet.blockchainos.org"
+    "seed": "testnet-sebak.blockchainos.org"
   },
   "fee": 10000,
   "endpoint": {
@@ -11,14 +11,14 @@
   },
   "membership": {
     "scheme": "https",
-    "host": "mainnet-membership.blockchainos.org",
+    "host": "testnet-membership.blockchainos.org",
     "port": 443
   },
   "sumsub": {
     "scheme": "https",
-    "host": "api.sumsub.com",
+    "host": "test-api.sumsub.com",
     "port": 443,
-    "customCss": "https://mainnet-membership.blockchainos.org/desktop-sumsub.css"
+    "customCss": "https://testnet-membership.blockchainos.org/desktop-sumsub.css"
   },
-  "checkup": "http://mainnet-congress-voting-result.blockchainos.org/sebak/ks.json"
+  "checkup": "http://testnet-congress-voting-result.blockchainos.org/sebak/ks.json"
 }
