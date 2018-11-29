@@ -87,6 +87,7 @@
       this.$store.dispatch('loadWallet', this.$route.params.address);
       this.$root.$on('tick', this.load);
       this.$root.$on('long-tick', this.checkup);
+      this.checkup();
     },
     destroyed() {
       this.$root.$off('tick', this.load);

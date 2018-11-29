@@ -48,6 +48,7 @@
       this.$store.state.App.ga.send('screenview', { cd: 'wallet-list-page' });
       this.$root.$on('tick', this.load);
       this.$root.$on('long-tick', this.checkup);
+      this.checkup();
       this.load();
     },
     destroyed() {

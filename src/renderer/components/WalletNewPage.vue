@@ -184,6 +184,11 @@
     },
     mounted() {
       this.$store.state.App.ga.send('screenview', { cd: 'wallet-new-page' });
+      this.$root.$on('long-tick', this.checkup);
+      this.checkup();
+    },
+    destroyed() {
+      this.$root.$off('long-tick', this.checkup);
     },
   };
 </script>
