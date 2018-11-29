@@ -153,10 +153,13 @@
     border-bottom: 2px solid #ffffff;
   }
 
-  .Account .account-tabs-list-item--on,
   .Account .account-tabs-list-item:hover {
     color: #3c92e4;
-    border-bottom: 2px solid #3c92e4;;
+  }
+
+  .Account .account-tabs-list-item--on {
+    color: #3c92e4;
+    border-bottom: 2px solid #3c92e4;
   }
 
   .Account .account-tabs-content {

@@ -109,8 +109,11 @@
     border-bottom: 2px solid #ffffff;
   }
 
-  .proposal-tabs-list-item--on,
   .proposal-tabs-list-item:hover {
+    color: #3c92e4;
+  }
+
+  .proposal-tabs-list-item--on {
     color: #3c92e4;
     border-bottom: 2px solid #3c92e4;;
   }

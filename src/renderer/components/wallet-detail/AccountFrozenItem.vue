@@ -7,7 +7,6 @@
     <span class="body">
       <span class="state">
         <span :class="`state-${item.state}`" v-if="item.state === 'unfrozen'">{{$t('possible to withdraw')}}</span>
-        <!-- TODO: show unfreezing d-day -->
         <span :class="`state-${item.state}`" v-else-if="item.state === 'melting'">{{$t('unfreezed until')}} {{remainingTime}}</span>
       </span>
       <span class="addr">{{ item.address | short }}</span>
@@ -126,10 +125,10 @@
   .frozen-item .body .state .state-unfrozen {
     display: inline-block;
     border-radius: 2px;
-    background-color: #e3f0f6;
+    background-color: #E2F4E3;
     font-size: 11px;
     font-weight: bold;
-    color: #207ed7;
+    color: #428B5A;
     padding: 1px 6px;
     margin-bottom: 4px;
   }

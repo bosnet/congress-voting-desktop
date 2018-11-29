@@ -3,6 +3,7 @@
     <div class="code">{{ item.code }}</div>
     <h2 class="title">{{ item.title }}</h2>
     <span class="time" v-if="remainTime">{{ remainTime }}</span>
+    <span class="time" v-else-if="votingResult">{{ $t('this congress voting is closed') }}</span>
     <hr class="line1" v-if="closed">
     <div :class="['result', votingResult]" v-if="closed">
       {{ $t(votingResult) }}
