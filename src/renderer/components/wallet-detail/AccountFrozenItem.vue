@@ -10,7 +10,7 @@
         <span :class="`state-${item.state}`" v-else-if="item.state === 'melting'">{{$t('unfreezed until')}} {{remainingTime}}</span>
       </span>
       <span class="addr">{{ item.address | short }}</span>
-      <span class="created">{{ item.create_block_height }} block</span>
+      <span class="created">{{ blockHeight }} block</span>
     </span>
     <span class="balance">
       <span>{{ item.amount | bos }}<abbr>BOS</abbr></span>
@@ -70,6 +70,9 @@
         }
 
         return `${this.$t('remaining in 1 hour')}`;
+      },
+      blockHeight() {
+        return this.item.create_block_height.toLocaleString();
       },
     },
   };
