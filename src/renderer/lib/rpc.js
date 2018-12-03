@@ -33,11 +33,26 @@ class RPC {
       .then(res => res.data);
   }
 
-  getFrozenAccounts(address) {
-    return this.lookup()
-      .then(endpoint => client
-        .get(`${endpoint}/api/v1/accounts/${address}/frozen-accounts`))
-      .then(res => res.data);
+  async getFrozenAccounts(address) {
+    const endpoint = await this.lookup();
+    /* eslint-disable no-underscore-dangle */
+    const next = async (accum, url) => {
+      const res = await client.get(`${endpoint}${url}`);
+      if (!res.data
+        || !res.data._embedded
+        || !res.data._embedded.records
+        || res.data._embedded.records.length < 1
+      ) {
+        return accum;
+      }
+
+      accum._embedded.records = accum._embedded.records.concat(res.data._embedded.records);
+      const result = await next(accum, res.data._links.next.href);
+      return result;
+    };
+    const data = await next({ _embedded: { records: [] } }, `/api/v1/accounts/${address}/frozen-accounts?limit=100`);
+    /* eslint-enable no-underscore-dangle */
+    return data;
   }
 
   getProposals(state) {
