@@ -20,13 +20,17 @@
       </div>
     </div>
     <hr class="line2">
-    <div class="contract">{{ item.content }}</div>
+    <div class="contract" v-html="highlightedContract"></div>
     <bos-passphrase-dialog ref="passphraseDialog"/>
     <bos-toast v-model="showMessage" :timeout="2500" pullRight>{{message}}</bos-toast>
   </div>
 </template>
 
 <script>
+  import Prism from 'prismjs';
+  import 'prismjs/components/prism-yaml';
+  import 'prismjs/themes/prism.css';
+
   export default {
     name: 'bos-wallet-proposal-item-detail',
     props: ['item', 'wallet'],
@@ -136,6 +140,9 @@
       closed() {
         return this.item.state === 'closed';
       },
+      highlightedContract() {
+        return Prism.highlight(this.item.content, Prism.languages.yaml, 'yaml');
+      },
     },
     mounted() {
       this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-proposal-item-detail' });
@@ -208,6 +215,10 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     font-family: inherit;
+  }
+
+  .ProposalListItemDetail .contract .token.number {
+    color: inherit;
   }
 
   .ProposalListItemDetail .btns {
