@@ -9,6 +9,10 @@
       {{ $t(votingResult) }}
       <span v-if="voted">{{ $t('you voted for it')}}</span>
     </div>
+    <hr class="line1" v-if="hasResult">
+    <div class='chart' v-if="hasResult">
+      <div id="resultChart"></div>
+    </div>
     <div class="btns" v-if="votable">
       <div v-if="voted">
         <button class="btn edit" @click="change">{{$t('change my vote')}}</button>
@@ -29,6 +33,8 @@
 <script>
   import Prism from 'prismjs';
   import 'prismjs/components/prism-yaml';
+  import c3 from 'c3';
+
   import 'prismjs/themes/prism.css';
 
   export default {
@@ -134,6 +140,12 @@
         }
         return null;
       },
+      hasResult() {
+        if (this.closed && this.item.result_final) {
+          return this.item.result_final;
+        }
+        return null;
+      },
       votable() {
         return this.item.state === 'opened';
       },
@@ -147,6 +159,39 @@
     mounted() {
       this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-proposal-item-detail' });
       this.checkVoted();
+
+      if (document.querySelector('#resultChart')) {
+        c3.generate({
+          bindto: '#resultChart',
+          size: {
+            width: 400,
+            height: 400,
+          },
+          data: {
+            columns: [
+              [this.$t('agree'), this.item.result_yes],
+              [this.$t('disagree'), this.item.result_no],
+              [this.$t('abstain'), this.item.result_abs],
+            ],
+            colors: {
+              [this.$t('agree')]: '#1792f0',
+              [this.$t('disagree')]: '#ed6060',
+              [this.$t('abstain')]: '#728395',
+            },
+            type: 'donut',
+          },
+          donut: {
+            title: this.$t('total membership count', {
+              count: this.item.result_count
+                ? this.item.result_count.toLocaleString()
+                : this.item.result_count,
+            }),
+            label: {
+              format(v) { return v; },
+            },
+          },
+        });
+      }
     },
     destroyed() {
       this.answer = null;
@@ -319,5 +364,13 @@
   .ProposalListItemDetail.rejected .line2 {
     margin-top: 20px;
     margin-bottom: 40px;
+  }
+
+  .ProposalListItemDetail #resultChart {
+    text-align: center;
+  }
+
+  .ProposalListItemDetail .c3-chart-arc text {
+    fill: #ffffff;
   }
 </style>

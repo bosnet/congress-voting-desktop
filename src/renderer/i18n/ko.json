@@ -127,5 +127,6 @@
   "you can not delete your membership now": "지금은 멤버십을 해지할 수 없습니다",
   "if there is ongoing votes, you can not delete you membership": "진행중인 투표가 있을 경우 멤버쉽 해지를 할 수 없습니다. 콩그레스 보팅이 종료되면 다시 시도해 주세요",
   "maintainance in progress": "점검중입니다",
-  "this congress voting is closed": "투표가 종료되었습니다"
+  "this congress voting is closed": "투표가 종료되었습니다",
+  "total membership count": "총 멤버쉽 수: {count}"
 }

@@ -70,6 +70,7 @@
     "axios": "^0.16.1",
     "base-x": "^3.0.4",
     "bignumber.js": "^7.2.1",
+    "c3": "^0.6.8",
     "dexie": "^2.0.4",
     "electron-ga": "^1.0.6",
     "electron-node-config": "^1.1.0",
