@@ -47,9 +47,11 @@
       setTab(menu) {
         this.activeMenu = menu;
         this.currentProposal = null;
+        this.$el.scrollTop = 0;
       },
       showDetail(proposal) {
         this.currentProposal = proposal;
+        this.$el.scrollTop = 0;
       },
       async refreshProposals() {
         this.proposals = await this.$store.getters.getProposals();
