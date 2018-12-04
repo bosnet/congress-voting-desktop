@@ -1,0 +1,38 @@
+{
+  "productName": "BOScoin Congress Voting Testnet",
+  "appId": "org.blockchainos.congress-voting-desktop-testnet",
+  "directories": {
+    "output": "build"
+  },
+  "files": [
+    "dist/electron/**/*",
+    "config"
+  ],
+  "dmg": {
+    "contents": [
+      {
+        "x": 410,
+        "y": 150,
+        "type": "link",
+        "path": "/Applications"
+      },
+      {
+        "x": 130,
+        "y": 150,
+        "type": "file"
+      }
+    ]
+  },
+  "mac": {
+    "icon": "test/build/icon.icns",
+    "publish": [
+      "github"
+    ]
+  },
+  "win": {
+    "icon": "test/build/icons/icon.ico",
+    "publish": [
+      "github"
+    ]
+  }
+}
