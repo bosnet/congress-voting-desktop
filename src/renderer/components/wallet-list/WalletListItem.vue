@@ -38,6 +38,7 @@
           this.notify(this.wallet.membership.status, this.wallet.address);
           return this.wallet.membership.status;
         }
+        this.notify('', this.wallet.address);
         return '';
       },
       membershipStatusText() {
