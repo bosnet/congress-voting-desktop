@@ -380,7 +380,7 @@
 
   .ProposalListItemDetail .result {
     text-transform: uppercase;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     text-align: center;
   }
@@ -417,7 +417,7 @@
   }
 
   .ProposalListItemDetail .chart {
-    margin-top: 20px;
+    margin-top: 12px;
     text-align: center;
   }
 
