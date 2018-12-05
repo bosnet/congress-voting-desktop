@@ -246,6 +246,10 @@
     margin: 68px auto 16px;
   }
 
+  .WalletNewPage .step3 .button {
+    margin-top: 17px;
+  }
+
   .WalletNewPage .step {
     display: inline-block;
     width: 6px;

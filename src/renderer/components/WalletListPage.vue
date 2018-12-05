@@ -124,7 +124,7 @@
 <style>
   .WalletListPage {
     color: #728395;
-    padding: 50px;
+    padding: 60px 50px 50px 50px;
     display: block;
   }
 

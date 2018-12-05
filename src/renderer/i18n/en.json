@@ -129,5 +129,7 @@
   "maintainance in progress": "Maintainance In Progress",
   "this congress voting is closed": "This proposal is closed",
   "congress member": "Congress Members",
-  "total votes": "Total Votes"
+  "total votes": "Total Votes",
+  "the proposal will be approved if": "The proposal will be approved if the number of \"Agree\" votes (A) minus the number of \"Disagree\" votes (B) must be equal or bigger than the number of \"Congress members at the end of the voting period\" (C) times {ratio}%.",
+  "the proposal approval condition": "※ approval condition : A/C − B/C ≥ {ratio}"
 }

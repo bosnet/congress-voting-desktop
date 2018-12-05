@@ -241,6 +241,6 @@
 
   .UnfreezingDialog .step2 .v-input {
     width: 400px;
-    margin: 72px auto 125px;
+    margin: 72px auto 135px;
   }
 </style>

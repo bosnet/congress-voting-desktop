@@ -129,5 +129,7 @@
   "maintainance in progress": "점검중입니다",
   "this congress voting is closed": "투표가 종료되었습니다",
   "congress member": "콩그레스 멤버",
-  "total votes": "전체 투표"
+  "total votes": "전체 투표",
+  "the proposal will be approved if": "투표 마감 시점의 콩그레스 멤버수(C)를 100%로 했을 때, 찬성표 수(A)의 비율이 반대표 수(B)의 비율 보다 {ratio}% 이상 크면 통과.",
+  "the proposal approval condition": "※ 통과 수식 조건 : A/C − B/C ≥ {ratio}"
 }

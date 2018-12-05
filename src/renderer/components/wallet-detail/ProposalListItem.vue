@@ -78,11 +78,16 @@
     padding: 30px 20px;
     position: relative;
     cursor: pointer;
+    border: solid 2px #ffffff;
   }
 
-  .ProposalListItem:hover,
+  .ProposalListItem:hover {
+    box-shadow: 0 10px 25px 0 rgba(193, 217, 240, 0.87);
+  }
+
   .ProposalListItem:active {
     box-shadow: 0 10px 25px 0 rgba(193, 217, 240, 0.87);
+    border: solid 2px #1993f1;
   }
 
   .ProposalListItem .code {

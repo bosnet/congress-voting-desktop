@@ -116,7 +116,7 @@
     font-size: 14px;
     font-weight: bold;
     color: #99a4b0;
-    margin: -60px auto 18px;
+    margin: -60px auto 48px;
     width: 500px;
   }
 
@@ -127,9 +127,5 @@
 
   .NewPassphrase .passphrase {
     margin-bottom: 35px;
-  }
-
-  .NewPassphrase .button {
-    margin: 38px auto 16px;
   }
 </style>

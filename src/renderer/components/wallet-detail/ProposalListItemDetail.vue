@@ -9,7 +9,6 @@
       {{ $t(votingResult) }}
       <span v-if="voted">{{ $t('you voted for it')}}</span>
     </div>
-    <hr class="line2" v-if="hasResult">
     <div class='chart' v-if="hasResult">
       <span class="legend">
         {{$t('congress member')}}
@@ -37,6 +36,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="approvalCondition">
+        {{$t('the proposal approval condition', { ratio: item.condition_ratio })}}<br>
+        {{$t('the proposal will be approved if', { ratio: item.condition_ratio * 100 })}}
       </div>
     </div>
     <div class="btns" v-if="votable">
@@ -295,7 +298,6 @@
   }
 
   .ProposalListItemDetail .line1,
-  .ProposalListItemDetail .line2,
   .ProposalListItemDetail .line3 {
     width: 100%;
     height: 1px;
@@ -407,11 +409,6 @@
     margin-bottom: 20px;
   }
 
-  .ProposalListItemDetail .line2 {
-    margin-top: 20px;
-    margin-bottom: 60px;
-  }
-
   .ProposalListItemDetail.counting .line3,
   .ProposalListItemDetail.passed .line3,
   .ProposalListItemDetail.rejected .line3 {
@@ -420,6 +417,7 @@
   }
 
   .ProposalListItemDetail .chart {
+    margin-top: 20px;
     text-align: center;
   }
 
@@ -490,7 +488,8 @@
     color: #333;
   }
 
-  .ProposalListItemDetail .c3-chart-arc text {
-    fill: #ffffff;
+  .ProposalListItemDetail .approvalCondition {
+    font-size: 12px;
+    text-align: left;
   }
 </style>

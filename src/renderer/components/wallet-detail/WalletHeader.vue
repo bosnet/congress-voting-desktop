@@ -3,7 +3,7 @@
     <h1 class="wallet-header-title">{{title}}</h1>
     <div class="wallet-header-account-info">
       {{ wallet.title }}
-      <span :class="classes">{{label}}</span>
+      <span :class="classes" v-if="state !== 'none'">{{label}}</span>
     </div>
   </header>
 </template>

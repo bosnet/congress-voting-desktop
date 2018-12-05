@@ -128,8 +128,13 @@
     height: 100%;
     font-size: 14px;
     color: #728395;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+  }
+
+  .ProposalContentEmpty > div {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    text-align: center;
   }
 </style>
