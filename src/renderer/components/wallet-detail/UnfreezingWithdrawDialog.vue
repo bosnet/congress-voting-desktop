@@ -130,7 +130,7 @@
   }
 
   .UnfreezingWithdrawDialog.theme--light.v-stepper {
-    padding: 56px 36px 31px;
+    padding: 42px 36px 31px;
     position: relative;
     width: 634px;
     height: 550px;
