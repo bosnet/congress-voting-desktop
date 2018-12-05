@@ -128,5 +128,6 @@
   "if there is ongoing votes, you can not delete you membership": "If there are active proposals, you cannot cancel you membership. You can try to cancel it after voting is closed on the active proposals.",
   "maintainance in progress": "Maintainance In Progress",
   "this congress voting is closed": "This proposal is closed",
-  "total membership count": "Total Membership: {count}"
+  "congress member": "Congress Members",
+  "total votes": "Total Votes"
 }

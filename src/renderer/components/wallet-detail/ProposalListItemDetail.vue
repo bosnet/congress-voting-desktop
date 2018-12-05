@@ -9,9 +9,35 @@
       {{ $t(votingResult) }}
       <span v-if="voted">{{ $t('you voted for it')}}</span>
     </div>
-    <hr class="line1" v-if="hasResult">
+    <hr class="line2" v-if="hasResult">
     <div class='chart' v-if="hasResult">
-      <div id="resultChart"></div>
+      <span class="legend">
+        {{$t('congress member')}}
+        <span class="value">{{congressMemberCount}}</span>
+      </span>
+      <span class="legend">
+        {{$t('total votes')}}
+        <span class="value">{{totalVoteCount}}</span>
+      </span>
+      <div class="chartWrap">
+        <div id="resultChart"></div>
+        <div class="counts">
+          <div>
+            <div class="agree">
+              <span class="label">{{$t('agree')}}</span>
+              <span class="votes">{{item.result_yes.toLocaleString()}} ({{votesPercentage(item.result_yes)}}%)</span>
+            </div>
+            <div class="disagree">
+              <span class="label">{{$t('disagree')}}</span>
+              <span class="votes">{{item.result_no.toLocaleString()}} ({{votesPercentage(item.result_no)}}%)</span>
+            </div>
+            <div class="abstain">
+              <span class="label">{{$t('abstain')}}</span>
+              <span class="votes">{{item.result_abs.toLocaleString()}} ({{votesPercentage(item.result_abs)}}%)</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="btns" v-if="votable">
       <div v-if="voted">
@@ -23,7 +49,7 @@
         <button class="btn abstain" @click="openPassphraseDialog('abs')">{{$t('abstain')}}</button>
       </div>
     </div>
-    <hr class="line2">
+    <hr class="line3">
     <div class="contract" v-html="highlightedContract"></div>
     <bos-passphrase-dialog ref="passphraseDialog"/>
     <bos-toast v-model="showMessage" :timeout="2500" pullRight>{{message}}</bos-toast>
@@ -46,6 +72,7 @@
         showMessage: false,
         message: '',
         voted: false,
+        chart: null,
       };
     },
     methods: {
@@ -86,6 +113,12 @@
       },
       async checkVoted() {
         this.voted = await this.$store.getters.hasVotedForProposal(this.item.id, this.wallet.address);
+      },
+      votesPercentage(v) {
+        if (!this.totalVoteCount) {
+          return 0;
+        }
+        return ((parseInt(v, 10) / this.totalVoteCount) * 100).toFixed(1);
       },
     },
     computed: {
@@ -155,13 +188,23 @@
       highlightedContract() {
         return Prism.highlight(this.item.content, Prism.languages.yaml, 'yaml');
       },
+      congressMemberCount() {
+        return this.item.result_count
+          ? this.item.result_count.toLocaleString()
+          : null;
+      },
+      totalVoteCount() {
+        return parseInt(this.item.result_yes, 10) +
+            parseInt(this.item.result_no, 10) +
+            parseInt(this.item.result_abs, 10);
+      },
     },
     mounted() {
       this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-proposal-item-detail' });
       this.checkVoted();
 
       if (document.querySelector('#resultChart')) {
-        c3.generate({
+        this.chart = c3.generate({
           bindto: '#resultChart',
           size: {
             width: 400,
@@ -169,33 +212,37 @@
           },
           data: {
             columns: [
-              [this.$t('agree'), this.item.result_yes],
-              [this.$t('disagree'), this.item.result_no],
-              [this.$t('abstain'), this.item.result_abs],
+              ['agree', this.item.result_yes],
+              ['disagree', this.item.result_no],
+              ['abstain', this.item.result_abs],
             ],
             colors: {
-              [this.$t('agree')]: '#1792f0',
-              [this.$t('disagree')]: '#ed6060',
-              [this.$t('abstain')]: '#728395',
+              agree: '#1792f0',
+              disagree: '#ed6060',
+              abstain: '#728395',
             },
             type: 'donut',
           },
+          interaction: {
+            enabled: false,
+          },
           donut: {
-            title: this.$t('total membership count', {
-              count: this.item.result_count
-                ? this.item.result_count.toLocaleString()
-                : this.item.result_count,
-            }),
             label: {
-              format(v) { return v; },
+              show: false,
+              expand: false,
             },
+            width: 15,
           },
         });
+        this.chart.legend.hide();
       }
     },
     destroyed() {
       this.answer = null;
       this.voted = false;
+      if (this.chart) {
+        this.chart.destroy();
+      }
     },
   };
 </script>
@@ -248,7 +295,8 @@
   }
 
   .ProposalListItemDetail .line1,
-  .ProposalListItemDetail .line2 {
+  .ProposalListItemDetail .line2,
+  .ProposalListItemDetail .line3 {
     width: 100%;
     height: 1px;
     background-color: #c4d1d6;
@@ -359,15 +407,87 @@
     margin-bottom: 20px;
   }
 
-  .ProposalListItemDetail.counting .line2,
-  .ProposalListItemDetail.passed .line2,
-  .ProposalListItemDetail.rejected .line2 {
+  .ProposalListItemDetail .line2 {
+    margin-top: 20px;
+    margin-bottom: 60px;
+  }
+
+  .ProposalListItemDetail.counting .line3,
+  .ProposalListItemDetail.passed .line3,
+  .ProposalListItemDetail.rejected .line3 {
     margin-top: 20px;
     margin-bottom: 40px;
   }
 
+  .ProposalListItemDetail .chart {
+    text-align: center;
+  }
+
+  .ProposalListItemDetail .chart .legend {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .ProposalListItemDetail .chart .legend .value {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+
+  .ProposalListItemDetail .chart .chartWrap {
+    margin-top: 25px;
+    position: relative;
+  }
+
   .ProposalListItemDetail #resultChart {
     text-align: center;
+  }
+
+  .ProposalListItemDetail .chart .counts {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    margin-top: -200px;
+    margin-left: -200px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .ProposalListItemDetail .chart .counts > div {
+    width: 100%;
+  }
+
+  .ProposalListItemDetail .chart .counts .agree {
+    color: #1792f0;
+    margin-bottom: 5px;
+  }
+
+  .ProposalListItemDetail .chart .counts .disagree {
+    color: #ed6060;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .ProposalListItemDetail .chart .counts .abstain {
+    color: #728395;
+    margin-top: 5px;
+  }
+
+  .ProposalListItemDetail .chart .counts .label {
+    width: 80px;
+    display: inline-block;
+    text-align: left;
+  }
+
+  .ProposalListItemDetail .chart .counts .votes {
+    width: 120px;
+    display: inline-block;
+    text-align: right;
+    color: #333;
   }
 
   .ProposalListItemDetail .c3-chart-arc text {
