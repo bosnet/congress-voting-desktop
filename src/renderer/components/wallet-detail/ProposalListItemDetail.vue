@@ -34,6 +34,10 @@
               <span class="label">{{$t('abstain')}}</span>
               <span class="votes">{{item.result_abs.toLocaleString()}} ({{votesPercentage(item.result_abs)}}%)</span>
             </div>
+            <div class="undecided">
+              <span class="label">{{$t('undecided')}}</span>
+              <span class="votes">{{undecidedCount.toLocaleString()}} ({{votesPercentage(undecidedCount)}}%)</span>
+            </div>
           </div>
         </div>
       </div>
@@ -118,10 +122,10 @@
         this.voted = await this.$store.getters.hasVotedForProposal(this.item.id, this.wallet.address);
       },
       votesPercentage(v) {
-        if (!this.totalVoteCount) {
+        if (!this.item.result_count) {
           return 0;
         }
-        return ((parseInt(v, 10) / this.totalVoteCount) * 100).toFixed(1);
+        return ((parseInt(v, 10) / parseInt(this.item.result_count, 10)) * 100).toFixed(2);
       },
     },
     computed: {
@@ -201,6 +205,9 @@
             parseInt(this.item.result_no, 10) +
             parseInt(this.item.result_abs, 10);
       },
+      undecidedCount() {
+        return this.item.result_count - this.totalVoteCount;
+      },
     },
     mounted() {
       this.$store.state.App.ga.send('screenview', { cd: 'bos-wallet-proposal-item-detail' });
@@ -218,11 +225,13 @@
               ['agree', this.item.result_yes],
               ['disagree', this.item.result_no],
               ['abstain', this.item.result_abs],
+              ['undecided', this.undecidedCount],
             ],
             colors: {
               agree: '#1792f0',
               disagree: '#ed6060',
-              abstain: '#728395',
+              abstain: '#5BD76A',
+              undecided: '#CDD8E5',
             },
             type: 'donut',
           },
@@ -461,6 +470,7 @@
 
   .ProposalListItemDetail .chart .counts .agree {
     color: #1792f0;
+    margin-top: -20px;
     margin-bottom: 5px;
   }
 
@@ -471,7 +481,13 @@
   }
 
   .ProposalListItemDetail .chart .counts .abstain {
-    color: #728395;
+    color: #3DC04C;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .ProposalListItemDetail .chart .counts .undecided {
+    color: #7C92AE;
     margin-top: 5px;
   }
 
