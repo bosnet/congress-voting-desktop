@@ -30,7 +30,7 @@
   .PreMembershipPending {
     padding: 120px;
     text-align: center;
-    height: 615px;
+    height: 100%;
     overflow-y: auto;
   }
 

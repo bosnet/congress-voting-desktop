@@ -150,7 +150,7 @@
   .PreMembershipRegister {
     padding: 80px 70px 70px 70px;
     text-align: center;
-    height: 615px;
+    height: 100%;
     overflow-y: auto;
   }
   .PreMembershipRegister.kyc {

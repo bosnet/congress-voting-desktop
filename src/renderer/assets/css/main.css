@@ -53,9 +53,17 @@ body {
 }
 
 /* override vuetify */
+.application--wrap {
+  min-height: 100%;
+}
 .application.theme--light {
   color: #333;
   background-color: #eaf0f7;
+  height: 100%;
+}
+
+.v-content {
+  height: 100%;
 }
 
 .theme--light.v-stepper {

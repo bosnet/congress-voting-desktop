@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ProposalSection">
     <bos-wallet-proposal-list :wallet="wallet" v-if="state() === 'active'"/>
     <bos-wallet-membership-pending-section :wallet="wallet" v-else-if="state() == 'pending'"/>
     <bos-wallet-membership-section :wallet="wallet" v-on:done="activate" v-else-if="state() == 'verified'"/>
@@ -38,3 +38,9 @@
     },
   };
 </script>
+
+<style>
+  .ProposalSection {
+    height: calc(100% - 60px);
+  }
+</style>

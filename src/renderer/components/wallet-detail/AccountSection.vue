@@ -83,6 +83,9 @@
 </script>
 
 <style>
+  .Account {
+    height: calc(100% - 60px);
+  }
   .Account .account-header  {
     background-color: #fff;
     height: 158px;
@@ -165,7 +168,7 @@
   .Account .account-tabs-content {
     padding: 10px 30px;
     background-color: #eaeff5;
-    height: 412px;
+    height: calc(100% - 203px); /*158 + 45*/
     overflow-y: auto;
   }
 </style>

@@ -83,7 +83,7 @@
 
 <style>
   .ProposalList {
-    height: 615px;
+    height: 100%;
     overflow-y: auto;
   }
 
@@ -125,7 +125,7 @@
   }
 
   .ProposalContentEmpty {
-    height: 100%;
+    height: calc(100% - 45px);
     font-size: 14px;
     color: #728395;
     position: relative;

@@ -47,7 +47,7 @@
 
 <style>
   .wallet-settings {
-    height: 615px;
+    height: calc(100% - 60px);
     overflow-y: auto;
   }
 

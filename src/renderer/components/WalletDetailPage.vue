@@ -107,5 +107,6 @@
 
   .wallet-detail-container-content {
     padding-left: 158px;
+    height: 100%;
   }
 </style>
