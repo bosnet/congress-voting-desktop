@@ -30,7 +30,7 @@
     ]
   },
   "win": {
-    "icon": "test/build/icons/icon.ico",
+    "icon": "test/build/icon.ico",
     "publish": [
       "github"
     ]
